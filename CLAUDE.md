@@ -110,6 +110,21 @@ bash scripts/check-readiness.sh
 
 Saída esperada: lista com `✓`/`✗` para cada documento essencial, e exit code `0` (pronto) ou `1` (faltam itens).
 
+## Testes estruturais do boilerplate
+
+Para verificar que skills/agents/rules/templates estão formados corretamente e que links cruzados não estão quebrados:
+
+```bash
+bash scripts/lint-docs.sh
+bash scripts/run-skill-tests.sh
+```
+
+Sanity checks manuais por skill estão em [tests/](tests/). Atualizar quando editar uma SKILL.md.
+
+## Glossário
+
+Termos consistentes em PT-BR estão em [docs/glossary.md](docs/glossary.md). Use as definições de lá em caso de conflito.
+
 ## Lembrete final
 
 Este projeto é sobre **disciplina antes de velocidade**. O usuário escolheu este boilerplate porque quer evitar o erro de começar a programar cedo demais. Honre essa escolha. Quando ele se apressar, lembre da meta original.

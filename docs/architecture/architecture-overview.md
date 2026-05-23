@@ -14,28 +14,41 @@
 
 ### Nível 1 — Contexto
 
-```
-[Usuário final]
-     |
-     v
-[Sistema X]  --->  [Gateway de pagamento]
-     |
-     v
-[Provedor de email transacional]
+> O diagrama abaixo é template. Edite ao preencher para o seu projeto. GitHub renderiza Mermaid nativamente.
+
+```mermaid
+flowchart LR
+  User((Usuário final))
+  Sys[Sistema X]
+  Pay[Gateway de pagamento]
+  Email[Provedor de email transacional]
+
+  User -->|usa| Sys
+  Sys -->|cobra| Pay
+  Sys -->|envia| Email
+  Pay -.->|webhook| Sys
 ```
 
 Detalhar em [system-context.md](system-context.md).
 
 ### Nível 2 — Containers
 
-```
-[Frontend Web] ---> [API HTTP] ---> [Banco principal]
-                          |
-                          v
-                    [Worker assíncrono] ---> [Fila]
-                          |
-                          v
-                    [Storage de objetos]
+```mermaid
+flowchart LR
+  Web[Frontend Web]
+  API[API HTTP]
+  DB[(Banco principal)]
+  Worker[Worker assíncrono]
+  Queue[(Fila)]
+  Store[(Storage de objetos)]
+
+  Web -->|HTTPS| API
+  API --> DB
+  API --> Queue
+  Queue --> Worker
+  Worker --> DB
+  Worker --> Store
+  API --> Store
 ```
 
 Definir só depois de [technology-decision.md](technology-decision.md) estar pronta.

@@ -1,5 +1,10 @@
 # project-genesis-boilerplate
 
+![status](https://img.shields.io/badge/status-active-success)
+![license](https://img.shields.io/badge/license-MIT-blue)
+![stack](https://img.shields.io/badge/stack-neutral-purple)
+![language](https://img.shields.io/badge/docs-pt--BR-orange)
+
 > Um sistema guiado de criação de projetos. Não é um template de código. É um **mentor exigente** que te força a entender negócio, produto, usuários, módulos e arquitetura **antes** de escrever a primeira linha.
 
 ## O que é
@@ -145,6 +150,7 @@ Estrutura padrão em [docs/](docs/):
 docs/
 ├── PROJECT_STATE.md         — Estado vivo do projeto
 ├── START_HERE.md            — Por onde começar
+├── glossary.md              — Termos PT-BR consistentes
 ├── product/                 — Visão, problema, personas, jornadas, MVP, roadmap
 ├── business/                — Modelo, monetização, mercado, GTM, pricing
 ├── architecture/            — Visão, contexto, stack, integrações, dados, escala
