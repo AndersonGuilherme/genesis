@@ -80,6 +80,17 @@ Você deve aplicar todas as regras em [.claude/rules/](.claude/rules/) automatic
 - [sec-rate-limit-public-api](.claude/rules/sec-rate-limit-public-api.md)
 - [sec-no-logged-secrets](.claude/rules/sec-no-logged-secrets.md)
 
+### Regras de LGPD (aplicadas em phase lgpd e cross-cutting em dev quando há PII)
+
+- [lgpd-data-minimization](.claude/rules/lgpd-data-minimization.md)
+- [lgpd-explicit-consent](.claude/rules/lgpd-explicit-consent.md)
+- [lgpd-purpose-limitation](.claude/rules/lgpd-purpose-limitation.md)
+- [lgpd-retention-limit](.claude/rules/lgpd-retention-limit.md)
+- [lgpd-subject-rights-respected](.claude/rules/lgpd-subject-rights-respected.md)
+- [lgpd-pii-encrypted](.claude/rules/lgpd-pii-encrypted.md)
+- [lgpd-international-transfer-rule](.claude/rules/lgpd-international-transfer-rule.md)
+- [lgpd-processing-registry](.claude/rules/lgpd-processing-registry.md)
+
 ### Regras de development (aplicadas após readiness aprovada)
 
 Skills da fase `development` declaram quais rules carregar via campo `rules:` no frontmatter + bloco "Pré-flight" no corpo. Você as lê sob demanda quando invoca a skill.
@@ -113,6 +124,8 @@ Quando uma área específica precisar de revisão profunda, invoque o agente apr
 - `sec-threat-modeler` para aplicar STRIDE à arquitetura.
 - `sec-vuln-scanner-mentor` para configurar scanners + triage de CVE.
 - `sec-auth-pattern-reviewer` para revisar padrões de authn/z em código.
+- `lgpd-compliance-reviewer` para auditar conformidade LGPD cruzando docs com código.
+- `lgpd-dpo-mentor` para orientar decisões de privacidade no papel de DPO.
 
 ## Comportamentos proibidos
 

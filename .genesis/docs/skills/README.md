@@ -34,6 +34,17 @@ Documentação humana das skills do boilerplate. A versão consumida pela IA est
 - [sec-webhook-signing](sec-webhook-signing.md) — HMAC + replay protection.
 - [sec-idempotency-strategy](sec-idempotency-strategy.md) — idempotency keys.
 
+## LGPD
+
+- [lgpd-data-inventory](lgpd-data-inventory.md) — ROPA com finalidade, base legal, retenção, compartilhamento.
+- [lgpd-data-minimization-review](lgpd-data-minimization-review.md) — auditoria de campos PII sem justificativa.
+- [lgpd-define-consent-strategy](lgpd-define-consent-strategy.md) — consent granular, versionado, revogável.
+- [lgpd-define-retention-policy](lgpd-define-retention-policy.md) — prazo por categoria + delete/anonymize + backup.
+- [lgpd-data-subject-rights-handler](lgpd-data-subject-rights-handler.md) — endpoints art. 18 + SLA 15 dias.
+- [lgpd-dpia](lgpd-dpia.md) — RIPD pra operação de alto risco.
+- [lgpd-incident-notification-plan](lgpd-incident-notification-plan.md) — playbook ANPD + titular (72h).
+- [lgpd-vendor-dpa](lgpd-vendor-dpa.md) — DPA com cada operador externo.
+
 ## Development
 
 - [dev-start-development](dev-start-development.md) — início incremental, módulo por módulo.
@@ -44,6 +55,7 @@ Documentação humana das skills do boilerplate. A versão consumida pela IA est
 - [dev-refactor-to-clean-architecture](dev-refactor-to-clean-architecture.md) — refatora código que viola Clean Arch.
 - [dev-review-module-cohesion](dev-review-module-cohesion.md) — auditoria estrutural de módulo.
 - [dev-define-use-case-authenticated](dev-define-use-case-authenticated.md) — variante para use case que exige auth (cross-cutting com sec-*).
+- [dev-define-use-case-with-pii](dev-define-use-case-with-pii.md) — variante para use case que toca PII (cross-cutting com lgpd-* + sec-*).
 
 ## Recursos relacionados
 

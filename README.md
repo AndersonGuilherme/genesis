@@ -92,6 +92,21 @@ Phase nova entre planning e development. Define threat model, auth strategy, sec
 | [sec-webhook-signing](.claude/skills/sec-webhook-signing/SKILL.md) | HMAC + replay protection. |
 | [sec-idempotency-strategy](.claude/skills/sec-idempotency-strategy/SKILL.md) | Idempotency keys. |
 
+### LGPD — conformidade brasileira antes do código
+
+Phase entre security e development. Define ROPA, consent, retenção, direitos do titular, DPIA, notificação de incidente, DPAs com fornecedores. Cumpre Lei 13.709/2018.
+
+| Skill | Quando usar |
+|-------|-------------|
+| [lgpd-data-inventory](.claude/skills/lgpd-data-inventory/SKILL.md) | Cria ROPA (art. 37). Primeiro da phase. |
+| [lgpd-data-minimization-review](.claude/skills/lgpd-data-minimization-review/SKILL.md) | Auditoria de campos PII sem justificativa. |
+| [lgpd-define-consent-strategy](.claude/skills/lgpd-define-consent-strategy/SKILL.md) | Consent granular, versionado, revogável. |
+| [lgpd-define-retention-policy](.claude/skills/lgpd-define-retention-policy/SKILL.md) | Prazo por categoria + delete/anonymize + backup. |
+| [lgpd-data-subject-rights-handler](.claude/skills/lgpd-data-subject-rights-handler/SKILL.md) | Endpoints art. 18 + SLA 15 dias. |
+| [lgpd-dpia](.claude/skills/lgpd-dpia/SKILL.md) | RIPD pra operação de alto risco (art. 38). |
+| [lgpd-incident-notification-plan](.claude/skills/lgpd-incident-notification-plan/SKILL.md) | Playbook ANPD + titular (72h convenção interna). |
+| [lgpd-vendor-dpa](.claude/skills/lgpd-vendor-dpa/SKILL.md) | DPA com cada operador externo (art. 39). |
+
 ### Development — código com disciplina
 
 Toda dev skill aplica TDD pragmático + DDD + Clean Architecture 3-layer + módulo por bounded context.
@@ -106,6 +121,7 @@ Toda dev skill aplica TDD pragmático + DDD + Clean Architecture 3-layer + módu
 | [dev-refactor-to-clean-architecture](.claude/skills/dev-refactor-to-clean-architecture/SKILL.md) | Refatora código que viola Clean Arch (testes verdes antes/depois). |
 | [dev-review-module-cohesion](.claude/skills/dev-review-module-cohesion/SKILL.md) | Auditoria estrutural de módulo (sem refatorar — só reporta). |
 | [dev-define-use-case-authenticated](.claude/skills/dev-define-use-case-authenticated/SKILL.md) | Variante de `dev-define-use-case` que carrega rules sec-* (authn/authz/audit/validation). |
+| [dev-define-use-case-with-pii](.claude/skills/dev-define-use-case-with-pii/SKILL.md) | Variante de `dev-define-use-case` que carrega rules lgpd-* + sec-* (minimização/consent/encryption/audit). |
 
 ---
 
@@ -142,6 +158,19 @@ Rules são princípios que a IA aplica automaticamente. Skills declaram quais ru
 | [sec-audit-trail](.claude/rules/sec-audit-trail.md) | Ações sensíveis logadas em store imutável, retidas por prazo legal. |
 | [sec-rate-limit-public-api](.claude/rules/sec-rate-limit-public-api.md) | Rate limit por IP + user. 429 com Retry-After. |
 | [sec-no-logged-secrets](.claude/rules/sec-no-logged-secrets.md) | Sanitizer central. Sem secret/PII em log. |
+
+### LGPD
+
+| Rule | Princípio |
+|------|-----------|
+| [lgpd-data-minimization](.claude/rules/lgpd-data-minimization.md) | Coletar só o estritamente necessário. Campo sem finalidade = bloqueado. |
+| [lgpd-explicit-consent](.claude/rules/lgpd-explicit-consent.md) | Consent granular, livre, informado, registrado, revogável. |
+| [lgpd-purpose-limitation](.claude/rules/lgpd-purpose-limitation.md) | Dado coletado pra X não vira insumo pra Y sem reconsent. |
+| [lgpd-retention-limit](.claude/rules/lgpd-retention-limit.md) | Retenção declarada + job de delete/anonymize + backup respeitado. |
+| [lgpd-subject-rights-respected](.claude/rules/lgpd-subject-rights-respected.md) | Endpoints pros 8 direitos do art. 18 + SLA 15 dias. |
+| [lgpd-pii-encrypted](.claude/rules/lgpd-pii-encrypted.md) | PII at-rest cifrada. Sensível com camada extra (KMS). |
+| [lgpd-international-transfer-rule](.claude/rules/lgpd-international-transfer-rule.md) | Transferência fora do Brasil exige base legal + DPA + privacy notice. |
+| [lgpd-processing-registry](.claude/rules/lgpd-processing-registry.md) | ROPA vivo, atualizado em cada PR que toca PII. |
 
 ### Development
 
@@ -185,6 +214,13 @@ Agents são revisores invocáveis quando uma área precisa de profundidade. Skil
 | [sec-vuln-scanner-mentor](.claude/agents/sec-vuln-scanner-mentor.md) | Configura scanners + triage de CVE. |
 | [sec-auth-pattern-reviewer](.claude/agents/sec-auth-pattern-reviewer.md) | Revisa padrões authn/z em código + multi-tenant. |
 
+### LGPD
+
+| Agent | Foco |
+|-------|------|
+| [lgpd-compliance-reviewer](.claude/agents/lgpd-compliance-reviewer.md) | Audita conformidade LGPD cruzando docs com código. Gaps por artigo violado. |
+| [lgpd-dpo-mentor](.claude/agents/lgpd-dpo-mentor.md) | Orienta decisões no papel de DPO — base legal, DPIA, fiscalização ANPD. |
+
 ### Development
 
 | Agent | Foco |
@@ -214,14 +250,14 @@ Templates ficam em [.genesis/templates/](.genesis/templates/) e são aplicados p
 ```
 /
 ├── .claude/                  Claude Code: skills, agents, rules, hooks
-│   ├── skills/               20 skills (2 disc-, 11 plan-, 7 dev-)
-│   ├── agents/               13 agents (10 plan-, 3 dev-)
-│   ├── rules/                18 rules (10 plan-, 8 dev-)
+│   ├── skills/               40 skills (2 disc-, 11 plan-, 10 sec-, 8 lgpd-, 9 dev-)
+│   ├── agents/               18 agents (10 plan-, 3 sec-, 2 lgpd-, 3 dev-)
+│   ├── rules/                36 rules (10 plan-, 10 sec-, 8 lgpd-, 8 dev-)
 │   └── hooks/                hooks de gate (readiness, no-code-before-spec)
 ├── .genesis/                 Infra do boilerplate (hidden namespace)
 │   ├── scripts/              check-readiness, lint-docs, run-skill-tests, genesis-init
 │   ├── tests/                sanity tests por skill/rule/agent
-│   ├── templates/            14 templates (planning + development)
+│   ├── templates/            24 templates (planning + security + lgpd + development)
 │   ├── examples/             tchr (caso real, removido em projeto novo)
 │   ├── docs/skills/          narrativa humana das skills
 │   ├── README.md             documentação do boilerplate
