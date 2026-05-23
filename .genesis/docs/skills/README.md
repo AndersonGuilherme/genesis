@@ -143,14 +143,14 @@ No `SKILL.md` correspondente e na seção "Anti-padrões" da página de doc huma
 1. Identifique o atrito (algo que travou ou confundiu).
 2. Registre em `tests/dogfood-tchr.md` com severidade.
 3. Atualize tanto `.claude/skills/<slug>/SKILL.md` (IA) quanto `docs/skills/<NN>-<slug>.md` (humano).
-4. Rode `bash scripts/lint-docs.sh` para confirmar.
+4. Rode `bash .genesis/scripts/lint-docs.sh` para confirmar.
 5. Abra PR.
 
 ## Onde olhar a seguir
 
-- [START_HERE.md](../START_HERE.md) — guia de entrada do repositório.
-- [PROJECT_STATE.md](../PROJECT_STATE.md) — painel de progresso atualizado vivo.
-- [glossary.md](../glossary.md) — termos consistentes em PT-BR.
+- [START_HERE.md](../../../docs/START_HERE.md) — guia de entrada do repositório.
+- [PROJECT_STATE.md](../../../docs/PROJECT_STATE.md) — painel de progresso atualizado vivo.
+- [glossary.md](../../../docs/glossary.md) — termos consistentes em PT-BR.
 - [`tests/`](../../tests/) — sanity checks por skill.
-- [`.claude/rules/`](../../.claude/rules/) — princípios aplicados automaticamente.
-- [`.claude/agents/`](../../.claude/agents/) — agentes especializados que a mentora invoca para revisões profundas.
+- [`.claude/rules/`](../../../.claude/rules/) — princípios aplicados automaticamente.
+- [`.claude/agents/`](../../../.claude/agents/) — agentes especializados que a mentora invoca para revisões profundas.

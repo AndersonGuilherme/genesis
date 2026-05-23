@@ -142,9 +142,9 @@ Por que importa: calibra o tom da mentoria. Para uma ideia, foco em validação.
 
 | Arquivo | O que entra | Fonte da verdade |
 |---------|-------------|-------------------|
-| [`docs/product/product-vision.md`](../product/product-vision.md) | Visão (1 frase), missão, north star metric inicial, princípios. | Você (validado pela IA). |
-| [`docs/product/problem-statement.md`](../product/problem-statement.md) | Problema, quem sofre, evidências, custo do não-resolver, tipo de produto. | Você. |
-| [`docs/PROJECT_STATE.md`](../PROJECT_STATE.md) | Marca Fase 1 como concluída. Define nome do projeto. Aponta próxima skill. | A IA atualiza. |
+| [`docs/product/product-vision.md`](../../../docs/product/product-vision.md) | Visão (1 frase), missão, north star metric inicial, princípios. | Você (validado pela IA). |
+| [`docs/product/problem-statement.md`](../../../docs/product/problem-statement.md) | Problema, quem sofre, evidências, custo do não-resolver, tipo de produto. | Você. |
+| [`docs/PROJECT_STATE.md`](../../../docs/PROJECT_STATE.md) | Marca Fase 1 como concluída. Define nome do projeto. Aponta próxima skill. | A IA atualiza. |
 
 ## Critérios de "terminei essa skill"
 
@@ -232,13 +232,13 @@ Quando todos os critérios de conclusão estiverem marcados, invoque:
 
 ## Referências cruzadas
 
-- [`.claude/skills/init-project/SKILL.md`](../../.claude/skills/init-project/SKILL.md) — arquivo consumido pela IA.
-- [`tests/skills/init-project.md`](../../tests/skills/init-project.md) — checks canônicos.
+- [`.claude/skills/init-project/SKILL.md`](../../../.claude/skills/init-project/SKILL.md) — arquivo consumido pela IA.
+- [`.genesis/tests/skills/init-project.md`](../../tests/skills/init-project.md) — checks canônicos.
 - Rules relevantes:
-  - [`business-before-technology`](../../.claude/rules/business-before-technology.md)
-  - [`documentation-first`](../../.claude/rules/documentation-first.md)
+  - [`business-before-technology`](../../../.claude/rules/business-before-technology.md)
+  - [`documentation-first`](../../../.claude/rules/documentation-first.md)
 - Agents relevantes:
-  - [`product-strategist`](../../.claude/agents/product-strategist.md) — pode revisar a visão quando preencher.
-  - [`ux-researcher`](../../.claude/agents/ux-researcher.md) — pode revisar quem é a persona.
+  - [`product-strategist`](../../../.claude/agents/product-strategist.md) — pode revisar a visão quando preencher.
+  - [`ux-researcher`](../../../.claude/agents/ux-researcher.md) — pode revisar quem é a persona.
 - Templates relevantes:
   - [`project-brief-template.md`](../../templates/project-brief-template.md) — para gerar resumo executivo do projeto.

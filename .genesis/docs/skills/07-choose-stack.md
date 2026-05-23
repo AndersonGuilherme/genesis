@@ -46,8 +46,8 @@ O que `choose-stack` **não faz**:
 ## Pré-condições
 
 - [ ] Fases 1 a 5 concluídas (a IA recusa rodar antes disso — rule `business-before-technology`).
-- [ ] [`mvp-scope.md`](../product/mvp-scope.md) preenchido.
-- [ ] [`docs/modules/`](../modules/) com lista mestra dos módulos do MVP.
+- [ ] [`mvp-scope.md`](../../../docs/product/mvp-scope.md) preenchido.
+- [ ] [`docs/modules/`](../../../docs/modules/) com lista mestra dos módulos do MVP.
 - [ ] Você tem informações sobre o time (linguagens fortes/fracas, tamanho, orçamento de infra).
 
 ## O passo a passo
@@ -149,7 +149,7 @@ O ADR contém:
 
 ### 8. Atualize `technology-decision.md`
 
-A IA escreve em [`docs/architecture/technology-decision.md`](../architecture/technology-decision.md):
+A IA escreve em [`docs/architecture/technology-decision.md`](../../../docs/architecture/technology-decision.md):
 
 - Resumo das restrições.
 - Tabela das 3+ opções pontuadas.
@@ -196,10 +196,10 @@ Por que importa: filtra provedores.
 
 | Arquivo | O que entra | Fonte |
 |---------|-------------|-------|
-| [`docs/architecture/technology-decision.md`](../architecture/technology-decision.md) | Restrições, opções pontuadas, recomendação, condição de reavaliar. | A IA conduz, você decide. |
+| [`docs/architecture/technology-decision.md`](../../../docs/architecture/technology-decision.md) | Restrições, opções pontuadas, recomendação, condição de reavaliar. | A IA conduz, você decide. |
 | `docs/adr/0001-stack-principal.md` | ADR formal da escolha. | Via [`create-adr`](11-create-adr.md). |
-| [`docs/architecture/integration-map.md`](../architecture/integration-map.md) | Esboço inicial (gateway, email, etc.). | A IA escreve esboço; refinar em `design-architecture`. |
-| [`PROJECT_STATE.md`](../PROJECT_STATE.md) | Marca Fase 6 ✅. | A IA. |
+| [`docs/architecture/integration-map.md`](../../../docs/architecture/integration-map.md) | Esboço inicial (gateway, email, etc.). | A IA escreve esboço; refinar em `design-architecture`. |
+| [`PROJECT_STATE.md`](../../../docs/PROJECT_STATE.md) | Marca Fase 6 ✅. | A IA. |
 
 ## Critérios de "terminei essa skill"
 
@@ -208,8 +208,8 @@ Por que importa: filtra provedores.
 - [ ] Trade-offs negativos listados.
 - [ ] ADR `0001-stack-principal.md` criado com ≥ 2 alternativas rejeitadas.
 - [ ] Custo aproximado 12m estimado por opção.
-- [ ] [`technology-decision.md`](../architecture/technology-decision.md) atualizado.
-- [ ] [`PROJECT_STATE.md`](../PROJECT_STATE.md) marca Fase 6 ✅.
+- [ ] [`technology-decision.md`](../../../docs/architecture/technology-decision.md) atualizado.
+- [ ] [`PROJECT_STATE.md`](../../../docs/PROJECT_STATE.md) marca Fase 6 ✅.
 
 ## Anti-padrões — sinais de que algo está errado
 
@@ -254,7 +254,7 @@ Exemplo completo em [`examples/tchr/technology-decision.md`](../../examples/tchr
 
 **Trade-off negativo da escolha:** caminho de escala em tempo real é mais frágil que Elixir; quando "sala virtual com presença ao vivo" virar diferencial, considerar migrar **apenas o módulo de presença** para Elixir, mantendo o resto em Node.
 
-**ADR criado:** [`docs/adr/0001-stack-principal.md`](../adr/) com Opção B (Elixir) e Opção C (Go) listadas como rejeitadas + justificativa.
+**ADR criado:** [`docs/adr/0001-stack-principal.md`](../../../docs/adr/) com Opção B (Elixir) e Opção C (Go) listadas como rejeitadas + justificativa.
 
 ## Troubleshooting
 
@@ -295,15 +295,15 @@ E em paralelo:
 
 ## Referências cruzadas
 
-- [`.claude/skills/choose-stack/SKILL.md`](../../.claude/skills/choose-stack/SKILL.md) — arquivo consumido pela IA.
-- [`tests/skills/choose-stack.md`](../../tests/skills/choose-stack.md) — checks canônicos.
+- [`.claude/skills/choose-stack/SKILL.md`](../../../.claude/skills/choose-stack/SKILL.md) — arquivo consumido pela IA.
+- [`.genesis/tests/skills/choose-stack.md`](../../tests/skills/choose-stack.md) — checks canônicos.
 - Rules relevantes:
-  - [`stack-neutrality`](../../.claude/rules/stack-neutrality.md)
-  - [`business-before-technology`](../../.claude/rules/business-before-technology.md)
-  - [`avoid-overengineering`](../../.claude/rules/avoid-overengineering.md)
-  - [`explain-tradeoffs`](../../.claude/rules/explain-tradeoffs.md)
+  - [`stack-neutrality`](../../../.claude/rules/stack-neutrality.md)
+  - [`business-before-technology`](../../../.claude/rules/business-before-technology.md)
+  - [`avoid-overengineering`](../../../.claude/rules/avoid-overengineering.md)
+  - [`explain-tradeoffs`](../../../.claude/rules/explain-tradeoffs.md)
 - Agents relevantes:
-  - [`software-architect`](../../.claude/agents/software-architect.md) — revisão da escolha.
-  - [`scalability-reviewer`](../../.claude/agents/scalability-reviewer.md) — para confrontar "caminho de escala".
+  - [`software-architect`](../../../.claude/agents/software-architect.md) — revisão da escolha.
+  - [`scalability-reviewer`](../../../.claude/agents/scalability-reviewer.md) — para confrontar "caminho de escala".
 - Templates relevantes:
   - [`adr-template.md`](../../templates/adr-template.md) — para o ADR `0001-stack-principal.md`.

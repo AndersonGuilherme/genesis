@@ -44,10 +44,10 @@ O que `plan-modules` **não faz**:
 
 ## Pré-condições
 
-- [ ] [`mvp-scope.md`](../product/mvp-scope.md) preenchido com escopo IN claro.
-- [ ] [`target-users.md`](../product/target-users.md) com papéis identificados (dono, admin, professor, aluno, etc.).
-- [ ] [`value-proposition.md`](../product/value-proposition.md) consolidada.
-- [ ] Pelo menos uma jornada crítica de [`user-journeys.md`](../product/user-journeys.md) detalhada.
+- [ ] [`mvp-scope.md`](../../../docs/product/mvp-scope.md) preenchido com escopo IN claro.
+- [ ] [`target-users.md`](../../../docs/product/target-users.md) com papéis identificados (dono, admin, professor, aluno, etc.).
+- [ ] [`value-proposition.md`](../../../docs/product/value-proposition.md) consolidada.
+- [ ] Pelo menos uma jornada crítica de [`user-journeys.md`](../../../docs/product/user-journeys.md) detalhada.
 
 ## O passo a passo
 
@@ -91,7 +91,7 @@ A IA pode sugerir agrupamentos. **Você decide** ao final.
 - **Dependências** (quais outros módulos esse precisa).
 - **Dono** (papel ou pessoa).
 
-A IA escreve em `docs/modules/<modulo>.md` (um arquivo por módulo) e atualiza [`docs/modules/README.md`](../modules/README.md) com a lista mestra.
+A IA escreve em `docs/modules/<modulo>.md` (um arquivo por módulo) e atualiza [`docs/modules/README.md`](../../../docs/modules/README.md) com a lista mestra.
 
 ### 5. Identifique acoplamentos perigosos
 
@@ -130,7 +130,7 @@ Cada módulo pode ter padrões internos próprios? Ou seguem padrão global?
 - Global: estrutura de pastas, naming, formato de log, eventos.
 - Por módulo: ORM ou query manual, biblioteca de validação, formato interno.
 
-Decisão registrada em [`docs/modules/README.md`](../modules/README.md) ou em ADR.
+Decisão registrada em [`docs/modules/README.md`](../../../docs/modules/README.md) ou em ADR.
 
 ### 8. Identifique módulos "transversais"
 
@@ -177,10 +177,10 @@ Por que importa: destrava MVP cedo.
 
 | Arquivo | O que entra | Fonte |
 |---------|-------------|-------|
-| [`docs/modules/README.md`](../modules/README.md) | Lista mestra dos módulos, regras de fronteira, ordem de implementação. | Você. |
+| [`docs/modules/README.md`](../../../docs/modules/README.md) | Lista mestra dos módulos, regras de fronteira, ordem de implementação. | Você. |
 | `docs/modules/<modulo>.md` (um por módulo) | Nome, propósito, entidades, eventos, dependências, dono. | Você. |
-| [`PROJECT_STATE.md`](../PROJECT_STATE.md) | Marca Fase 5 ✅ + lista módulos identificados. | A IA. |
-| [`assumptions.md`](../research/assumptions.md) | Premissas surgidas (ex.: "marketplace e gestão coexistem sem conflito"). | A IA. |
+| [`PROJECT_STATE.md`](../../../docs/PROJECT_STATE.md) | Marca Fase 5 ✅ + lista módulos identificados. | A IA. |
+| [`assumptions.md`](../../../docs/research/assumptions.md) | Premissas surgidas (ex.: "marketplace e gestão coexistem sem conflito"). | A IA. |
 
 ## Critérios de "terminei essa skill"
 
@@ -189,7 +189,7 @@ Por que importa: destrava MVP cedo.
 - [ ] Dependências mapeadas — grafo sem ciclos.
 - [ ] Acoplamentos perigosos identificados e mitigados.
 - [ ] Ordem de implementação proposta com justificativa.
-- [ ] [`docs/modules/README.md`](../modules/README.md) atualizado.
+- [ ] [`docs/modules/README.md`](../../../docs/modules/README.md) atualizado.
 - [ ] `PROJECT_STATE.md` mostra Fase 5 ✅.
 
 ## Anti-padrões — sinais de que algo está errado
@@ -296,7 +296,7 @@ Se sim, fundir.
 
 ### Não consigo decidir a ordem de implementação
 
-Comece pela jornada crítica número 1 do [`user-journeys.md`](../product/user-journeys.md). Liste todos os módulos que ela toca; implemente nessa ordem.
+Comece pela jornada crítica número 1 do [`user-journeys.md`](../../../docs/product/user-journeys.md). Liste todos os módulos que ela toca; implemente nessa ordem.
 
 ### Marketplace e gestão escolar parecem dois produtos diferentes
 
@@ -312,13 +312,13 @@ Decisão: ou é módulo próprio com API/eventos claros (recomendado), ou é bib
 
 ## Referências cruzadas
 
-- [`.claude/skills/plan-modules/SKILL.md`](../../.claude/skills/plan-modules/SKILL.md) — arquivo consumido pela IA.
-- [`tests/skills/plan-modules.md`](../../tests/skills/plan-modules.md) — checks canônicos.
+- [`.claude/skills/plan-modules/SKILL.md`](../../../.claude/skills/plan-modules/SKILL.md) — arquivo consumido pela IA.
+- [`.genesis/tests/skills/plan-modules.md`](../../tests/skills/plan-modules.md) — checks canônicos.
 - Rules relevantes:
-  - [`module-spec-required`](../../.claude/rules/module-spec-required.md)
-  - [`avoid-overengineering`](../../.claude/rules/avoid-overengineering.md)
+  - [`module-spec-required`](../../../.claude/rules/module-spec-required.md)
+  - [`avoid-overengineering`](../../../.claude/rules/avoid-overengineering.md)
 - Agents relevantes:
-  - [`software-architect`](../../.claude/agents/software-architect.md) — pode revisar fronteiras.
-  - [`domain-modeler`](../../.claude/agents/domain-modeler.md) — para validar entidades por módulo.
+  - [`software-architect`](../../../.claude/agents/software-architect.md) — pode revisar fronteiras.
+  - [`domain-modeler`](../../../.claude/agents/domain-modeler.md) — para validar entidades por módulo.
 - Templates relevantes:
   - [`module-spec-template.md`](../../templates/module-spec-template.md) — para os specs por módulo na Fase 8.

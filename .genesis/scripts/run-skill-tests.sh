@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# scripts/run-skill-tests.sh
+# .genesis/scripts/run-skill-tests.sh
 #
 # Wrapper que roda todos os checks automatizáveis do boilerplate:
 #   - lint-docs.sh         (estrutura + links — DEVE passar)
@@ -18,18 +18,18 @@ fi
 
 section() { printf "\n${BOLD}${CYAN}=== %s ===${RESET}\n" "$*"; }
 
-section "Lint estrutural (scripts/lint-docs.sh)"
-if bash scripts/lint-docs.sh; then
+section "Lint estrutural (.genesis/scripts/lint-docs.sh)"
+if bash .genesis/scripts/lint-docs.sh; then
   lint_ok=1
 else
   lint_ok=0
 fi
 
-section "Readiness (scripts/check-readiness.sh)"
+section "Readiness (.genesis/scripts/check-readiness.sh)"
 echo "Espera-se que FALHE no boilerplate base (templates não preenchidos)."
 echo "Em um projeto-filho com docs reais, deve passar."
 echo
-bash scripts/check-readiness.sh || true
+bash .genesis/scripts/check-readiness.sh || true
 
 section "Resultado"
 if [ "$lint_ok" = "1" ]; then

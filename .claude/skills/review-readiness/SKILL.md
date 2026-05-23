@@ -1,6 +1,6 @@
 ---
 name: review-readiness
-description: Use para checar se o projeto pode iniciar implementação. Roda scripts/check-readiness.sh e revisa qualitativamente. Bloqueia código quando falta documentação essencial.
+description: Use para checar se o projeto pode iniciar implementação. Roda .genesis/scripts/check-readiness.sh e revisa qualitativamente. Bloqueia código quando falta documentação essencial.
 ---
 
 # Skill: review-readiness
@@ -18,11 +18,11 @@ Ser o **portão final** antes de qualquer linha de código de aplicação. Roda 
 ## Entradas esperadas
 
 - Repositório completo (docs/, .claude/, etc.).
-- Script `scripts/check-readiness.sh` presente.
+- Script `.genesis/scripts/check-readiness.sh` presente.
 
 ## Processo passo a passo
 
-1. Rodar `bash scripts/check-readiness.sh`.
+1. Rodar `bash .genesis/scripts/check-readiness.sh`.
 2. Coletar saída e exit code.
 3. Verificar qualitativamente cada item:
    - Documento existe **e tem conteúdo real** (não placeholder copiado).

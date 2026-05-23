@@ -62,7 +62,7 @@ Para essas, escreva na própria spec do módulo ou em comentário de PR.
 
 - [ ] Decisão tem alternativas reais que foram consideradas (mínimo 2).
 - [ ] Você consegue articular o contexto que pressionou para essa escolha.
-- [ ] [`docs/adr/README.md`](../adr/README.md) e [`docs/adr/adr-template.md`](../adr/adr-template.md) existem (vêm do boilerplate).
+- [ ] [`docs/adr/README.md`](../../../docs/adr/README.md) e [`docs/adr/adr-template.md`](../../../docs/adr/adr-template.md) existem (vêm do boilerplate).
 
 ## O passo a passo
 
@@ -90,7 +90,7 @@ A IA propõe baseado na decisão: `0002-postgres-como-banco-primario`. Você aju
 
 ### 5. Copie template e preencha
 
-A IA cria `docs/adr/0002-postgres-como-banco-primario.md` baseado em [`docs/adr/adr-template.md`](../adr/adr-template.md). Campos:
+A IA cria `docs/adr/0002-postgres-como-banco-primario.md` baseado em [`docs/adr/adr-template.md`](../../../docs/adr/adr-template.md). Campos:
 
 #### Cabeçalho
 
@@ -107,8 +107,8 @@ A IA cria `docs/adr/0002-postgres-como-banco-primario.md` baseado em [`docs/adr/
 O que estava acontecendo? Que forças pressionam para uma escolha? Que restrições existem?
 
 Inclua links para:
-- [`problem-statement.md`](../product/problem-statement.md) (se afeta produto).
-- [`architecture-overview.md`](../architecture/architecture-overview.md) (se afeta arquitetura).
+- [`problem-statement.md`](../../../docs/product/problem-statement.md) (se afeta produto).
+- [`architecture-overview.md`](../../../docs/architecture/architecture-overview.md) (se afeta arquitetura).
 - ADRs anteriores impactados.
 
 #### Decisão
@@ -203,7 +203,7 @@ Por que importa: ADR sem critério de validação fica órfão.
 | Arquivo | O que entra | Fonte |
 |---------|-------------|-------|
 | `docs/adr/NNNN-<titulo>.md` | ADR novo. | Você (mentora conduz). |
-| [`docs/adr/README.md`](../adr/README.md) | Linha adicionada no índice. | A IA. |
+| [`docs/adr/README.md`](../../../docs/adr/README.md) | Linha adicionada no índice. | A IA. |
 | Documento de arquitetura/módulo relacionado | Link para o novo ADR. | A IA. |
 
 ## Critérios de "terminei essa skill"
@@ -409,14 +409,14 @@ Geralmente, depois de criar ADR, você continua na skill que estava antes (`choo
 
 ## Referências cruzadas
 
-- [`.claude/skills/create-adr/SKILL.md`](../../.claude/skills/create-adr/SKILL.md) — arquivo consumido pela IA.
-- [`tests/skills/create-adr.md`](../../tests/skills/create-adr.md) — checks canônicos.
-- [`docs/adr/README.md`](../adr/README.md) — índice mestre.
+- [`.claude/skills/create-adr/SKILL.md`](../../../.claude/skills/create-adr/SKILL.md) — arquivo consumido pela IA.
+- [`.genesis/tests/skills/create-adr.md`](../../tests/skills/create-adr.md) — checks canônicos.
+- [`docs/adr/README.md`](../../../docs/adr/README.md) — índice mestre.
 - Rules relevantes:
-  - [`adr-required-for-decisions`](../../.claude/rules/adr-required-for-decisions.md)
-  - [`explain-tradeoffs`](../../.claude/rules/explain-tradeoffs.md)
-  - [`documentation-first`](../../.claude/rules/documentation-first.md)
+  - [`adr-required-for-decisions`](../../../.claude/rules/adr-required-for-decisions.md)
+  - [`explain-tradeoffs`](../../../.claude/rules/explain-tradeoffs.md)
+  - [`documentation-first`](../../../.claude/rules/documentation-first.md)
 - Agents relevantes:
-  - [`software-architect`](../../.claude/agents/software-architect.md) — para revisar ADRs estruturais.
+  - [`software-architect`](../../../.claude/agents/software-architect.md) — para revisar ADRs estruturais.
 - Templates relevantes:
   - [`adr-template.md`](../../templates/adr-template.md)

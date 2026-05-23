@@ -86,7 +86,7 @@ Legenda: `vazio` (não tocado), `em-progresso`, `revisado`.
 - [ ] `docs/testing/testing-strategy.md` preenchido
 - [ ] `docs/security/security-requirements.md` preenchido
 
-**Resultado de `scripts/check-readiness.sh`:** _(rodar e colar)_
+**Resultado de `.genesis/scripts/check-readiness.sh`:** _(rodar e colar)_
 
 ## Bloqueios atuais
 

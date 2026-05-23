@@ -30,7 +30,7 @@ Não usar para: decisões pequenas, reversíveis com 1 PR, ou puramente táticas
 
 1. Confirmar com usuário que a decisão merece ADR.
 2. Determinar próximo número (lendo `docs/adr/` e somando 1).
-3. Copiar `templates/adr-template.md` ou `docs/adr/adr-template.md`.
+3. Copiar `.genesis/templates/adr-template.md` ou `docs/adr/adr-template.md`.
 4. Renomear para `docs/adr/NNNN-titulo-kebab-case.md`.
 5. Preencher todos os campos do template.
 6. Garantir que pelo menos 2 alternativas reais foram consideradas e justificadas como rejeitadas.

@@ -82,7 +82,7 @@ Por que precisamos desse serviço? Que problema do produto/operação ele resolv
 ## Conformidade
 
 - LGPD: PII em trânsito? Acordo com fornecedor?
-- Transferência internacional: registrado em [data-privacy.md](../docs/security/data-privacy.md)
+- Transferência internacional: registrado em [data-privacy.md](../../docs/security/data-privacy.md)
 
 ## Observabilidade
 

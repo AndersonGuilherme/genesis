@@ -12,7 +12,7 @@
 
 ## Contexto e objetivo
 
-Toda decisão grande no boilerplate fica registrada como **premissa** em [`docs/research/assumptions.md`](../research/assumptions.md), com nível de confiança (1–5) e impacto (baixo/médio/alto/fatal).
+Toda decisão grande no boilerplate fica registrada como **premissa** em [`docs/research/assumptions.md`](../../../docs/research/assumptions.md), com nível de confiança (1–5) e impacto (baixo/médio/alto/fatal).
 
 Quando uma premissa tem **confiança 1–2 + impacto alto ou fatal**, ela é um risco existencial. Construir baseado nela é apostar a casa.
 
@@ -49,8 +49,8 @@ O que `validate-idea` **não faz**:
 
 ## Pré-condições
 
-- [ ] [`docs/research/assumptions.md`](../research/assumptions.md) existe e tem pelo menos 1 premissa registrada.
-- [ ] [`docs/product/problem-statement.md`](../product/problem-statement.md) e [`target-users.md`](../product/target-users.md) preenchidos (para contexto).
+- [ ] [`docs/research/assumptions.md`](../../../docs/research/assumptions.md) existe e tem pelo menos 1 premissa registrada.
+- [ ] [`docs/product/problem-statement.md`](../../../docs/product/problem-statement.md) e [`target-users.md`](../../../docs/product/target-users.md) preenchidos (para contexto).
 
 ## O passo a passo
 
@@ -119,7 +119,7 @@ Cada experimento tem:
 | Custo estimado | R$ + horas |
 | Status | planejado / rodando / concluído |
 
-A IA escreve em [`docs/research/validation-plan.md`](../research/validation-plan.md).
+A IA escreve em [`docs/research/validation-plan.md`](../../../docs/research/validation-plan.md).
 
 ### 5. Execute o experimento (fora do chat)
 
@@ -142,7 +142,7 @@ A IA atualiza:
 
 **Premissa confirmada (sucesso):**
 - Continue para próxima fase.
-- Use o dado em [`mvp-scope.md`](../product/mvp-scope.md) — agora baseado em evidência.
+- Use o dado em [`mvp-scope.md`](../../../docs/product/mvp-scope.md) — agora baseado em evidência.
 
 **Premissa refutada (falha):**
 - A IA ajuda a decidir entre:
@@ -204,10 +204,10 @@ Adicione nota: "EXP-0001 concluído — premissa A-0001 confirmada/refutada. Dec
 
 | Arquivo | O que entra | Fonte |
 |---------|-------------|-------|
-| [`assumptions.md`](../research/assumptions.md) | Confiança atualizada após resultado. | A IA. |
-| [`validation-plan.md`](../research/validation-plan.md) | Experimento planejado + resultado. | A IA. |
-| [`idea-validation.md`](../validation/idea-validation.md) | Atualização do checklist global. | A IA. |
-| [`user-interviews.md`](../validation/user-interviews.md) | Se método foi entrevista, registros aqui. | Você (resumindo cada). |
+| [`assumptions.md`](../../../docs/research/assumptions.md) | Confiança atualizada após resultado. | A IA. |
+| [`validation-plan.md`](../../../docs/research/validation-plan.md) | Experimento planejado + resultado. | A IA. |
+| [`idea-validation.md`](../../../docs/validation/idea-validation.md) | Atualização do checklist global. | A IA. |
+| [`user-interviews.md`](../../../docs/validation/user-interviews.md) | Se método foi entrevista, registros aqui. | Você (resumindo cada). |
 | ADR | Se decisão de pivot/manter veio do resultado. | Via [`create-adr`](11-create-adr.md). |
 
 ## Critérios de "terminei essa skill" (por premissa)
@@ -327,13 +327,13 @@ Se decisão de pivot foi tomada:
 
 ## Referências cruzadas
 
-- [`.claude/skills/validate-idea/SKILL.md`](../../.claude/skills/validate-idea/SKILL.md) — arquivo consumido pela IA.
-- [`tests/skills/validate-idea.md`](../../tests/skills/validate-idea.md) — checks canônicos.
+- [`.claude/skills/validate-idea/SKILL.md`](../../../.claude/skills/validate-idea/SKILL.md) — arquivo consumido pela IA.
+- [`.genesis/tests/skills/validate-idea.md`](../../tests/skills/validate-idea.md) — checks canônicos.
 - Rules relevantes:
-  - [`documentation-first`](../../.claude/rules/documentation-first.md)
-  - [`explain-tradeoffs`](../../.claude/rules/explain-tradeoffs.md)
+  - [`documentation-first`](../../../.claude/rules/documentation-first.md)
+  - [`explain-tradeoffs`](../../../.claude/rules/explain-tradeoffs.md)
 - Agents relevantes:
-  - [`ux-researcher`](../../.claude/agents/ux-researcher.md) — para entrevistas.
-  - [`business-mentor`](../../.claude/agents/business-mentor.md) — para validar hipóteses de monetização.
+  - [`ux-researcher`](../../../.claude/agents/ux-researcher.md) — para entrevistas.
+  - [`business-mentor`](../../../.claude/agents/business-mentor.md) — para validar hipóteses de monetização.
 - Templates relevantes:
   - [`adr-template.md`](../../templates/adr-template.md) — para registrar decisão consequente.

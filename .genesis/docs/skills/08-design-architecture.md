@@ -49,10 +49,10 @@ O que `design-architecture` **não faz**:
 
 ## Pré-condições
 
-- [ ] [`technology-decision.md`](../architecture/technology-decision.md) preenchido.
+- [ ] [`technology-decision.md`](../../../docs/architecture/technology-decision.md) preenchido.
 - [ ] ADR-0001 (stack principal) existe em `docs/adr/`.
-- [ ] [`docs/modules/`](../modules/) com lista de módulos do MVP.
-- [ ] [`mvp-scope.md`](../product/mvp-scope.md) consolidado.
+- [ ] [`docs/modules/`](../../../docs/modules/) com lista de módulos do MVP.
+- [ ] [`mvp-scope.md`](../../../docs/product/mvp-scope.md) consolidado.
 - [ ] (Recomendado) [`05-map-users.md`](05-map-users.md) já invocado para definir papéis.
 
 ## O passo a passo
@@ -84,7 +84,7 @@ flowchart LR
   Gateway -.webhook.-> Sys
 ```
 
-A IA escreve em [`architecture-overview.md`](../architecture/architecture-overview.md) e [`system-context.md`](../architecture/system-context.md).
+A IA escreve em [`architecture-overview.md`](../../../docs/architecture/architecture-overview.md) e [`system-context.md`](../../../docs/architecture/system-context.md).
 
 ### 3. C4 Nível 2 — Containers
 
@@ -108,7 +108,7 @@ Escolha entre 3 modelos:
 - **Bridge** (schema por tenant) — quando isolamento aumenta.
 - **Silo** (banco por tenant) — apenas enterprise/regulação.
 
-A IA escreve a decisão em [`data-strategy.md`](../architecture/data-strategy.md). Se a escolha não for pool, **gere ADR explicando**.
+A IA escreve a decisão em [`data-strategy.md`](../../../docs/architecture/data-strategy.md). Se a escolha não for pool, **gere ADR explicando**.
 
 ### 5. Defina estratégia de eventos
 
@@ -139,16 +139,16 @@ Para cada serviço externo (do `integration-map.md` esboçado em `choose-stack`)
 - Custos estimados.
 - Política de webhook (signing, idempotência).
 
-A IA refina [`integration-map.md`](../architecture/integration-map.md) e sugere criar `docs/specs/integrations/<servico>.md` para os críticos usando o `integration-spec-template.md`.
+A IA refina [`integration-map.md`](../../../docs/architecture/integration-map.md) e sugere criar `docs/specs/integrations/<servico>.md` para os críticos usando o `integration-spec-template.md`.
 
 ### 8. Defina segurança
 
 A IA conduz preenchimento de:
 
-- [`security-requirements.md`](../security/security-requirements.md) — checklist mínimo por camada (aplicação, auth, dados, infra, pipeline, monitoramento, pagamento, LGPD).
-- [`auth-strategy.md`](../security/auth-strategy.md) — algoritmo de hash, MFA, sessões, tokens.
-- [`data-privacy.md`](../security/data-privacy.md) — inventário de PII, bases legais LGPD, direitos do titular.
-- [`threat-model.md`](../security/threat-model.md) — STRIDE simplificado, top 10 ameaças priorizadas.
+- [`security-requirements.md`](../../../docs/security/security-requirements.md) — checklist mínimo por camada (aplicação, auth, dados, infra, pipeline, monitoramento, pagamento, LGPD).
+- [`auth-strategy.md`](../../../docs/security/auth-strategy.md) — algoritmo de hash, MFA, sessões, tokens.
+- [`data-privacy.md`](../../../docs/security/data-privacy.md) — inventário de PII, bases legais LGPD, direitos do titular.
+- [`threat-model.md`](../../../docs/security/threat-model.md) — STRIDE simplificado, top 10 ameaças priorizadas.
 
 Esta etapa é longa — 30–45 min — mas crítica. **Não pule**.
 
@@ -156,20 +156,20 @@ Esta etapa é longa — 30–45 min — mas crítica. **Não pule**.
 
 A IA conduz:
 
-- [`monitoring.md`](../operations/monitoring.md) — RED por serviço, USE para infra, SLOs.
-- [`logging.md`](../operations/logging.md) — formato JSON, níveis, campos obrigatórios, sanitização de PII, retenção.
-- [`incident-response.md`](../operations/incident-response.md) — severidades, papéis, runbook básico, postmortem.
-- [`observability-strategy.md`](../architecture/observability-strategy.md) — pilares (logs/métricas/traces), ferramentas, cardinalidade.
+- [`monitoring.md`](../../../docs/operations/monitoring.md) — RED por serviço, USE para infra, SLOs.
+- [`logging.md`](../../../docs/operations/logging.md) — formato JSON, níveis, campos obrigatórios, sanitização de PII, retenção.
+- [`incident-response.md`](../../../docs/operations/incident-response.md) — severidades, papéis, runbook básico, postmortem.
+- [`observability-strategy.md`](../../../docs/architecture/observability-strategy.md) — pilares (logs/métricas/traces), ferramentas, cardinalidade.
 
 ### 10. Defina deploy e ambientes
 
-- [`deployment-strategy.md`](../deployment/deployment-strategy.md) — rolling/blue-green/canary, feature flags, migrações 2-fases.
-- [`environments.md`](../deployment/environments.md) — local/dev/staging/produção, isolamento, segredos.
-- [`ci-cd.md`](../deployment/ci-cd.md) — pipeline (lint → tipos → testes → segurança → build → deploy → smoke), DORA metrics.
+- [`deployment-strategy.md`](../../../docs/deployment/deployment-strategy.md) — rolling/blue-green/canary, feature flags, migrações 2-fases.
+- [`environments.md`](../../../docs/deployment/environments.md) — local/dev/staging/produção, isolamento, segredos.
+- [`ci-cd.md`](../../../docs/deployment/ci-cd.md) — pipeline (lint → tipos → testes → segurança → build → deploy → smoke), DORA metrics.
 
 ### 11. Defina escalabilidade
 
-[`scalability-strategy.md`](../architecture/scalability-strategy.md):
+[`scalability-strategy.md`](../../../docs/architecture/scalability-strategy.md):
 
 - Capacidade alvo por horizonte (lançamento, 6m, 12m, 24m).
 - Gargalos previstos por horizonte.
@@ -237,22 +237,22 @@ Por que importa: LGPD afeta logs, retenção, exportação, exclusão.
 
 | Arquivo | O que entra | Fonte |
 |---------|-------------|-------|
-| [`architecture-overview.md`](../architecture/architecture-overview.md) | C4-lite níveis 1-3, padrões adotados/evitados, ADRs estruturais. | A IA + você. |
-| [`system-context.md`](../architecture/system-context.md) | Atores, sistemas externos, fluxos cross-domínio. | A IA. |
-| [`integration-map.md`](../architecture/integration-map.md) | Tabela mestra de integrações externas. | A IA. |
-| [`data-strategy.md`](../architecture/data-strategy.md) | Multi-tenancy, retenção, backups, migrações. | A IA. |
-| [`scalability-strategy.md`](../architecture/scalability-strategy.md) | Capacidade por horizonte, gargalos, SLOs. | A IA. |
-| [`observability-strategy.md`](../architecture/observability-strategy.md) | Pilares + ferramentas + cardinalidade. | A IA. |
-| [`security-requirements.md`](../security/security-requirements.md) | Checklist por camada. | A IA. |
-| [`auth-strategy.md`](../security/auth-strategy.md) | Hash, MFA, sessões, tokens. | A IA. |
-| [`data-privacy.md`](../security/data-privacy.md) | Inventário PII, bases legais, direitos do titular. | A IA. |
-| [`threat-model.md`](../security/threat-model.md) | STRIDE simplificado, top 10 ameaças. | A IA. |
-| [`deployment-strategy.md`](../deployment/deployment-strategy.md) | Rolling/canary, feature flags, rollback. | A IA. |
-| [`environments.md`](../deployment/environments.md) | dev/staging/prod, segredos. | A IA. |
-| [`ci-cd.md`](../deployment/ci-cd.md) | Pipeline, gates, DORA. | A IA. |
-| [`monitoring.md`](../operations/monitoring.md) | RED/USE, dashboards, alertas. | A IA. |
-| [`logging.md`](../operations/logging.md) | Formato, níveis, sanitização. | A IA. |
-| [`incident-response.md`](../operations/incident-response.md) | Severidades, runbook, postmortem. | A IA. |
+| [`architecture-overview.md`](../../../docs/architecture/architecture-overview.md) | C4-lite níveis 1-3, padrões adotados/evitados, ADRs estruturais. | A IA + você. |
+| [`system-context.md`](../../../docs/architecture/system-context.md) | Atores, sistemas externos, fluxos cross-domínio. | A IA. |
+| [`integration-map.md`](../../../docs/architecture/integration-map.md) | Tabela mestra de integrações externas. | A IA. |
+| [`data-strategy.md`](../../../docs/architecture/data-strategy.md) | Multi-tenancy, retenção, backups, migrações. | A IA. |
+| [`scalability-strategy.md`](../../../docs/architecture/scalability-strategy.md) | Capacidade por horizonte, gargalos, SLOs. | A IA. |
+| [`observability-strategy.md`](../../../docs/architecture/observability-strategy.md) | Pilares + ferramentas + cardinalidade. | A IA. |
+| [`security-requirements.md`](../../../docs/security/security-requirements.md) | Checklist por camada. | A IA. |
+| [`auth-strategy.md`](../../../docs/security/auth-strategy.md) | Hash, MFA, sessões, tokens. | A IA. |
+| [`data-privacy.md`](../../../docs/security/data-privacy.md) | Inventário PII, bases legais, direitos do titular. | A IA. |
+| [`threat-model.md`](../../../docs/security/threat-model.md) | STRIDE simplificado, top 10 ameaças. | A IA. |
+| [`deployment-strategy.md`](../../../docs/deployment/deployment-strategy.md) | Rolling/canary, feature flags, rollback. | A IA. |
+| [`environments.md`](../../../docs/deployment/environments.md) | dev/staging/prod, segredos. | A IA. |
+| [`ci-cd.md`](../../../docs/deployment/ci-cd.md) | Pipeline, gates, DORA. | A IA. |
+| [`monitoring.md`](../../../docs/operations/monitoring.md) | RED/USE, dashboards, alertas. | A IA. |
+| [`logging.md`](../../../docs/operations/logging.md) | Formato, níveis, sanitização. | A IA. |
+| [`incident-response.md`](../../../docs/operations/incident-response.md) | Severidades, runbook, postmortem. | A IA. |
 | ADRs (mín. 3) | Banco, padrão arquitetural, auth, multi-tenancy. | Via [`create-adr`](11-create-adr.md). |
 
 ## Critérios de "terminei essa skill"
@@ -266,7 +266,7 @@ Por que importa: LGPD afeta logs, retenção, exportação, exclusão.
 - [ ] Observabilidade definida (logs, métricas, traces, alertas).
 - [ ] Deploy e ambientes definidos.
 - [ ] ≥ 3 ADRs estruturais criados.
-- [ ] [`PROJECT_STATE.md`](../PROJECT_STATE.md) mostra Fase 7 ✅.
+- [ ] [`PROJECT_STATE.md`](../../../docs/PROJECT_STATE.md) mostra Fase 7 ✅.
 
 ## Anti-padrões — sinais de que algo está errado
 
@@ -422,16 +422,16 @@ Crie tarefa no roadmap: "testar restore mensal". Game day quando time tiver matu
 
 ## Referências cruzadas
 
-- [`.claude/skills/design-architecture/SKILL.md`](../../.claude/skills/design-architecture/SKILL.md) — arquivo consumido pela IA.
-- [`tests/skills/design-architecture.md`](../../tests/skills/design-architecture.md) — checks canônicos.
+- [`.claude/skills/design-architecture/SKILL.md`](../../../.claude/skills/design-architecture/SKILL.md) — arquivo consumido pela IA.
+- [`.genesis/tests/skills/design-architecture.md`](../../tests/skills/design-architecture.md) — checks canônicos.
 - Rules relevantes:
-  - [`security-by-design`](../../.claude/rules/security-by-design.md)
-  - [`avoid-overengineering`](../../.claude/rules/avoid-overengineering.md)
-  - [`documentation-first`](../../.claude/rules/documentation-first.md)
+  - [`security-by-design`](../../../.claude/rules/security-by-design.md)
+  - [`avoid-overengineering`](../../../.claude/rules/avoid-overengineering.md)
+  - [`documentation-first`](../../../.claude/rules/documentation-first.md)
 - Agents relevantes:
-  - [`software-architect`](../../.claude/agents/software-architect.md) — revisão geral.
-  - [`security-reviewer`](../../.claude/agents/security-reviewer.md) — para auth/PII/LGPD.
-  - [`scalability-reviewer`](../../.claude/agents/scalability-reviewer.md) — para SLO/cache/fila.
+  - [`software-architect`](../../../.claude/agents/software-architect.md) — revisão geral.
+  - [`security-reviewer`](../../../.claude/agents/security-reviewer.md) — para auth/PII/LGPD.
+  - [`scalability-reviewer`](../../../.claude/agents/scalability-reviewer.md) — para SLO/cache/fila.
 - Templates relevantes:
   - [`adr-template.md`](../../templates/adr-template.md) — para ADRs estruturais.
   - [`integration-spec-template.md`](../../templates/integration-spec-template.md) — para detalhar cada integração crítica.

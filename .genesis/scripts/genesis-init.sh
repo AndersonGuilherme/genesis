@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# scripts/genesis-init.sh
+# .genesis/scripts/genesis-init.sh
 #
 # Bootstrap de um novo projeto a partir do project-genesis-boilerplate.
 #
 # Uso:
-#   bash scripts/genesis-init.sh <nome-do-projeto> [destino]
+#   bash .genesis/scripts/genesis-init.sh <nome-do-projeto> [destino]
 #
 # Argumentos:
 #   nome-do-projeto   nome do diretório / projeto novo (obrigatório, kebab-case)
@@ -21,7 +21,7 @@
 #
 # Variáveis de ambiente:
 #   BOILERPLATE_REPO   URL do GitHub (default: https://github.com/AndersonGuilherme/genesis.git)
-#   GENESIS_KEEP_EXAMPLES   se "1", mantém examples/ no projeto novo
+#   GENESIS_KEEP_EXAMPLES   se "1", mantém .genesis/examples/ no projeto novo
 
 set -euo pipefail
 
@@ -41,8 +41,8 @@ ok()   { echo "  ${GREEN}✓${RESET} $*"; }
 # --- argumentos ---
 if [ $# -lt 1 ]; then
   cat >&2 <<EOF
-Uso: bash scripts/genesis-init.sh <nome-do-projeto> [destino]
-Exemplo: bash scripts/genesis-init.sh meu-projeto ./meu-projeto
+Uso: bash .genesis/scripts/genesis-init.sh <nome-do-projeto> [destino]
+Exemplo: bash .genesis/scripts/genesis-init.sh meu-projeto ./meu-projeto
 EOF
   exit 1
 fi
@@ -101,8 +101,8 @@ cd "$DEST"
 
 # --- limpeza opcional ---
 if [ "$KEEP_EXAMPLES" != "1" ]; then
-  rm -rf examples
-  ok "examples/ removido (GENESIS_KEEP_EXAMPLES=1 mantém)"
+  rm -rf .genesis/examples
+  ok ".genesis/examples/ removido (GENESIS_KEEP_EXAMPLES=1 mantém)"
 
   # Remover a seção "## Exemplo: o caso `tchr`" do README pra evitar link quebrado.
   if [ -f README.md ] && grep -q '^## Exemplo: o caso' README.md; then
@@ -163,7 +163,7 @@ Próximos passos:
   ${BOLD}4.${RESET} Deixe a mentoria conduzir.
 
 Para checar prontidão a qualquer momento:
-  bash scripts/check-readiness.sh
+  bash .genesis/scripts/check-readiness.sh
 
 Para remover o gate de hooks temporariamente:
   export GENESIS_HOOKS_DISABLE=1

@@ -48,9 +48,9 @@ O que `create-implementation-plan` **não faz**:
 
 ## Pré-condições
 
-- [ ] [`docs/specs/<modulo>/`](../specs/) completo (overview, data-model, api, events, business-rules, acceptance).
-- [ ] [`docs/testing/testing-strategy.md`](../testing/testing-strategy.md) definida (sabe que ferramenta de teste usar).
-- [ ] [`docs/architecture/architecture-overview.md`](../architecture/architecture-overview.md) preenchido (sabe padrões adotados).
+- [ ] [`docs/specs/<modulo>/`](../../../docs/specs/) completo (overview, data-model, api, events, business-rules, acceptance).
+- [ ] [`docs/testing/testing-strategy.md`](../../../docs/testing/testing-strategy.md) definida (sabe que ferramenta de teste usar).
+- [ ] [`docs/architecture/architecture-overview.md`](../../../docs/architecture/architecture-overview.md) preenchido (sabe padrões adotados).
 
 ## O passo a passo
 
@@ -211,7 +211,7 @@ Por que importa: feature creep — está fazendo algo que ninguém pediu.
 | Arquivo | O que entra | Fonte |
 |---------|-------------|-------|
 | `docs/specs/<modulo>/implementation-plan.md` | Plano completo com tarefas, esforços, dependências, PRs, riscos. | Você (mentora conduz). |
-| [`PROJECT_STATE.md`](../PROJECT_STATE.md) | Módulo marcado com plano pronto. | A IA. |
+| [`PROJECT_STATE.md`](../../../docs/PROJECT_STATE.md) | Módulo marcado com plano pronto. | A IA. |
 
 ## Critérios de "terminei essa skill"
 
@@ -398,14 +398,14 @@ ou (se ainda há módulos sem spec):
 
 ## Referências cruzadas
 
-- [`.claude/skills/create-implementation-plan/SKILL.md`](../../.claude/skills/create-implementation-plan/SKILL.md) — arquivo consumido pela IA.
-- [`tests/skills/create-implementation-plan.md`](../../tests/skills/create-implementation-plan.md) — checks canônicos.
+- [`.claude/skills/create-implementation-plan/SKILL.md`](../../../.claude/skills/create-implementation-plan/SKILL.md) — arquivo consumido pela IA.
+- [`.genesis/tests/skills/create-implementation-plan.md`](../../tests/skills/create-implementation-plan.md) — checks canônicos.
 - Rules relevantes:
-  - [`testing-strategy-required`](../../.claude/rules/testing-strategy-required.md)
-  - [`no-code-before-spec`](../../.claude/rules/no-code-before-spec.md)
-  - [`avoid-overengineering`](../../.claude/rules/avoid-overengineering.md)
+  - [`testing-strategy-required`](../../../.claude/rules/testing-strategy-required.md)
+  - [`no-code-before-spec`](../../../.claude/rules/no-code-before-spec.md)
+  - [`avoid-overengineering`](../../../.claude/rules/avoid-overengineering.md)
 - Agents relevantes:
-  - [`implementation-planner`](../../.claude/agents/implementation-planner.md) — para revisar decomposição.
-  - [`software-architect`](../../.claude/agents/software-architect.md) — para checar acoplamentos cruzados.
+  - [`implementation-planner`](../../../.claude/agents/implementation-planner.md) — para revisar decomposição.
+  - [`software-architect`](../../../.claude/agents/software-architect.md) — para checar acoplamentos cruzados.
 - Templates relevantes:
   - [`user-story-template.md`](../../templates/user-story-template.md) — para histórias dentro de tarefas L.

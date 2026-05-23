@@ -43,11 +43,11 @@ O que `define-product` **não faz**:
 
 ## Pré-condições
 
-- [ ] [`product-vision.md`](../product/product-vision.md) preenchido (visão e north star).
-- [ ] [`problem-statement.md`](../product/problem-statement.md) com problema e quem sofre.
-- [ ] [`target-users.md`](../product/target-users.md) com persona primária clara.
-- [ ] [`value-proposition.md`](../product/value-proposition.md) preenchido.
-- [ ] [`business-model.md`](../business/business-model.md) ou [`monetization.md`](../business/monetization.md) com pelo menos uma fonte de receita declarada.
+- [ ] [`product-vision.md`](../../../docs/product/product-vision.md) preenchido (visão e north star).
+- [ ] [`problem-statement.md`](../../../docs/product/problem-statement.md) com problema e quem sofre.
+- [ ] [`target-users.md`](../../../docs/product/target-users.md) com persona primária clara.
+- [ ] [`value-proposition.md`](../../../docs/product/value-proposition.md) preenchido.
+- [ ] [`business-model.md`](../../../docs/business/business-model.md) ou [`monetization.md`](../../../docs/business/monetization.md) com pelo menos uma fonte de receita declarada.
 
 Se algum item está vazio, **volte e complete antes**. Definir MVP sem monetização clara leva a feature creep.
 
@@ -76,7 +76,7 @@ A IA vai perguntar:
 - **Momento de verdade** — o ponto em que o usuário decide se ficou impressionado ou frustrado.
 - **Métricas** observáveis.
 
-A IA escreve em [`docs/product/user-journeys.md`](../product/user-journeys.md).
+A IA escreve em [`docs/product/user-journeys.md`](../../../docs/product/user-journeys.md).
 
 **Regra:** se você listar mais de 3 jornadas no MVP, a IA vai discordar. Empurre para 2.
 
@@ -123,11 +123,11 @@ Now (4–8 semanas), Next (3–6 meses), Later (6+ meses). Sem datas fixas. Para
 - Que hipótese ela valida.
 - Critério de sucesso por iniciativa.
 
-A IA escreve em [`docs/product/roadmap.md`](../product/roadmap.md).
+A IA escreve em [`docs/product/roadmap.md`](../../../docs/product/roadmap.md).
 
 ### 8. Identifique premissas que precisam de validação
 
-Se durante a discussão surgiram afirmações fortes não validadas ("usuários querem essa feature"), registre em [`assumptions.md`](../research/assumptions.md). Premissas críticas com confiança 1-2 e impacto alto/fatal **devem** ir para [`validate-idea`](04-validate-idea.md) antes do desenvolvimento.
+Se durante a discussão surgiram afirmações fortes não validadas ("usuários querem essa feature"), registre em [`assumptions.md`](../../../docs/research/assumptions.md). Premissas críticas com confiança 1-2 e impacto alto/fatal **devem** ir para [`validate-idea`](04-validate-idea.md) antes do desenvolvimento.
 
 ### 9. Atualize `PROJECT_STATE.md` e sugira próxima skill
 
@@ -166,12 +166,12 @@ Por que importa: tentar atender 3 personas no MVP é cilada. Escolha 1, no máxi
 
 | Arquivo | O que entra | Fonte |
 |---------|-------------|-------|
-| [`user-journeys.md`](../product/user-journeys.md) | 2–3 jornadas críticas detalhadas + mapa global de fricções. | Você. |
-| [`mvp-scope.md`](../product/mvp-scope.md) | Hipótese a validar, escopo IN/OUT, anti-MVP, critérios sucesso/fracasso, tempo-caixa, métricas-instrumento. | Você. |
-| [`roadmap.md`](../product/roadmap.md) | Now/Next/Later, riscos por horizonte, não-roadmap. | Você. |
-| [`assumptions.md`](../research/assumptions.md) | Premissas novas surgidas. | A IA registra. |
-| [`open-questions.md`](../research/open-questions.md) | Perguntas que apareceram. | A IA registra. |
-| [`PROJECT_STATE.md`](../PROJECT_STATE.md) | Marca Fase 4 ✅. | A IA atualiza. |
+| [`user-journeys.md`](../../../docs/product/user-journeys.md) | 2–3 jornadas críticas detalhadas + mapa global de fricções. | Você. |
+| [`mvp-scope.md`](../../../docs/product/mvp-scope.md) | Hipótese a validar, escopo IN/OUT, anti-MVP, critérios sucesso/fracasso, tempo-caixa, métricas-instrumento. | Você. |
+| [`roadmap.md`](../../../docs/product/roadmap.md) | Now/Next/Later, riscos por horizonte, não-roadmap. | Você. |
+| [`assumptions.md`](../../../docs/research/assumptions.md) | Premissas novas surgidas. | A IA registra. |
+| [`open-questions.md`](../../../docs/research/open-questions.md) | Perguntas que apareceram. | A IA registra. |
+| [`PROJECT_STATE.md`](../../../docs/PROJECT_STATE.md) | Marca Fase 4 ✅. | A IA atualiza. |
 
 ## Critérios de "terminei essa skill"
 
@@ -288,13 +288,13 @@ ou (se premissas fatais ainda abertas):
 
 ## Referências cruzadas
 
-- [`.claude/skills/define-product/SKILL.md`](../../.claude/skills/define-product/SKILL.md) — arquivo consumido pela IA.
-- [`tests/skills/define-product.md`](../../tests/skills/define-product.md) — checks canônicos.
+- [`.claude/skills/define-product/SKILL.md`](../../../.claude/skills/define-product/SKILL.md) — arquivo consumido pela IA.
+- [`.genesis/tests/skills/define-product.md`](../../tests/skills/define-product.md) — checks canônicos.
 - Rules relevantes:
-  - [`business-before-technology`](../../.claude/rules/business-before-technology.md)
-  - [`avoid-overengineering`](../../.claude/rules/avoid-overengineering.md)
+  - [`business-before-technology`](../../../.claude/rules/business-before-technology.md)
+  - [`avoid-overengineering`](../../../.claude/rules/avoid-overengineering.md)
 - Agents relevantes:
-  - [`product-strategist`](../../.claude/agents/product-strategist.md) — pode revisar escopo e cortar.
-  - [`ux-researcher`](../../.claude/agents/ux-researcher.md) — para revisar jornadas.
+  - [`product-strategist`](../../../.claude/agents/product-strategist.md) — pode revisar escopo e cortar.
+  - [`ux-researcher`](../../../.claude/agents/ux-researcher.md) — para revisar jornadas.
 - Templates relevantes:
   - [`user-story-template.md`](../../templates/user-story-template.md) — para detalhar features do escopo IN.

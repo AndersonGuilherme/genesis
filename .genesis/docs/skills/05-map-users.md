@@ -21,7 +21,7 @@ A skill faz quatro coisas:
 3. **Constrói matriz papel × recurso** com permissões granulares.
 4. **Identifica conflitos** (ex.: aluno menor de idade requer consentimento de responsável).
 
-O resultado alimenta diretamente [`auth-strategy.md`](../security/auth-strategy.md) na Fase 7 e as permissões das specs de módulo na Fase 8.
+O resultado alimenta diretamente [`auth-strategy.md`](../../../docs/security/auth-strategy.md) na Fase 7 e as permissões das specs de módulo na Fase 8.
 
 O que `map-users` **não faz**:
 
@@ -46,9 +46,9 @@ O que `map-users` **não faz**:
 
 ## Pré-condições
 
-- [ ] [`target-users.md`](../product/target-users.md) com pelo menos persona primária definida.
-- [ ] [`user-journeys.md`](../product/user-journeys.md) com pelo menos 1 jornada crítica detalhada (ajuda a expor papéis).
-- [ ] [`mvp-scope.md`](../product/mvp-scope.md) — para focar nos papéis do MVP.
+- [ ] [`target-users.md`](../../../docs/product/target-users.md) com pelo menos persona primária definida.
+- [ ] [`user-journeys.md`](../../../docs/product/user-journeys.md) com pelo menos 1 jornada crítica detalhada (ajuda a expor papéis).
+- [ ] [`mvp-scope.md`](../../../docs/product/mvp-scope.md) — para focar nos papéis do MVP.
 
 ## O passo a passo
 
@@ -99,7 +99,7 @@ Para o tchr:
 - **Paralelo:** roles independentes (teacher e student não têm relação hierárquica).
 - **Compostos:** uma pessoa pode ter múltiplos papéis (dona = owner + teacher).
 
-Registre em [`auth-strategy.md`](../security/auth-strategy.md).
+Registre em [`auth-strategy.md`](../../../docs/security/auth-strategy.md).
 
 ### 5. Construa matriz papel × recurso
 
@@ -161,8 +161,8 @@ Decisão registrada em ADR se afetar arquitetura.
 
 A IA escreve em:
 
-- [`target-users.md`](../product/target-users.md) — refinamento do mapa de papéis.
-- [`auth-strategy.md`](../security/auth-strategy.md) — papéis base, matriz, hierarquia.
+- [`target-users.md`](../../../docs/product/target-users.md) — refinamento do mapa de papéis.
+- [`auth-strategy.md`](../../../docs/security/auth-strategy.md) — papéis base, matriz, hierarquia.
 - Em cada `docs/specs/<modulo>/business-rules.md` futuro — regras de permissão específicas do módulo.
 
 ### 11. Sugira próxima skill
@@ -199,9 +199,9 @@ Por que importa: define estados intermediários (pending, suspended, deleted).
 
 | Arquivo | O que entra | Fonte |
 |---------|-------------|-------|
-| [`target-users.md`](../product/target-users.md) | Refinamento do mapa de papéis. | A IA. |
-| [`auth-strategy.md`](../security/auth-strategy.md) | Lista de papéis, matriz papel × recurso, hierarquia, política de convite. | A IA. |
-| [`docs/specs/<modulo>/business-rules.md`](../specs/) (futuro) | Regras específicas de permissão por módulo. | A IA na Fase 8. |
+| [`target-users.md`](../../../docs/product/target-users.md) | Refinamento do mapa de papéis. | A IA. |
+| [`auth-strategy.md`](../../../docs/security/auth-strategy.md) | Lista de papéis, matriz papel × recurso, hierarquia, política de convite. | A IA. |
+| [`docs/specs/<modulo>/business-rules.md`](../../../docs/specs/) (futuro) | Regras específicas de permissão por módulo. | A IA na Fase 8. |
 | ADR | Se decisão grande surgir (ex.: "uma conta por usuário, múltiplos tenants" vs. "conta separada por tenant"). | Via [`create-adr`](11-create-adr.md). |
 
 ## Critérios de "terminei essa skill"
@@ -212,7 +212,7 @@ Por que importa: define estados intermediários (pending, suspended, deleted).
 - [ ] Conflitos importantes identificados (menor de idade, multi-tenant, etc.) com decisão.
 - [ ] Política de convite/onboarding por papel definida.
 - [ ] Guests/visitantes externos tratados (se aplicável).
-- [ ] [`auth-strategy.md`](../security/auth-strategy.md) atualizada.
+- [ ] [`auth-strategy.md`](../../../docs/security/auth-strategy.md) atualizada.
 
 ## Anti-padrões — sinais de que algo está errado
 
@@ -343,12 +343,12 @@ ou (caso esteja em fase de spec):
 
 ## Referências cruzadas
 
-- [`.claude/skills/map-users/SKILL.md`](../../.claude/skills/map-users/SKILL.md) — arquivo consumido pela IA.
-- [`tests/skills/map-users.md`](../../tests/skills/map-users.md) — checks canônicos.
+- [`.claude/skills/map-users/SKILL.md`](../../../.claude/skills/map-users/SKILL.md) — arquivo consumido pela IA.
+- [`.genesis/tests/skills/map-users.md`](../../tests/skills/map-users.md) — checks canônicos.
 - Rules relevantes:
-  - [`security-by-design`](../../.claude/rules/security-by-design.md)
+  - [`security-by-design`](../../../.claude/rules/security-by-design.md)
 - Agents relevantes:
-  - [`security-reviewer`](../../.claude/agents/security-reviewer.md) — para revisar matriz e LGPD de menores.
-  - [`ux-researcher`](../../.claude/agents/ux-researcher.md) — para refinar diferenças entre usuário/comprador/decisor.
+  - [`security-reviewer`](../../../.claude/agents/security-reviewer.md) — para revisar matriz e LGPD de menores.
+  - [`ux-researcher`](../../../.claude/agents/ux-researcher.md) — para refinar diferenças entre usuário/comprador/decisor.
 - Templates relevantes:
   - [`business-rule-template.md`](../../templates/business-rule-template.md) — para regras específicas de papel.

@@ -39,7 +39,7 @@ Curadora de documentação. Cuida de clareza, consistência, rastreabilidade e l
 
 ## Documentos que deve observar
 
-- Todos os arquivos em `docs/` e `templates/`
+- Todos os arquivos em `docs/` e `.genesis/templates/`
 - `README.md` e `CLAUDE.md`
 
 ## Critérios de qualidade

@@ -15,8 +15,8 @@
 O que estava acontecendo? Que forças pressionam para uma escolha? Que restrições existem?
 
 Inclua links relevantes:
-- [docs/product/problem-statement.md](../docs/product/problem-statement.md)
-- [docs/architecture/architecture-overview.md](../docs/architecture/architecture-overview.md)
+- [docs/product/problem-statement.md](../../docs/product/problem-statement.md)
+- [docs/architecture/architecture-overview.md](../../docs/architecture/architecture-overview.md)
 - ADRs anteriores impactados
 
 ## Decisão

@@ -4,7 +4,7 @@
 # Verifica se os documentos essenciais existem e foram realmente preenchidos.
 # Retorna 0 se tudo OK, 1 se algo está faltando.
 #
-# Uso: bash scripts/check-readiness.sh
+# Uso: bash .genesis/scripts/check-readiness.sh
 #
 # Filtros aplicados a cada documento essencial:
 #   - Arquivo precisa existir
@@ -14,7 +14,7 @@
 #     com muitos marcadores _(...) que devem ser substituídos por conteúdo real.
 #
 # Para customizar:
-#   MIN_BYTES=1000 MAX_PLACEHOLDERS=3 bash scripts/check-readiness.sh
+#   MIN_BYTES=1000 MAX_PLACEHOLDERS=3 bash .genesis/scripts/check-readiness.sh
 
 set -u
 
@@ -91,7 +91,7 @@ else
   echo "Próximos passos sugeridos:"
   echo "  1. Rodar a skill apropriada para a fase pendente (ex.: init-project, choose-stack)."
   echo "  2. Preencher os documentos listados acima com conteúdo real (não apenas template)."
-  echo "  3. Rodar este script novamente: bash scripts/check-readiness.sh"
+  echo "  3. Rodar este script novamente: bash .genesis/scripts/check-readiness.sh"
   echo
   exit 1
 fi

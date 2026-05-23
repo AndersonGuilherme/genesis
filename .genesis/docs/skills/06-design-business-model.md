@@ -47,9 +47,9 @@ O que `design-business-model` **não faz**:
 ## Pré-condições
 
 - [ ] [`discover-business`](02-discover-business.md) concluído.
-- [ ] [`target-users.md`](../product/target-users.md) com persona primária e capacidade de pagamento declarada.
-- [ ] [`value-proposition.md`](../product/value-proposition.md) preenchido.
-- [ ] [`monetization.md`](../business/monetization.md) com fontes de receita listadas como hipóteses.
+- [ ] [`target-users.md`](../../../docs/product/target-users.md) com persona primária e capacidade de pagamento declarada.
+- [ ] [`value-proposition.md`](../../../docs/product/value-proposition.md) preenchido.
+- [ ] [`monetization.md`](../../../docs/business/monetization.md) com fontes de receita listadas como hipóteses.
 
 ## O passo a passo
 
@@ -69,7 +69,7 @@ Para cada fonte de receita recorrente (geralmente SaaS):
 - **Limites técnicos** que distinguem planos (alunos máximos, recursos disponíveis, suporte).
 - **Diferenciais reais** entre planos (não apenas "tudo + 1 feature").
 
-A IA escreve em [`docs/business/pricing.md`](../business/pricing.md).
+A IA escreve em [`docs/business/pricing.md`](../../../docs/business/pricing.md).
 
 **Regra:** se você listar mais de 4 planos, a IA vai discordar.
 
@@ -109,7 +109,7 @@ A IA vai pedir estimativas (em faixas — não chute exato):
 - **Margem bruta** estimada.
 - **Payback** em meses.
 
-**Critério:** LTV/CAC ≥ 3 e payback ≤ 12 meses são sinal verde para escalar. Abaixo disso, sinalizar como risco crítico em [`risks.md`](../business/risks.md).
+**Critério:** LTV/CAC ≥ 3 e payback ≤ 12 meses são sinal verde para escalar. Abaixo disso, sinalizar como risco crítico em [`risks.md`](../../../docs/business/risks.md).
 
 ### 7. Motion principal de GTM
 
@@ -124,7 +124,7 @@ Escolha 1 motion primário (máximo 2):
 
 Justifique a escolha com base em ticket médio, ciclo de venda, persona e canal disponível.
 
-A IA escreve em [`docs/business/go-to-market.md`](../business/go-to-market.md).
+A IA escreve em [`docs/business/go-to-market.md`](../../../docs/business/go-to-market.md).
 
 ### 8. Funil e canais
 
@@ -150,7 +150,7 @@ Para os próximos 90 dias, liste 2–4 experimentos. Cada um com:
 - Métrica de sucesso (com número).
 - Tamanho amostra.
 
-A IA escreve em [`pricing.md`](../business/pricing.md) na seção "Testes de preço previstos".
+A IA escreve em [`pricing.md`](../../../docs/business/pricing.md) na seção "Testes de preço previstos".
 
 ### 11. Sugira ADR para "modelo principal de receita"
 
@@ -194,13 +194,13 @@ Por que importa: começar com 4 canais = falhar em 4. Foque em 1–2.
 
 | Arquivo | O que entra | Fonte |
 |---------|-------------|-------|
-| [`pricing.md`](../business/pricing.md) | Planos, preços, âncoras, comissão, descontos, política de reajuste, experimentos. | Você. |
-| [`monetization.md`](../business/monetization.md) | Refinamento das fontes de receita, métricas chave, custos diretos. | Você. |
-| [`business-model.md`](../business/business-model.md) | Atualizações em segmentos, canais, recursos-chave, parcerias, custos. | Você. |
-| [`go-to-market.md`](../business/go-to-market.md) | Motion escolhido, funil, canais, onboarding, métricas GTM. | Você. |
-| [`risks.md`](../business/risks.md) | Riscos novos identificados (concentração de cliente, dependência de canal, etc.). | A IA registra. |
+| [`pricing.md`](../../../docs/business/pricing.md) | Planos, preços, âncoras, comissão, descontos, política de reajuste, experimentos. | Você. |
+| [`monetization.md`](../../../docs/business/monetization.md) | Refinamento das fontes de receita, métricas chave, custos diretos. | Você. |
+| [`business-model.md`](../../../docs/business/business-model.md) | Atualizações em segmentos, canais, recursos-chave, parcerias, custos. | Você. |
+| [`go-to-market.md`](../../../docs/business/go-to-market.md) | Motion escolhido, funil, canais, onboarding, métricas GTM. | Você. |
+| [`risks.md`](../../../docs/business/risks.md) | Riscos novos identificados (concentração de cliente, dependência de canal, etc.). | A IA registra. |
 | ADR | "Modelo principal de receita". | Via [`create-adr`](11-create-adr.md). |
-| [`PROJECT_STATE.md`](../PROJECT_STATE.md) | Atualizado. | A IA. |
+| [`PROJECT_STATE.md`](../../../docs/PROJECT_STATE.md) | Atualizado. | A IA. |
 
 ## Critérios de "terminei essa skill"
 
@@ -326,13 +326,13 @@ Registre em `risks.md` como risco crítico com plano de mitigação. Não escale
 
 ## Referências cruzadas
 
-- [`.claude/skills/design-business-model/SKILL.md`](../../.claude/skills/design-business-model/SKILL.md) — arquivo consumido pela IA.
-- [`tests/skills/design-business-model.md`](../../tests/skills/design-business-model.md) — checks canônicos.
+- [`.claude/skills/design-business-model/SKILL.md`](../../../.claude/skills/design-business-model/SKILL.md) — arquivo consumido pela IA.
+- [`.genesis/tests/skills/design-business-model.md`](../../tests/skills/design-business-model.md) — checks canônicos.
 - Rules relevantes:
-  - [`explain-tradeoffs`](../../.claude/rules/explain-tradeoffs.md)
-  - [`business-before-technology`](../../.claude/rules/business-before-technology.md)
+  - [`explain-tradeoffs`](../../../.claude/rules/explain-tradeoffs.md)
+  - [`business-before-technology`](../../../.claude/rules/business-before-technology.md)
 - Agents relevantes:
-  - [`monetization-strategist`](../../.claude/agents/monetization-strategist.md) — para revisar planos e comissão.
-  - [`business-mentor`](../../.claude/agents/business-mentor.md) — para revisar unit economics.
+  - [`monetization-strategist`](../../../.claude/agents/monetization-strategist.md) — para revisar planos e comissão.
+  - [`business-mentor`](../../../.claude/agents/business-mentor.md) — para revisar unit economics.
 - Templates relevantes:
   - [`adr-template.md`](../../templates/adr-template.md) — para o ADR de "Modelo de receita".

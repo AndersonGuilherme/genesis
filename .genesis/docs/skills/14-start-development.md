@@ -18,7 +18,7 @@ Esta é a única skill que escreve **código de aplicação**. Todas as outras s
 
 A skill conduz um loop:
 
-1. **Confirma readiness** (`bash scripts/check-readiness.sh` retorna 0).
+1. **Confirma readiness** (`bash .genesis/scripts/check-readiness.sh` retorna 0).
 2. **Confirma qual módulo** será atacado (primeiro do MVP, geralmente `identity`).
 3. **Lê o implementation-plan** do módulo.
 4. **Para cada tarefa do plano:**
@@ -53,9 +53,9 @@ O que `start-development` **não faz**:
 ## Pré-condições
 
 - [ ] [`review-readiness`](13-review-readiness.md) → **APROVADO** (registrado em `PROJECT_STATE.md`).
-- [ ] [`docs/specs/<modulo>/`](../specs/) completo (overview, data-model, api, events, business-rules, acceptance).
-- [ ] [`docs/specs/<modulo>/implementation-plan.md`](../specs/) criado por [`create-implementation-plan`](12-create-implementation-plan.md).
-- [ ] Stack instalada localmente (conforme [`technology-decision.md`](../architecture/technology-decision.md)).
+- [ ] [`docs/specs/<modulo>/`](../../../docs/specs/) completo (overview, data-model, api, events, business-rules, acceptance).
+- [ ] [`docs/specs/<modulo>/implementation-plan.md`](../../../docs/specs/) criado por [`create-implementation-plan`](12-create-implementation-plan.md).
+- [ ] Stack instalada localmente (conforme [`technology-decision.md`](../../../docs/architecture/technology-decision.md)).
 - [ ] Repositório com testes funcionais configurados (ou tarefa T-00 do plano cobre setup).
 
 ## O passo a passo
@@ -71,7 +71,7 @@ A IA carrega `start-development` e imediatamente reconfirma readiness.
 A IA executa:
 
 ```bash
-bash scripts/check-readiness.sh
+bash .genesis/scripts/check-readiness.sh
 ```
 
 Se exit code ≠ 0, **aborta**. Volta para [`review-readiness`](13-review-readiness.md).
@@ -373,7 +373,7 @@ A IA:
 
 ### Hook `prevent-code-before-readiness.sh` está bloqueando
 
-Indica que readiness não foi aprovado oficialmente. Rode `bash scripts/check-readiness.sh` e veja exit code. Se for 1, volte na skill da fase pendente. Se quiser bypass deliberado (emergência): `export GENESIS_HOOKS_DISABLE=1`.
+Indica que readiness não foi aprovado oficialmente. Rode `bash .genesis/scripts/check-readiness.sh` e veja exit code. Se for 1, volte na skill da fase pendente. Se quiser bypass deliberado (emergência): `export GENESIS_HOOKS_DISABLE=1`.
 
 ### Tarefa T-XX está mais complexa que esperado
 
@@ -411,15 +411,15 @@ Não funciona — fica para nunca. Atualize na hora da mudança ou no commit, n�
 
 ## Referências cruzadas
 
-- [`.claude/skills/start-development/SKILL.md`](../../.claude/skills/start-development/SKILL.md) — arquivo consumido pela IA.
-- [`tests/skills/start-development.md`](../../tests/skills/start-development.md) — checks canônicos.
-- [`scripts/check-readiness.sh`](../../scripts/check-readiness.sh) — gate de pré-condição.
+- [`.claude/skills/start-development/SKILL.md`](../../../.claude/skills/start-development/SKILL.md) — arquivo consumido pela IA.
+- [`.genesis/tests/skills/start-development.md`](../../tests/skills/start-development.md) — checks canônicos.
+- [`.genesis/scripts/check-readiness.sh`](../../scripts/check-readiness.sh) — gate de pré-condição.
 - Rules relevantes:
-  - [`no-code-before-spec`](../../.claude/rules/no-code-before-spec.md)
-  - [`testing-strategy-required`](../../.claude/rules/testing-strategy-required.md)
-  - [`documentation-first`](../../.claude/rules/documentation-first.md)
+  - [`no-code-before-spec`](../../../.claude/rules/no-code-before-spec.md)
+  - [`testing-strategy-required`](../../../.claude/rules/testing-strategy-required.md)
+  - [`documentation-first`](../../../.claude/rules/documentation-first.md)
 - Agents relevantes:
-  - [`implementation-planner`](../../.claude/agents/implementation-planner.md) — para revisão de plano e decomposição.
-  - [`software-architect`](../../.claude/agents/software-architect.md) — para decisões emergentes.
+  - [`implementation-planner`](../../../.claude/agents/implementation-planner.md) — para revisão de plano e decomposição.
+  - [`software-architect`](../../../.claude/agents/software-architect.md) — para decisões emergentes.
 - Templates relevantes:
   - [`user-story-template.md`](../../templates/user-story-template.md) — para histórias específicas.

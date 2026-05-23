@@ -5,7 +5,7 @@
 #
 # Heurística: se o prompt do usuário contém intenção de iniciar implementação
 # (palavras como "implementar", "codar", "criar app", "criar backend", etc.)
-# e scripts/check-readiness.sh retorna ≠ 0, bloqueia com exit code 2
+# e .genesis/scripts/check-readiness.sh retorna ≠ 0, bloqueia com exit code 2
 # e mostra mensagem orientando o usuário a usar a skill review-readiness.
 #
 # Contrato com Claude Code:
@@ -26,12 +26,12 @@ input=$(cat 2>/dev/null || true)
 # Heurística simples: procurar palavras-chave no input
 if echo "$input" | grep -Eiq 'implement(ar|e|ação)|codar|começa(r)? a (codar|implementar)|criar (o |a |o )?(app|backend|frontend|api)|iniciar (código|desenvolvimento)|start (development|coding)'; then
   # Achou intenção de implementar — checar readiness
-  if [ -x scripts/check-readiness.sh ] || [ -f scripts/check-readiness.sh ]; then
-    if ! bash scripts/check-readiness.sh > /tmp/genesis-readiness.out 2>&1; then
+  if [ -x .genesis/scripts/check-readiness.sh ] || [ -f .genesis/scripts/check-readiness.sh ]; then
+    if ! bash .genesis/scripts/check-readiness.sh > /tmp/genesis-readiness.out 2>&1; then
       cat <<EOF
 [project-genesis-boilerplate] Pedido de implementação detectado, mas o readiness ainda não foi aprovado.
 
-Saída de scripts/check-readiness.sh:
+Saída de .genesis/scripts/check-readiness.sh:
 
 $(cat /tmp/genesis-readiness.out)
 

@@ -3,8 +3,8 @@
 #
 # Hook: PreToolUse, matcher Write|Edit
 #
-# Quando Claude tentar criar/editar arquivos fora de docs/, .claude/, templates/, scripts/, examples/,
-# verifica se scripts/check-readiness.sh passa. Se falhar, bloqueia.
+# Quando Claude tentar criar/editar arquivos fora de docs/, .claude/, .genesis/,
+# verifica se .genesis/scripts/check-readiness.sh passa. Se falhar, bloqueia.
 #
 # Útil em projetos-filho do boilerplate, para impedir que código de aplicação
 # seja criado antes da documentação mínima.
@@ -35,20 +35,20 @@ fi
 
 # Se o arquivo é dentro de pastas "permitidas mesmo sem readiness", passa
 case "$file_path" in
-  *docs/*|*\.claude/*|*templates/*|*tests/*|*scripts/*|*examples/*|*README.md|*CLAUDE.md|*\.gitignore|*\.editorconfig|*LICENSE|*LICENSE.md|*NOTICE|*COPYING|*VERSION|*CHANGELOG.md|*CONTRIBUTING.md|*CODE_OF_CONDUCT.md)
+  *docs/*|*\.claude/*|*\.genesis/*|*README.md|*CLAUDE.md|*\.gitignore|*\.editorconfig|*LICENSE|*LICENSE.md|*NOTICE|*COPYING|*CHANGELOG.md|*CONTRIBUTING.md|*CODE_OF_CONDUCT.md)
     exit 0
     ;;
 esac
 
 # Caso contrário, está tentando mexer em código de aplicação — checar readiness
-if [ -f scripts/check-readiness.sh ]; then
-  if ! bash scripts/check-readiness.sh > /tmp/genesis-readiness.out 2>&1; then
+if [ -f .genesis/scripts/check-readiness.sh ]; then
+  if ! bash .genesis/scripts/check-readiness.sh > /tmp/genesis-readiness.out 2>&1; then
     cat <<EOF
-[project-genesis-boilerplate] Tentativa de criar/editar arquivo de código fora de docs/, .claude/, templates/, scripts/ e examples/, mas readiness ainda não foi aprovado.
+[project-genesis-boilerplate] Tentativa de criar/editar arquivo de código fora de docs/, .claude/ e .genesis/, mas readiness ainda não foi aprovado.
 
 Arquivo bloqueado: $file_path
 
-Saída de scripts/check-readiness.sh:
+Saída de .genesis/scripts/check-readiness.sh:
 
 $(cat /tmp/genesis-readiness.out)
 

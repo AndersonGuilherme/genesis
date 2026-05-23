@@ -46,8 +46,8 @@ Termos consistentes usados em todo o `project-genesis-boilerplate`. Quando houve
 | Idempotência | Mesma operação repetida produz mesmo resultado. Obrigatória em cobrança e webhooks. |
 | Multi-tenancy | Suporte a múltiplos tenants. Modelo padrão sugerido: pool (1 banco, `tenant_id` em todas as queries). |
 | Spike | Exploração descartável em ≤ 2 semanas. Exceção registrada em rules. |
-| Readiness | Estado em que o projeto pode iniciar implementação. Verificável via `scripts/check-readiness.sh`. |
-| Dogfood | Usar o próprio boilerplate em um projeto real. Registrado em `tests/dogfood-tchr.md`. |
+| Readiness | Estado em que o projeto pode iniciar implementação. Verificável via `.genesis/scripts/check-readiness.sh`. |
+| Dogfood | Usar o próprio boilerplate em um projeto real. Registrado em `.genesis/tests/dogfood-tchr.md`. |
 
 ## Negócio
 

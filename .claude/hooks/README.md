@@ -7,12 +7,12 @@ Hooks de shell que reforçam as regras do boilerplate dentro do Claude Code. Ele
 ### `prevent-code-before-readiness.sh`
 
 - **Evento alvo:** `UserPromptSubmit`
-- **O que faz:** Se o prompt do usuário menciona "implementar", "codar", "criar app/backend/frontend", "iniciar código/desenvolvimento", roda `scripts/check-readiness.sh`. Se reprovar, bloqueia o prompt com exit code 2 e orienta o usuário a rodar a skill `review-readiness`.
+- **O que faz:** Se o prompt do usuário menciona "implementar", "codar", "criar app/backend/frontend", "iniciar código/desenvolvimento", roda `.genesis/scripts/check-readiness.sh`. Se reprovar, bloqueia o prompt com exit code 2 e orienta o usuário a rodar a skill `review-readiness`.
 
 ### `validate-docs-before-implementation.sh`
 
 - **Evento alvo:** `PreToolUse`, matcher `Write|Edit`
-- **O que faz:** Quando o Claude tenta criar/editar arquivo **fora** de `docs/`, `.claude/`, `templates/`, `scripts/` ou `examples/`, roda `scripts/check-readiness.sh`. Se reprovar, bloqueia com exit code 2.
+- **O que faz:** Quando o Claude tenta criar/editar arquivo **fora** de `docs/`, `.claude/` ou `.genesis/`, roda `.genesis/scripts/check-readiness.sh`. Se reprovar, bloqueia com exit code 2.
 
 ## Ligando os hooks no Claude Code
 

@@ -4,7 +4,7 @@
 
 ## Como registrar
 
-Cada integração deve ter spec própria em `docs/specs/integrations/<servico>.md` usando [../../templates/integration-spec-template.md](../../templates/integration-spec-template.md). Este arquivo é o **índice**.
+Cada integração deve ter spec própria em `docs/specs/integrations/<servico>.md` usando [../../.genesis/templates/integration-spec-template.md](../../.genesis/templates/integration-spec-template.md). Este arquivo é o **índice**.
 
 ## Tabela mestra
 

@@ -42,7 +42,7 @@ Exemplos:
 
 ## Como escrever
 
-Use [../../templates/adr-template.md](../../templates/adr-template.md). Mantenha curto: 1–2 páginas.
+Use [../../.genesis/templates/adr-template.md](../../.genesis/templates/adr-template.md). Mantenha curto: 1–2 páginas.
 
 ## Boas práticas
 

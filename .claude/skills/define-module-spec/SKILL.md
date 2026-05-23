@@ -20,7 +20,7 @@ Gerar uma spec executável para um módulo. Sem spec, módulo não é implementa
 - `docs/modules/<modulo>.md` (visão de alto nível)
 - `docs/architecture/architecture-overview.md`
 - `docs/security/auth-strategy.md`
-- Templates de [api](../../../templates/api-spec-template.md), [data](../../../templates/data-model-template.md), [business-rule](../../../templates/business-rule-template.md), [integration](../../../templates/integration-spec-template.md)
+- Templates de [api](../../../.genesis/templates/api-spec-template.md), [data](../../../.genesis/templates/data-model-template.md), [business-rule](../../../.genesis/templates/business-rule-template.md), [integration](../../../.genesis/templates/integration-spec-template.md)
 
 ## Processo passo a passo
 

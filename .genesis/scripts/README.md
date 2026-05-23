@@ -9,7 +9,7 @@ Verifica se os documentos essenciais existem e foram realmente preenchidos.
 ### Uso
 
 ```bash
-bash scripts/check-readiness.sh
+bash .genesis/scripts/check-readiness.sh
 ```
 
 ### Variáveis de ambiente
@@ -18,7 +18,7 @@ bash scripts/check-readiness.sh
 - `MAX_PLACEHOLDERS` — número máximo de marcadores `_(...)` permitidos por arquivo (default `5`). Templates do boilerplate vêm com muitos marcadores que precisam ser substituídos por conteúdo real; um arquivo com placeholders demais é tratado como "template não preenchido".
 
 ```bash
-MIN_BYTES=1000 MAX_PLACEHOLDERS=3 bash scripts/check-readiness.sh
+MIN_BYTES=1000 MAX_PLACEHOLDERS=3 bash .genesis/scripts/check-readiness.sh
 ```
 
 ### Documentos verificados

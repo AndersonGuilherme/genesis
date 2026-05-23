@@ -17,13 +17,13 @@ Iniciar o desenvolvimento **de fato** seguindo o plano de implementação do pri
 
 ## Entradas esperadas
 
-- `scripts/check-readiness.sh` retornando `0`
+- `.genesis/scripts/check-readiness.sh` retornando `0`
 - `docs/specs/<modulo>/implementation-plan.md` preparado
 - Stack instalada localmente (conforme `technology-decision.md`)
 
 ## Processo passo a passo
 
-1. **Reconfirmar readiness** chamando `bash scripts/check-readiness.sh` — abortar se != 0.
+1. **Reconfirmar readiness** chamando `bash .genesis/scripts/check-readiness.sh` — abortar se != 0.
 2. Confirmar com o usuário qual módulo será o primeiro.
 3. Ler `docs/specs/<modulo>/implementation-plan.md`.
 4. Para cada tarefa (T-01, T-02, ...):

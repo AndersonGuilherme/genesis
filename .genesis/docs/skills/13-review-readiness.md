@@ -21,7 +21,7 @@
 
 A skill faz três coisas:
 
-1. **Roda `scripts/check-readiness.sh`** (gate automatizado) e coleta saída.
+1. **Roda `.genesis/scripts/check-readiness.sh`** (gate automatizado) e coleta saída.
 2. **Verifica qualitativamente** cada item — não basta o arquivo existir, precisa ter conteúdo real.
 3. **Decide** entre **liberar** (você pode invocar `start-development`) e **bloquear** (com relatório do que falta + qual skill recuperar).
 
@@ -72,12 +72,12 @@ Se ainda falta algo, a skill vai te apontar para qual recuperar. Não é problem
 
 A IA carrega `review-readiness` e prepara para rodar o gate automatizado.
 
-### 2. Rodar `scripts/check-readiness.sh`
+### 2. Rodar `.genesis/scripts/check-readiness.sh`
 
 A IA executa:
 
 ```bash
-bash scripts/check-readiness.sh
+bash .genesis/scripts/check-readiness.sh
 ```
 
 E coleta:
@@ -115,14 +115,14 @@ O script é automático, mas presença ≠ qualidade. A IA verifica:
 
 ### 4. Verificar premissas críticas
 
-A IA lê [`docs/research/assumptions.md`](../research/assumptions.md):
+A IA lê [`docs/research/assumptions.md`](../../../docs/research/assumptions.md):
 
 - Alguma premissa com **confiança 1-2 + impacto alto/fatal** ainda aberta?
 - Se sim, **bloquear** e sugerir [`validate-idea`](04-validate-idea.md) antes.
 
 ### 5. Verificar perguntas em aberto críticas
 
-A IA lê [`docs/research/open-questions.md`](../research/open-questions.md):
+A IA lê [`docs/research/open-questions.md`](../../../docs/research/open-questions.md):
 
 - Há pergunta crítica sem responsável?
 - Há pergunta aberta > 30 dias sem ação?
@@ -141,7 +141,7 @@ Se **QUALQUER UM** falha → **BLOQUEADO**.
 ```markdown
 ## ✅ Readiness review: APROVADO
 
-- `scripts/check-readiness.sh` retornou 0.
+- `.genesis/scripts/check-readiness.sh` retornou 0.
 - Todos os documentos essenciais preenchidos com conteúdo real.
 - Nenhuma premissa fatal aberta.
 - Spec + implementation-plan do primeiro módulo (identity) prontos.
@@ -198,13 +198,13 @@ Por que importa: histórico do estado em cada checkpoint ajuda em retrospectiva.
 | Arquivo | O que entra | Fonte |
 |---------|-------------|-------|
 | `docs/validation/readiness-<data>.md` (opcional) | Relatório do gate. | A IA. |
-| [`PROJECT_STATE.md`](../PROJECT_STATE.md) | Marca status do gate + readiness em `scripts/check-readiness.sh`. | A IA. |
+| [`PROJECT_STATE.md`](../../../docs/PROJECT_STATE.md) | Marca status do gate + readiness em `.genesis/scripts/check-readiness.sh`. | A IA. |
 
 A skill **não escreve** em outros docs. Você volta nas skills certas para preenchê-los.
 
 ## Critérios de "terminei essa skill"
 
-- [ ] `scripts/check-readiness.sh` rodado.
+- [ ] `.genesis/scripts/check-readiness.sh` rodado.
 - [ ] Decisão clara: aprovado ou bloqueado.
 - [ ] Se aprovado: próxima skill (`start-development`) indicada.
 - [ ] Se bloqueado: lista de itens faltantes + skill para cada.
@@ -229,7 +229,7 @@ A skill **não escreve** em outros docs. Você volta nas skills certas para pree
 **Cenário 1: bloqueado**
 
 ```
-$ bash scripts/check-readiness.sh
+$ bash .genesis/scripts/check-readiness.sh
 Readiness check — project-genesis-boilerplate
 Limites: mínimo 800 bytes, máximo 5 placeholders _(...) por arquivo
 
@@ -270,7 +270,7 @@ Resolva os 3 docs + decida sobre A-0001 e rode `review-readiness` novamente.
 **Cenário 2: aprovado**
 
 ```
-$ bash scripts/check-readiness.sh
+$ bash .genesis/scripts/check-readiness.sh
 APROVADO — todos os 10 documentos essenciais preenchidos.
 ```
 
@@ -309,7 +309,7 @@ Spec completa **só do primeiro módulo a implementar** é necessária para libe
 
 ### `check-readiness.sh` está com filtros muito permissivos
 
-Aumente `MAX_PLACEHOLDERS` para 3 ou 2 via `MAX_PLACEHOLDERS=3 bash scripts/check-readiness.sh`.
+Aumente `MAX_PLACEHOLDERS` para 3 ou 2 via `MAX_PLACEHOLDERS=3 bash .genesis/scripts/check-readiness.sh`.
 
 ### Estou em projeto existente sem PROJECT_STATE.md atualizado
 
@@ -327,12 +327,12 @@ Se bloqueado:
 
 ## Referências cruzadas
 
-- [`.claude/skills/review-readiness/SKILL.md`](../../.claude/skills/review-readiness/SKILL.md) — arquivo consumido pela IA.
-- [`tests/skills/review-readiness.md`](../../tests/skills/review-readiness.md) — checks canônicos.
-- [`scripts/check-readiness.sh`](../../scripts/check-readiness.sh) — gate automatizado.
+- [`.claude/skills/review-readiness/SKILL.md`](../../../.claude/skills/review-readiness/SKILL.md) — arquivo consumido pela IA.
+- [`.genesis/tests/skills/review-readiness.md`](../../tests/skills/review-readiness.md) — checks canônicos.
+- [`.genesis/scripts/check-readiness.sh`](../../scripts/check-readiness.sh) — gate automatizado.
 - Rules relevantes:
-  - [`no-code-before-spec`](../../.claude/rules/no-code-before-spec.md)
-  - [`module-spec-required`](../../.claude/rules/module-spec-required.md)
-  - [`security-by-design`](../../.claude/rules/security-by-design.md)
+  - [`no-code-before-spec`](../../../.claude/rules/no-code-before-spec.md)
+  - [`module-spec-required`](../../../.claude/rules/module-spec-required.md)
+  - [`security-by-design`](../../../.claude/rules/security-by-design.md)
 - Templates relevantes:
   - [`readiness-checklist-template.md`](../../templates/readiness-checklist-template.md) — checklist completo para revisão manual.

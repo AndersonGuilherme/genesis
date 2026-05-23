@@ -11,7 +11,7 @@ Daqui a 6 meses, ninguém vai lembrar exatamente por que uma decisão foi tomada
 ## Como aplicar
 
 1. Identifique decisões "irreversíveis em tempo curto" (ver `docs/adr/README.md`).
-2. Use a skill `create-adr` ou copie `templates/adr-template.md`.
+2. Use a skill `create-adr` ou copie `.genesis/templates/adr-template.md`.
 3. Pelo menos 2 alternativas reais consideradas e justificadas como rejeitadas.
 4. Liste consequências negativas honestamente.
 5. Atualize o índice em `docs/adr/README.md`.

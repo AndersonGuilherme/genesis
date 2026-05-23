@@ -3,7 +3,7 @@
 | Campo | Valor |
 |-------|-------|
 | ID | US-NNNN |
-| Persona | _(referência a [target-users](../docs/product/target-users.md))_ |
+| Persona | _(referência a [target-users](../../docs/product/target-users.md))_ |
 | Módulo | _(slug do módulo)_ |
 | Prioridade | crítica / alta / média / baixa |
 | Status | rascunho / em-spec / em-desenvolvimento / pronto |
@@ -22,7 +22,7 @@ Exemplo:
 
 ## Contexto
 
-Por que essa história existe? Que problema do usuário ela resolve? Link para [problem-statement](../docs/product/problem-statement.md) e/ou [user-journeys](../docs/product/user-journeys.md).
+Por que essa história existe? Que problema do usuário ela resolve? Link para [problem-statement](../../docs/product/problem-statement.md) e/ou [user-journeys](../../docs/product/user-journeys.md).
 
 ## Critérios de aceite
 

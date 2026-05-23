@@ -49,10 +49,10 @@ O que `define-module-spec` **não faz**:
 
 ## Pré-condições
 
-- [ ] [`docs/modules/<modulo>.md`](../modules/) existe com visão alta nível do módulo.
+- [ ] [`docs/modules/<modulo>.md`](../../../docs/modules/) existe com visão alta nível do módulo.
 - [ ] [`design-architecture`](08-design-architecture.md) concluído.
-- [ ] [`auth-strategy.md`](../security/auth-strategy.md) preenchida (define permissões base).
-- [ ] [`integration-map.md`](../architecture/integration-map.md) lista integrações relevantes.
+- [ ] [`auth-strategy.md`](../../../docs/security/auth-strategy.md) preenchida (define permissões base).
+- [ ] [`integration-map.md`](../../../docs/architecture/integration-map.md) lista integrações relevantes.
 
 ## O passo a passo
 
@@ -189,7 +189,7 @@ Tabela enumerada:
 
 ### 11. Critérios de aceite
 
-A parte mais importante. **Cada critério vira teste automatizado.** Formato Given/When/Then padronizado (ver [`acceptance-criteria.md`](../testing/acceptance-criteria.md)).
+A parte mais importante. **Cada critério vira teste automatizado.** Formato Given/When/Then padronizado (ver [`acceptance-criteria.md`](../../../docs/testing/acceptance-criteria.md)).
 
 Exemplo:
 
@@ -275,8 +275,8 @@ Por que importa: sem critério, "pronto" vira opinião.
 | `docs/specs/integrations/<servico>.md` | Spec de integração externa específica. | Via [`integration-spec-template.md`](../../templates/integration-spec-template.md). |
 | Atualizações em `integration-map.md`, `data-privacy.md` | Quando módulo introduz nova integração ou novo PII. | A IA atualiza. |
 | ADRs | Decisões específicas do módulo. | Via [`create-adr`](11-create-adr.md). |
-| [`open-questions.md`](../research/open-questions.md) | Perguntas que apareceram durante a spec. | A IA. |
-| [`PROJECT_STATE.md`](../PROJECT_STATE.md) | Módulo marcado com spec pronta. | A IA. |
+| [`open-questions.md`](../../../docs/research/open-questions.md) | Perguntas que apareceram durante a spec. | A IA. |
+| [`PROJECT_STATE.md`](../../../docs/PROJECT_STATE.md) | Módulo marcado com spec pronta. | A IA. |
 
 ## Critérios de "terminei essa skill" (por módulo)
 
@@ -432,15 +432,15 @@ Depois (loop):
 
 ## Referências cruzadas
 
-- [`.claude/skills/define-module-spec/SKILL.md`](../../.claude/skills/define-module-spec/SKILL.md) — arquivo consumido pela IA.
-- [`tests/skills/define-module-spec.md`](../../tests/skills/define-module-spec.md) — checks canônicos.
+- [`.claude/skills/define-module-spec/SKILL.md`](../../../.claude/skills/define-module-spec/SKILL.md) — arquivo consumido pela IA.
+- [`.genesis/tests/skills/define-module-spec.md`](../../tests/skills/define-module-spec.md) — checks canônicos.
 - Rules relevantes:
-  - [`module-spec-required`](../../.claude/rules/module-spec-required.md)
-  - [`security-by-design`](../../.claude/rules/security-by-design.md)
-  - [`testing-strategy-required`](../../.claude/rules/testing-strategy-required.md)
+  - [`module-spec-required`](../../../.claude/rules/module-spec-required.md)
+  - [`security-by-design`](../../../.claude/rules/security-by-design.md)
+  - [`testing-strategy-required`](../../../.claude/rules/testing-strategy-required.md)
 - Agents relevantes:
-  - [`domain-modeler`](../../.claude/agents/domain-modeler.md) — para revisar entidades e regras.
-  - [`security-reviewer`](../../.claude/agents/security-reviewer.md) — para permissões e PII.
+  - [`domain-modeler`](../../../.claude/agents/domain-modeler.md) — para revisar entidades e regras.
+  - [`security-reviewer`](../../../.claude/agents/security-reviewer.md) — para permissões e PII.
 - Templates relevantes:
   - [`module-spec-template.md`](../../templates/module-spec-template.md)
   - [`data-model-template.md`](../../templates/data-model-template.md)

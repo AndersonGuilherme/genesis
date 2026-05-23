@@ -59,7 +59,7 @@ _(preencher após Fase 7 de arquitetura e Fase 8 de specs)_
 
 ## Spec por módulo
 
-Use [../../templates/module-spec-template.md](../../templates/module-spec-template.md). Coloque o resultado em `docs/specs/<nome-modulo>/`.
+Use [../../.genesis/templates/module-spec-template.md](../../.genesis/templates/module-spec-template.md). Coloque o resultado em `docs/specs/<nome-modulo>/`.
 
 ## Sinais de módulo bem-formado
 

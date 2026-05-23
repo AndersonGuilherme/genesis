@@ -44,8 +44,8 @@ O que `discover-business` **não faz**:
 ## Pré-condições
 
 - [ ] [`init-project`](01-init-project.md) concluído.
-- [ ] [`docs/product/product-vision.md`](../product/product-vision.md) preenchido.
-- [ ] [`docs/product/problem-statement.md`](../product/problem-statement.md) preenchido com pelo menos 1 evidência.
+- [ ] [`docs/product/product-vision.md`](../../../docs/product/product-vision.md) preenchido.
+- [ ] [`docs/product/problem-statement.md`](../../../docs/product/problem-statement.md) preenchido com pelo menos 1 evidência.
 - [ ] Você já fez pelo menos 3 conversas qualitativas com pessoas que sofrem do problema (mesmo que informais). Se não fez, **pause** e faça antes — essa skill perde valor sem material real para discutir.
 
 ## O passo a passo
@@ -74,9 +74,9 @@ A IA fará blocos de 3–5 perguntas. As perguntas-base:
 
 A IA registra as respostas em três arquivos:
 
-- [`docs/product/target-users.md`](../product/target-users.md) — persona primária, secundárias, anti-personas, mapa de papéis.
-- [`docs/business/market-analysis.md`](../business/market-analysis.md) — TAM/SAM/SOM, tendências, regulação.
-- [`docs/business/competitors.md`](../business/competitors.md) — matriz comparativa incluindo a inércia.
+- [`docs/product/target-users.md`](../../../docs/product/target-users.md) — persona primária, secundárias, anti-personas, mapa de papéis.
+- [`docs/business/market-analysis.md`](../../../docs/business/market-analysis.md) — TAM/SAM/SOM, tendências, regulação.
+- [`docs/business/competitors.md`](../../../docs/business/competitors.md) — matriz comparativa incluindo a inércia.
 
 **Atenção:** se você responder "não tem concorrente", a IA vai discordar. **Inércia** (não comprar nada, continuar na planilha + WhatsApp) é concorrente. Listar inércia força você a perguntar "o que faria a pessoa mudar?".
 
@@ -96,15 +96,15 @@ Após a Fase 2 fechar, a IA passa para Fase 3. Perguntas-base:
 
 Documentos:
 
-- [`docs/product/value-proposition.md`](../product/value-proposition.md) — VPC simplificado.
-- [`docs/business/business-model.md`](../business/business-model.md) — Business Model Canvas resumido.
-- [`docs/business/monetization.md`](../business/monetization.md) — fontes de receita inicial.
+- [`docs/product/value-proposition.md`](../../../docs/product/value-proposition.md) — VPC simplificado.
+- [`docs/business/business-model.md`](../../../docs/business/business-model.md) — Business Model Canvas resumido.
+- [`docs/business/monetization.md`](../../../docs/business/monetization.md) — fontes de receita inicial.
 
 ### 4. Registro de premissas e riscos
 
-A IA vai pegar afirmações que você fez ("vão pagar R$ 200/mês", "o canal Instagram traz N leads") e marcá-las como **premissas** em [`docs/research/assumptions.md`](../research/assumptions.md), com nível de confiança (1–5) e impacto (baixo/médio/alto/fatal).
+A IA vai pegar afirmações que você fez ("vão pagar R$ 200/mês", "o canal Instagram traz N leads") e marcá-las como **premissas** em [`docs/research/assumptions.md`](../../../docs/research/assumptions.md), com nível de confiança (1–5) e impacto (baixo/médio/alto/fatal).
 
-Vai também identificar **riscos de negócio** e registrar em [`docs/business/risks.md`](../business/risks.md).
+Vai também identificar **riscos de negócio** e registrar em [`docs/business/risks.md`](../../../docs/business/risks.md).
 
 Você deve revisar cada premissa: a confiança está honesta? Se há premissa com confiança 1-2 e impacto alto/fatal, **considere invocar [`validate-idea`](04-validate-idea.md) antes de avançar**.
 
@@ -164,15 +164,15 @@ Por que importa: north star foi definida em `init-project`; aqui você desdobra 
 
 | Arquivo | O que entra | Fonte |
 |---------|-------------|-------|
-| [`target-users.md`](../product/target-users.md) | Persona primária, secundárias, anti-personas, mapa de papéis (usuário, comprador, decisor, influenciador). | Você + entrevistas. |
-| [`market-analysis.md`](../business/market-analysis.md) | TAM/SAM/SOM com cálculo visível, tendências favoráveis e adversas, regulação, janela. | Você + dados públicos. |
-| [`competitors.md`](../business/competitors.md) | Diretos, indiretos, substitutos, inércia. Matriz comparativa. | Você. |
-| [`value-proposition.md`](../product/value-proposition.md) | Frase no formato VPC, jobs/dores/ganhos, diferenciais reais. | Você. |
-| [`business-model.md`](../business/business-model.md) | Business Model Canvas resumido. | Você. |
-| [`monetization.md`](../business/monetization.md) | Fontes de receita iniciais, hipóteses, métricas-chave. | Você. |
-| [`assumptions.md`](../research/assumptions.md) | Premissas surgidas com nível de confiança e impacto. | A IA registra automaticamente. |
-| [`risks.md`](../business/risks.md) | Riscos de negócio identificados. | A IA registra. |
-| [`PROJECT_STATE.md`](../PROJECT_STATE.md) | Marca Fases 2 e 3 como concluídas. | A IA atualiza. |
+| [`target-users.md`](../../../docs/product/target-users.md) | Persona primária, secundárias, anti-personas, mapa de papéis (usuário, comprador, decisor, influenciador). | Você + entrevistas. |
+| [`market-analysis.md`](../../../docs/business/market-analysis.md) | TAM/SAM/SOM com cálculo visível, tendências favoráveis e adversas, regulação, janela. | Você + dados públicos. |
+| [`competitors.md`](../../../docs/business/competitors.md) | Diretos, indiretos, substitutos, inércia. Matriz comparativa. | Você. |
+| [`value-proposition.md`](../../../docs/product/value-proposition.md) | Frase no formato VPC, jobs/dores/ganhos, diferenciais reais. | Você. |
+| [`business-model.md`](../../../docs/business/business-model.md) | Business Model Canvas resumido. | Você. |
+| [`monetization.md`](../../../docs/business/monetization.md) | Fontes de receita iniciais, hipóteses, métricas-chave. | Você. |
+| [`assumptions.md`](../../../docs/research/assumptions.md) | Premissas surgidas com nível de confiança e impacto. | A IA registra automaticamente. |
+| [`risks.md`](../../../docs/business/risks.md) | Riscos de negócio identificados. | A IA registra. |
+| [`PROJECT_STATE.md`](../../../docs/PROJECT_STATE.md) | Marca Fases 2 e 3 como concluídas. | A IA atualiza. |
 
 ## Critérios de "terminei essa skill"
 
@@ -240,7 +240,7 @@ Peça: "use TAM Bottom-Up baseado em \<fonte específica\>". Ex.: "número de es
 
 ### Não tenho entrevistas suficientes
 
-Faça pelo menos 3 antes de avançar. Use o roteiro de [`docs/validation/user-interviews.md`](../validation/user-interviews.md).
+Faça pelo menos 3 antes de avançar. Use o roteiro de [`docs/validation/user-interviews.md`](../../../docs/validation/user-interviews.md).
 
 ### A IA pulou direto pra perguntar sobre marketplace sem ter validado se faz sentido
 
@@ -264,14 +264,14 @@ ou
 
 ## Referências cruzadas
 
-- [`.claude/skills/discover-business/SKILL.md`](../../.claude/skills/discover-business/SKILL.md) — arquivo consumido pela IA.
-- [`tests/skills/discover-business.md`](../../tests/skills/discover-business.md) — checks canônicos.
+- [`.claude/skills/discover-business/SKILL.md`](../../../.claude/skills/discover-business/SKILL.md) — arquivo consumido pela IA.
+- [`.genesis/tests/skills/discover-business.md`](../../tests/skills/discover-business.md) — checks canônicos.
 - Rules relevantes:
-  - [`business-before-technology`](../../.claude/rules/business-before-technology.md)
-  - [`explain-tradeoffs`](../../.claude/rules/explain-tradeoffs.md)
+  - [`business-before-technology`](../../../.claude/rules/business-before-technology.md)
+  - [`explain-tradeoffs`](../../../.claude/rules/explain-tradeoffs.md)
 - Agents relevantes:
-  - [`business-mentor`](../../.claude/agents/business-mentor.md) — invoke para revisar premissas e unit economics.
-  - [`ux-researcher`](../../.claude/agents/ux-researcher.md) — para refinar personas.
-  - [`monetization-strategist`](../../.claude/agents/monetization-strategist.md) — para revisar fontes de receita.
+  - [`business-mentor`](../../../.claude/agents/business-mentor.md) — invoke para revisar premissas e unit economics.
+  - [`ux-researcher`](../../../.claude/agents/ux-researcher.md) — para refinar personas.
+  - [`monetization-strategist`](../../../.claude/agents/monetization-strategist.md) — para revisar fontes de receita.
 - Templates relevantes:
   - [`project-brief-template.md`](../../templates/project-brief-template.md) — para consolidar visão em 1 página.

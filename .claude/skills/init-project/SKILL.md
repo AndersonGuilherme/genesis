@@ -19,7 +19,7 @@ Conduzir o usuário pelas 10 fases do `project-genesis-boilerplate`, garantindo 
 
 - Repositório criado a partir do `project-genesis-boilerplate`.
 - `docs/PROJECT_STATE.md` presente.
-- Acesso de escrita em `docs/`, `.claude/`, `templates/`.
+- Acesso de escrita em `docs/`, `.claude/`, `.genesis/templates/`.
 
 ## Processo passo a passo
 

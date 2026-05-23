@@ -43,8 +43,8 @@ Modeladora de domínio. Cuida da linguagem ubíqua, entidades, agregados, invari
 - `docs/specs/<modulo>/data-model.md`
 - `docs/specs/<modulo>/business-rules.md`
 - `docs/specs/<modulo>/events.md`
-- `templates/business-rule-template.md`
-- `templates/data-model-template.md`
+- `.genesis/templates/business-rule-template.md`
+- `.genesis/templates/data-model-template.md`
 
 ## Critérios de qualidade
 

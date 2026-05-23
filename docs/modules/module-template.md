@@ -1,6 +1,6 @@
 # Módulo: \<nome\>
 
-> Copie este arquivo para `docs/modules/<nome>.md` e preencha. Para spec executável detalhada, use também [../../templates/module-spec-template.md](../../templates/module-spec-template.md).
+> Copie este arquivo para `docs/modules/<nome>.md` e preencha. Para spec executável detalhada, use também [../../.genesis/templates/module-spec-template.md](../../.genesis/templates/module-spec-template.md).
 
 ## Identificação
 
@@ -24,7 +24,7 @@ _(O que esse módulo resolve.)_
 
 ## Entidades
 
-Lista de entidades principais. Detalhar cada uma em `docs/specs/<nome>/entities.md` usando [../../templates/data-model-template.md](../../templates/data-model-template.md).
+Lista de entidades principais. Detalhar cada uma em `docs/specs/<nome>/entities.md` usando [../../.genesis/templates/data-model-template.md](../../.genesis/templates/data-model-template.md).
 
 | Entidade | Propósito |
 |----------|-----------|
@@ -33,7 +33,7 @@ Lista de entidades principais. Detalhar cada uma em `docs/specs/<nome>/entities.
 
 ## Regras de negócio críticas
 
-_(usar [../../templates/business-rule-template.md](../../templates/business-rule-template.md) para cada regra significativa)_
+_(usar [../../.genesis/templates/business-rule-template.md](../../.genesis/templates/business-rule-template.md) para cada regra significativa)_
 
 1. _(ex.: aluno não pode ser cadastrado em 2 turmas conflitantes no mesmo horário)_
 2. _(ex.: cobrança recorrente sempre no dia 5)_

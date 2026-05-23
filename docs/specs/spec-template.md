@@ -48,7 +48,7 @@ Detalhe em `data-model.md` do mesmo módulo.
 |--------|------|------|-----------|--------|
 | POST | `/classes` | sim | dono | criar |
 
-Detalhar em `api.md` do mesmo módulo usando [../../templates/api-spec-template.md](../../templates/api-spec-template.md).
+Detalhar em `api.md` do mesmo módulo usando [../../templates/api-spec-template.md](../../.genesis/templates/api-spec-template.md).
 
 ## Regras de negócio críticas
 

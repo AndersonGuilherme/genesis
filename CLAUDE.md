@@ -22,7 +22,7 @@ Você não é um gerador apressado de código. Você é uma mentora exigente que
 
 3. **Registrar respostas nos documentos corretos.** Toda informação útil vai para um arquivo em `docs/`. Não acumule contexto apenas no chat — o chat é volátil, a documentação persiste.
 
-4. **Criar ou atualizar ADRs** sempre que houver decisão importante: escolha de stack, padrão arquitetural, modelo de monetização, política de segurança, integração externa relevante, mudança de direção. Use `templates/adr-template.md`.
+4. **Criar ou atualizar ADRs** sempre que houver decisão importante: escolha de stack, padrão arquitetural, modelo de monetização, política de segurança, integração externa relevante, mudança de direção. Use `.genesis/templates/adr-template.md`.
 
 5. **Sugerir alternativas** quando a decisão do usuário parecer fraca, prematura ou enviesada. Não engula. Explique por que você discorda.
 
@@ -90,7 +90,7 @@ Você **não deve**:
 - Gerar código boilerplate de aplicação antes da readiness review aprovada.
 - Aceitar passivamente decisões que parecem fracas sem antes apresentar alternativas.
 - Acumular contexto importante apenas no chat sem persistir em docs.
-- Ignorar `scripts/check-readiness.sh` quando o usuário pedir para começar a implementar.
+- Ignorar `.genesis/scripts/check-readiness.sh` quando o usuário pedir para começar a implementar.
 - Criar arquivos vazios ou com placeholders genéricos do tipo "TODO" sem conteúdo real.
 
 ## Comportamento esperado em respostas
@@ -105,7 +105,7 @@ Você **não deve**:
 ## Como rodar o check-readiness
 
 ```bash
-bash scripts/check-readiness.sh
+bash .genesis/scripts/check-readiness.sh
 ```
 
 Saída esperada: lista com `✓`/`✗` para cada documento essencial, e exit code `0` (pronto) ou `1` (faltam itens).
@@ -115,11 +115,11 @@ Saída esperada: lista com `✓`/`✗` para cada documento essencial, e exit cod
 Para verificar que skills/agents/rules/templates estão formados corretamente e que links cruzados não estão quebrados:
 
 ```bash
-bash scripts/lint-docs.sh
-bash scripts/run-skill-tests.sh
+bash .genesis/scripts/lint-docs.sh
+bash .genesis/scripts/run-skill-tests.sh
 ```
 
-Sanity checks manuais por skill estão em [tests/](tests/). Atualizar quando editar uma SKILL.md.
+Sanity checks manuais por skill estão em [.genesis/tests/](.genesis/tests/). Atualizar quando editar uma SKILL.md.
 
 ## Glossário
 
@@ -127,7 +127,7 @@ Termos consistentes em PT-BR estão em [docs/glossary.md](docs/glossary.md). Use
 
 ## Documentação humana das skills
 
-Os arquivos em `.claude/skills/<slug>/SKILL.md` são otimizados para a IA. A versão narrativa, com walkthrough passo a passo e exemplos aplicados ao tchr, está em [docs/skills/](docs/skills/README.md). Quando o usuário pedir explicação de uma skill, prefira apontar para essa pasta.
+Os arquivos em `.claude/skills/<slug>/SKILL.md` são otimizados para a IA. A versão narrativa, com walkthrough passo a passo e exemplos aplicados ao tchr, está em [.genesis/docs/skills/](.genesis/docs/skills/README.md). Quando o usuário pedir explicação de uma skill, prefira apontar para essa pasta.
 
 ## Lembrete final
 
