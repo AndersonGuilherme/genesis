@@ -162,7 +162,7 @@ A IA atualiza `docs/adr/README.md` adicionando linha na tabela:
 A IA adiciona link no documento de arquitetura/módulo/módulo onde a decisão aparece:
 
 ```markdown
-| ADR vinculado | [0002 — Postgres como banco primário](../adr/0002-postgres-como-banco-primario.md) |
+| ADR vinculado | 0002 — Postgres como banco primário (exemplo — link real apontaria para o arquivo após criação) |
 ```
 
 ### 8. Confirme com você

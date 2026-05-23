@@ -6,6 +6,27 @@ Histórico de versões do `project-genesis-boilerplate`. Segue [Semantic Version
 - **MINOR** — adição de capacidade (skill, rule, agent, template, script).
 - **PATCH** — fix em conteúdo existente sem mudar contrato.
 
+## [0.3.0] — 2026-05-23
+
+### Adicionado
+- **`docs/skills/`** — trilha narrativa completa para humanos, 1 página por skill:
+  - `README.md` — índice navegacional + mapa do fluxo em Mermaid + tabela mestra + trilha recomendada + FAQ.
+  - `01-init-project.md` até `14-start-development.md` — 14 walkthroughs detalhados.
+  - Cada documento segue schema consistente: contexto, quando invocar, pré-condições, passo a passo, perguntas da mentora, documentos produzidos, critérios de conclusão, anti-padrões, exemplo aplicado (tchr), troubleshooting, próximo passo, referências cruzadas.
+  - Exemplos aplicados ao `tchr` em todas as skills onde fizer sentido.
+- Links cruzados entre [`docs/skills/`](docs/skills/README.md), os arquivos AI-facing em `.claude/skills/`, e os checks canônicos em `tests/skills/`.
+
+### Modificado
+- `README.md` — seção "Skills disponíveis" agora aponta para a trilha narrativa em `docs/skills/`.
+- `CLAUDE.md` — adicionada referência a `docs/skills/` como fonte humana das skills.
+- `docs/START_HERE.md` — novo item apontando para `docs/skills/` em caso de dúvida sobre skill específica.
+- `docs/skills/11-create-adr.md` — exemplo de link ajustado para evitar link quebrado a um ADR ainda não criado.
+
+### Validado
+- `bash scripts/lint-docs.sh` continua verde — 0 links quebrados em todo o repo.
+- 15 arquivos novos em `docs/skills/` (1 índice + 14 walkthroughs).
+- ~5.000 linhas de documentação narrativa em PT-BR adicionadas.
+
 ## [0.2.0] — 2026-05-23
 
 ### Adicionado
