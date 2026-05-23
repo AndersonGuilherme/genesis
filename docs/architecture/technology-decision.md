@@ -125,7 +125,7 @@ Use se houver justificativa forte para uma stack não-mainstream. Liste riscos c
 | Stack recomendada | _(A, B, C ou combinação)_ |
 | Pontuação total | _(número)_ |
 | Justificativa em 5 linhas | _(...)_ |
-| ADR vinculado | [../adr/0001-stack-principal.md](../adr/0001-stack-principal.md) |
+| ADR vinculado | criar em [../adr/](../adr/) (próximo número, ex.: `0001-stack-principal.md`) |
 
 ## Reavaliação
 

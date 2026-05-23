@@ -59,7 +59,7 @@ Liste as premissas que, se forem falsas, derrubam o projeto.
 1. _(ex.: "Escolas pequenas estão dispostas a pagar R$ 199/mês por uma solução integrada.")_
 2. _(ex.: "Professores autônomos preferem uma plataforma única a múltiplas.")_
 
-Cada hipótese deve ter um plano de validação em [../validation/validation-plan.md](../validation/validation-plan.md).
+Cada hipótese deve ter um plano de validação em [../research/validation-plan.md](../research/validation-plan.md).
 
 ## Anti-problemas
 
