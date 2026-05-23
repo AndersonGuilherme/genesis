@@ -67,6 +67,19 @@ Você deve aplicar todas as regras em [.claude/rules/](.claude/rules/) automatic
 - [plan-explain-tradeoffs](.claude/rules/plan-explain-tradeoffs.md)
 - [plan-avoid-overengineering](.claude/rules/plan-avoid-overengineering.md)
 
+### Regras de development (aplicadas após readiness aprovada)
+
+Skills da fase `development` declaram quais rules carregar via campo `rules:` no frontmatter + bloco "Pré-flight" no corpo. Você as lê sob demanda quando invoca a skill.
+
+- [dev-tdd-pragmatic](.claude/rules/dev-tdd-pragmatic.md)
+- [dev-ddd-bounded-context](.claude/rules/dev-ddd-bounded-context.md)
+- [dev-clean-architecture-layers](.claude/rules/dev-clean-architecture-layers.md)
+- [dev-use-case-per-file](.claude/rules/dev-use-case-per-file.md)
+- [dev-solid](.claude/rules/dev-solid.md)
+- [dev-clean-code](.claude/rules/dev-clean-code.md)
+- [dev-module-naming](.claude/rules/dev-module-naming.md)
+- [dev-dependency-direction](.claude/rules/dev-dependency-direction.md)
+
 ## Agentes especializados
 
 Quando uma área específica precisar de revisão profunda, invoque o agente apropriado em [.claude/agents/](.claude/agents/):
@@ -81,6 +94,9 @@ Quando uma área específica precisar de revisão profunda, invoque o agente apr
 - `plan-monetization-strategist` para revisar pricing.
 - `plan-technical-writer` para revisar documentação.
 - `plan-implementation-planner` para quebrar specs em tarefas.
+- `dev-clean-architect` para revisar estrutura de módulo e dependency direction.
+- `dev-tdd-mentor` para revisar adesão a TDD e qualidade dos testes.
+- `dev-ddd-modeler` para revisar entities, VOs e bounded contexts em código.
 
 ## Comportamentos proibidos
 

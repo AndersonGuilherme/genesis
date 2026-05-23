@@ -24,8 +24,12 @@ Documentação humana das skills do boilerplate. A versão consumida pela IA est
 ## Development
 
 - [dev-start-development](dev-start-development.md) — início incremental, módulo por módulo.
-
-(Demais skills `dev-*` chegam no Bloco B — TDD, DDD, SOLID, Clean Arch, modularização por caso de uso.)
+- [dev-scaffold-module](dev-scaffold-module.md) — gera estrutura 3-layer do módulo a partir da spec.
+- [dev-define-use-case](dev-define-use-case.md) — implementa 1 use case com TDD pragmático.
+- [dev-design-entity](dev-design-entity.md) — modela entity/VO com invariantes + teste.
+- [dev-write-failing-test-first](dev-write-failing-test-first.md) — helper para RED comprovado.
+- [dev-refactor-to-clean-architecture](dev-refactor-to-clean-architecture.md) — refatora código que viola Clean Arch.
+- [dev-review-module-cohesion](dev-review-module-cohesion.md) — auditoria estrutural de módulo.
 
 ## Recursos relacionados
 
