@@ -103,6 +103,17 @@ cd "$DEST"
 if [ "$KEEP_EXAMPLES" != "1" ]; then
   rm -rf examples
   ok "examples/ removido (GENESIS_KEEP_EXAMPLES=1 mantém)"
+
+  # Remover a seção "## Exemplo: o caso `tchr`" do README pra evitar link quebrado.
+  if [ -f README.md ] && grep -q '^## Exemplo: o caso' README.md; then
+    tmp="$(mktemp)"
+    awk '
+      /^## Exemplo: o caso/ { skip=1; next }
+      skip && /^## / { skip=0 }
+      !skip { print }
+    ' README.md > "$tmp" && mv "$tmp" README.md
+    ok "seção 'Exemplo' removida do README (não vai pra projeto-filho)"
+  fi
 fi
 
 # --- substituir __PROJECT_NAME__ em docs (se houver) ---

@@ -31,7 +31,7 @@ Registro do uso real do `project-genesis-boilerplate` aplicado ao projeto `tchr`
 
 | ID | Severidade | Descrição | Arquivo afetado | Ação |
 |----|------------|-----------|------------------|------|
-| F-001 | médio | README do projeto-filho contém link `examples/tchr/` que aponta para pasta removida pelo genesis-init.sh, quebrando o lint. | `README.md` (boilerplate) e `scripts/genesis-init.sh` | genesis-init.sh deve remover a seção "## Exemplo: o caso tchr" do README quando apagar examples/. Alternativa: tornar a seção condicional/genérica. |
+| F-001 | médio | README do projeto-filho contém link `examples/tchr/` que aponta para pasta removida pelo genesis-init.sh, quebrando o lint. | `README.md` (boilerplate) e `scripts/genesis-init.sh` | **Resolvido na Fase E.** `genesis-init.sh` agora roda awk para deletar a seção `## Exemplo: o caso` do README sempre que `examples/` é removido. Validado: novo projeto-filho passa no lint. |
 | F-002 | baixo | Hook `validate-docs-before-implementation.sh` bloqueou criação de LICENSE na raiz (não estava na whitelist). Fix aplicado na Fase A. | `.claude/hooks/validate-docs-before-implementation.sh` | Whitelist expandida para LICENSE, VERSION, CHANGELOG, NOTICE, COPYING, CONTRIBUTING, CODE_OF_CONDUCT. **Resolvido.** |
 | F-003 | baixo | Script `check-readiness.sh` inicial só checava tamanho. Templates eram grandes o suficiente para passar sem preenchimento real. | `scripts/check-readiness.sh` | Adicionado contador de placeholders `_(...)` com limite MAX_PLACEHOLDERS=5. **Resolvido durante Fase 7 do build inicial.** |
 | F-004 | baixo | Skill `define-module-spec` tinha links `../../templates/` que resolviam para `.claude/templates/` (inexistente). Profundidade errada. | `.claude/skills/define-module-spec/SKILL.md` | Corrigido para `../../../templates/`. **Resolvido na Fase B.** |
@@ -85,7 +85,7 @@ Estes só aparecem quando você rodar as skills interativamente com Claude num p
 
 Backlog derivado deste dogfood parcial:
 
-- **F-001** — fix no genesis-init.sh para limpar seção "Exemplo" do README ao apagar `examples/`. Será aplicado na Fase E.
+- **F-001** — ✅ resolvido na Fase E.
 - **Dogfood interativo completo** — rodar `tchr-genesis` com Claude em sessão separada, preencher fases 1-8, registrar atritos novos aqui.
 - **CI Action** (futuro, fora desta versão) — rodar `lint-docs.sh` em cada PR.
 - **Examples extras** (futuro) — gerar SaaS B2B simples e marketplace puro além de tchr.
