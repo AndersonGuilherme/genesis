@@ -6,7 +6,7 @@
 # Heurística: se o prompt do usuário contém intenção de iniciar implementação
 # (palavras como "implementar", "codar", "criar app", "criar backend", etc.)
 # e .genesis/scripts/check-readiness.sh retorna ≠ 0, bloqueia com exit code 2
-# e mostra mensagem orientando o usuário a usar a skill review-readiness.
+# e mostra mensagem orientando o usuário a usar a skill plan-review-readiness.
 #
 # Contrato com Claude Code:
 #   - exit 0 → segue normalmente
@@ -36,7 +36,7 @@ Saída de .genesis/scripts/check-readiness.sh:
 $(cat /tmp/genesis-readiness.out)
 
 Próximos passos:
-  1. Rode a skill 'review-readiness' para diagnóstico qualitativo.
+  1. Rode a skill 'plan-review-readiness' para diagnóstico qualitativo.
   2. Preencha os documentos pendentes com conteúdo real.
   3. Tente novamente — ou exporte GENESIS_HOOKS_DISABLE=1 se já souber que está OK.
 EOF

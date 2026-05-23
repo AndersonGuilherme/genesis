@@ -52,11 +52,49 @@ for d in .claude/skills/*/; do
     err "$f sem 'description:' no frontmatter"
     continue
   fi
+  if ! head -15 "$f" | grep -q '^phase:'; then
+    err "$f sem 'phase:' no frontmatter"
+    continue
+  fi
   ok "$f"
 done
 if [ "$found_skills" -ne "$expected_skills" ]; then
   err "esperava $expected_skills skills, encontrou $found_skills"
 fi
+
+# --- skills: rules: aponta pra arquivos existentes ---
+section "Skills — rules: válidas"
+for d in .claude/skills/*/; do
+  [ -d "$d" ] || continue
+  f="${d}SKILL.md"
+  [ -f "$f" ] || continue
+  # Extrair rules: do frontmatter
+  in_fm=0
+  in_rules=0
+  while IFS= read -r line; do
+    if [ "$line" = "---" ]; then
+      in_fm=$((in_fm+1))
+      [ $in_fm -ge 2 ] && break
+      continue
+    fi
+    [ $in_fm -ne 1 ] && continue
+    if [ "$line" = "rules:" ]; then
+      in_rules=1
+      continue
+    fi
+    if [ $in_rules -eq 1 ]; then
+      if [[ "$line" =~ ^[[:space:]]*-[[:space:]]+(.+)$ ]]; then
+        rule_name="${BASH_REMATCH[1]}"
+        rule_file=".claude/rules/${rule_name}.md"
+        if [ ! -f "$rule_file" ]; then
+          err "$f declara rule inexistente: $rule_name"
+        fi
+      else
+        in_rules=0
+      fi
+    fi
+  done < "$f"
+done
 
 # --- agents ---
 section "Agents"
@@ -68,6 +106,7 @@ for f in .claude/agents/*.md; do
   if ! head -10 "$f" | grep -q '^name:';        then err "$f sem 'name:'"; continue; fi
   if ! head -10 "$f" | grep -q '^description:'; then err "$f sem 'description:'"; continue; fi
   if ! head -10 "$f" | grep -q '^tools:';       then err "$f sem 'tools:'"; continue; fi
+  if ! head -15 "$f" | grep -q '^phase:';       then err "$f sem 'phase:'"; continue; fi
   ok "$f"
 done
 if [ "$found_agents" -ne "$expected_agents" ]; then
@@ -83,6 +122,15 @@ for f in .claude/rules/*.md; do
   [ -f "$f" ] || continue
   found_rules=$((found_rules+1))
   missing=""
+  if ! head -10 "$f" | grep -q '^name:'; then
+    missing="$missing\n    - falta frontmatter 'name:'"
+  fi
+  if ! head -10 "$f" | grep -q '^description:'; then
+    missing="$missing\n    - falta frontmatter 'description:'"
+  fi
+  if ! head -15 "$f" | grep -q '^phase:'; then
+    missing="$missing\n    - falta frontmatter 'phase:'"
+  fi
   for s in "${required_sections[@]}"; do
     if ! grep -qF "$s" "$f"; then
       missing="$missing\n    - falta seção: $s"

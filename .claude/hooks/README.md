@@ -7,7 +7,7 @@ Hooks de shell que reforçam as regras do boilerplate dentro do Claude Code. Ele
 ### `prevent-code-before-readiness.sh`
 
 - **Evento alvo:** `UserPromptSubmit`
-- **O que faz:** Se o prompt do usuário menciona "implementar", "codar", "criar app/backend/frontend", "iniciar código/desenvolvimento", roda `.genesis/scripts/check-readiness.sh`. Se reprovar, bloqueia o prompt com exit code 2 e orienta o usuário a rodar a skill `review-readiness`.
+- **O que faz:** Se o prompt do usuário menciona "implementar", "codar", "criar app/backend/frontend", "iniciar código/desenvolvimento", roda `.genesis/scripts/check-readiness.sh`. Se reprovar, bloqueia o prompt com exit code 2 e orienta o usuário a rodar a skill `plan-review-readiness`.
 
 ### `validate-docs-before-implementation.sh`
 

@@ -52,7 +52,7 @@ Saída de .genesis/scripts/check-readiness.sh:
 
 $(cat /tmp/genesis-readiness.out)
 
-Use a skill review-readiness para diagnóstico. Para desativar este hook, exporte GENESIS_HOOKS_DISABLE=1.
+Use a skill plan-review-readiness para diagnóstico. Para desativar este hook, exporte GENESIS_HOOKS_DISABLE=1.
 EOF
     exit 2
   fi

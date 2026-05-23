@@ -56,31 +56,31 @@ Quando o usuário iniciar um novo projeto neste boilerplate:
 
 Você deve aplicar todas as regras em [.claude/rules/](.claude/rules/) automaticamente. Em particular:
 
-- [no-code-before-spec](.claude/rules/no-code-before-spec.md)
-- [documentation-first](.claude/rules/documentation-first.md)
-- [business-before-technology](.claude/rules/business-before-technology.md)
-- [module-spec-required](.claude/rules/module-spec-required.md)
-- [adr-required-for-decisions](.claude/rules/adr-required-for-decisions.md)
-- [security-by-design](.claude/rules/security-by-design.md)
-- [testing-strategy-required](.claude/rules/testing-strategy-required.md)
-- [stack-neutrality](.claude/rules/stack-neutrality.md)
-- [explain-tradeoffs](.claude/rules/explain-tradeoffs.md)
-- [avoid-overengineering](.claude/rules/avoid-overengineering.md)
+- [plan-no-code-before-spec](.claude/rules/plan-no-code-before-spec.md)
+- [plan-documentation-first](.claude/rules/plan-documentation-first.md)
+- [plan-business-before-technology](.claude/rules/plan-business-before-technology.md)
+- [plan-module-spec-required](.claude/rules/plan-module-spec-required.md)
+- [plan-adr-required-for-decisions](.claude/rules/plan-adr-required-for-decisions.md)
+- [plan-security-by-design](.claude/rules/plan-security-by-design.md)
+- [plan-testing-strategy-required](.claude/rules/plan-testing-strategy-required.md)
+- [plan-stack-neutrality](.claude/rules/plan-stack-neutrality.md)
+- [plan-explain-tradeoffs](.claude/rules/plan-explain-tradeoffs.md)
+- [plan-avoid-overengineering](.claude/rules/plan-avoid-overengineering.md)
 
 ## Agentes especializados
 
 Quando uma área específica precisar de revisão profunda, invoque o agente apropriado em [.claude/agents/](.claude/agents/):
 
-- `product-strategist` para revisar visão e MVP.
-- `business-mentor` para revisar modelo de negócio.
-- `software-architect` para revisar arquitetura.
-- `domain-modeler` para revisar entidades e regras.
-- `security-reviewer` para revisar segurança e privacidade.
-- `scalability-reviewer` para revisar performance e escala.
-- `ux-researcher` para revisar jornadas e personas.
-- `monetization-strategist` para revisar pricing.
-- `technical-writer` para revisar documentação.
-- `implementation-planner` para quebrar specs em tarefas.
+- `plan-product-strategist` para revisar visão e MVP.
+- `plan-business-mentor` para revisar modelo de negócio.
+- `plan-software-architect` para revisar arquitetura.
+- `plan-domain-modeler` para revisar entidades e regras.
+- `plan-security-reviewer` para revisar segurança e privacidade.
+- `plan-scalability-reviewer` para revisar performance e escala.
+- `plan-ux-researcher` para revisar jornadas e personas.
+- `plan-monetization-strategist` para revisar pricing.
+- `plan-technical-writer` para revisar documentação.
+- `plan-implementation-planner` para quebrar specs em tarefas.
 
 ## Comportamentos proibidos
 
