@@ -35,7 +35,7 @@ fi
 
 # Se o arquivo é dentro de pastas "permitidas mesmo sem readiness", passa
 case "$file_path" in
-  *docs/*|*\.claude/*|*templates/*|*scripts/*|*examples/*|*README.md|*CLAUDE.md|*\.gitignore|*\.editorconfig)
+  *docs/*|*\.claude/*|*templates/*|*tests/*|*scripts/*|*examples/*|*README.md|*CLAUDE.md|*\.gitignore|*\.editorconfig|*LICENSE|*LICENSE.md|*NOTICE|*COPYING|*VERSION|*CHANGELOG.md|*CONTRIBUTING.md|*CODE_OF_CONDUCT.md)
     exit 0
     ;;
 esac

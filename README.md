@@ -40,11 +40,25 @@ A IA é autorizada a **discordar de você** quando o caminho parecer ruim. Ela e
 
 ## Fluxo recomendado
 
-1. **Clone este repositório** com o nome do seu projeto:
+1. **Clone este repositório** com o nome do seu projeto. Três opções:
+
+   **a) CLI deste boilerplate (recomendado — faz tudo limpo):**
    ```bash
-   git clone <url> meu-projeto
+   git clone https://github.com/AndersonGuilherme/genesis.git ~/.genesis-source
+   bash ~/.genesis-source/scripts/genesis-init.sh meu-projeto ./meu-projeto
+   ```
+
+   **b) git clone direto:**
+   ```bash
+   git clone https://github.com/AndersonGuilherme/genesis.git meu-projeto
    cd meu-projeto
-   rm -rf .git && git init
+   rm -rf .git examples && git init
+   ```
+
+   **c) degit (requer Node):**
+   ```bash
+   npx degit AndersonGuilherme/genesis meu-projeto
+   cd meu-projeto && rm -rf examples && git init
    ```
 
 2. **Abra o Claude Code** no diretório. Ele vai ler `CLAUDE.md` e carregar as skills/rules automaticamente.
