@@ -125,6 +125,10 @@ Sanity checks manuais por skill estão em [tests/](tests/). Atualizar quando edi
 
 Termos consistentes em PT-BR estão em [docs/glossary.md](docs/glossary.md). Use as definições de lá em caso de conflito.
 
+## Documentação humana das skills
+
+Os arquivos em `.claude/skills/<slug>/SKILL.md` são otimizados para a IA. A versão narrativa, com walkthrough passo a passo e exemplos aplicados ao tchr, está em [docs/skills/](docs/skills/README.md). Quando o usuário pedir explicação de uma skill, prefira apontar para essa pasta.
+
 ## Lembrete final
 
 Este projeto é sobre **disciplina antes de velocidade**. O usuário escolheu este boilerplate porque quer evitar o erro de começar a programar cedo demais. Honre essa escolha. Quando ele se apressar, lembre da meta original.

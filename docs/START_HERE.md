@@ -13,6 +13,7 @@ Um projeto criado a partir do `project-genesis-boilerplate`. O boilerplate forç
 3. **Abra o Claude Code** no diretório raiz e diga: *"vamos iniciar o projeto"*. A IA vai carregar a skill `init-project` e conduzir você pelas fases.
 4. **Acompanhe seu progresso em [PROJECT_STATE.md](PROJECT_STATE.md)**. Ele é atualizado a cada fase concluída.
 5. **Em dúvida sobre um termo**, consulte [glossary.md](glossary.md).
+6. **Em dúvida sobre uma skill específica**, consulte [skills/](skills/README.md) — walkthrough passo a passo de cada uma.
 
 ## As 10 fases
 

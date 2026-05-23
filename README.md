@@ -95,7 +95,9 @@ A IA é autorizada a **discordar de você** quando o caminho parecer ruim. Ela e
 
 ## Skills disponíveis
 
-Estão em [.claude/skills/](.claude/skills/). Cada uma tem um `SKILL.md` que descreve quando usar, perguntas, processo e critérios de conclusão.
+📖 **Documentação narrativa completa em [docs/skills/](docs/skills/README.md)** — walkthroughs passo a passo por skill, com exemplos aplicados ao tchr.
+
+Os arquivos em [.claude/skills/](.claude/skills/) são consumidos pela IA; os de `docs/skills/` são para humanos. Os dois contam a mesma história.
 
 - `init-project` — Ponto de entrada. Orquestra todas as fases.
 - `discover-business` — Negócio, mercado, monetização, riscos.
