@@ -14,10 +14,12 @@
 #   1. Copia o boilerplate para o destino (cópia local se rodado dentro do repo,
 #      git clone --depth 1 caso contrário).
 #   2. Remove .git/ do clone, faz git init limpo.
-#   3. Remove examples/ (não polui projeto novo).
-#   4. Substitui placeholder __PROJECT_NAME__ por <nome-do-projeto> nos docs.
-#   5. Zera PROJECT_STATE.md (mantém estrutura, limpa progresso).
-#   6. Mostra próximo passo.
+#   3. Remove .genesis/examples/ (não polui projeto novo).
+#   4. Substitui README.md do boilerplate (rico, tour de skills/rules) pelo
+#      template enxuto em .genesis/templates/project-readme.template.md.
+#   5. Substitui placeholder __PROJECT_NAME__ por <nome-do-projeto> nos docs.
+#   6. Zera PROJECT_STATE.md (mantém estrutura, limpa progresso).
+#   7. Mostra próximo passo.
 #
 # Variáveis de ambiente:
 #   BOILERPLATE_REPO   URL do GitHub (default: https://github.com/AndersonGuilherme/genesis.git)
@@ -103,17 +105,26 @@ cd "$DEST"
 if [ "$KEEP_EXAMPLES" != "1" ]; then
   rm -rf .genesis/examples
   ok ".genesis/examples/ removido (GENESIS_KEEP_EXAMPLES=1 mantém)"
+fi
 
-  # Remover a seção "## Exemplo: o caso `tchr`" do README pra evitar link quebrado.
-  if [ -f README.md ] && grep -q '^## Exemplo: o caso' README.md; then
-    tmp="$(mktemp)"
-    awk '
-      /^## Exemplo: o caso/ { skip=1; next }
-      skip && /^## / { skip=0 }
-      !skip { print }
-    ' README.md > "$tmp" && mv "$tmp" README.md
-    ok "seção 'Exemplo' removida do README (não vai pra projeto-filho)"
-  fi
+# --- substituir README.md rico pelo template enxuto do projeto ---
+if [ -f .genesis/templates/project-readme.template.md ]; then
+  cp .genesis/templates/project-readme.template.md README.md
+  ok "README.md substituído pelo template enxuto do projeto"
+fi
+
+# --- zerar CHANGELOG.md do projeto (já vem vazio mas garante consistência) ---
+if [ -f CHANGELOG.md ]; then
+  cat > CHANGELOG.md <<'EOC'
+# Changelog
+
+Todas as mudanças relevantes do **projeto** ficam aqui. Mudanças do boilerplate vivem em [.genesis/CHANGELOG.md](.genesis/CHANGELOG.md).
+
+Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/).
+
+## [Unreleased]
+EOC
+  ok "CHANGELOG.md raiz resetado para projeto novo"
 fi
 
 # --- substituir __PROJECT_NAME__ em docs (se houver) ---

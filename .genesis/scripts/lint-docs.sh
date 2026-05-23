@@ -148,7 +148,7 @@ fi
 
 # --- templates ---
 section "Templates"
-expected_templates=14
+expected_templates=15
 found_templates=0
 for f in .genesis/templates/*.md; do
   [ -f "$f" ] || continue
@@ -195,7 +195,7 @@ while IFS=: read -r file rest; do
       echo "BROKEN|$file|$target_path|$resolved"
     fi
   done
-done < <(find . -name '*.md' -not -path './.git/*' -not -path './node_modules/*' -not -path './docs/superpowers/*' | xargs grep -nH '\](' 2>/dev/null) > /tmp/lint-docs-links.out
+done < <(find . -name '*.md' -not -name '*.template.md' -not -path './.git/*' -not -path './node_modules/*' -not -path './docs/superpowers/*' | xargs grep -nH '\](' 2>/dev/null) > /tmp/lint-docs-links.out
 
 broken=$(grep -c '^BROKEN|' /tmp/lint-docs-links.out 2>/dev/null || echo 0)
 broken=${broken//[^0-9]/}
