@@ -75,6 +75,23 @@ Skills são organizadas por prefixo de phase. Cada skill declara no frontmatter 
 | [plan-create-implementation-plan](.claude/skills/plan-create-implementation-plan/SKILL.md) | Spec → plano de implementação incremental. |
 | [plan-review-readiness](.claude/skills/plan-review-readiness/SKILL.md) | Gate: pode iniciar implementação? |
 
+### Security — postura de segurança antes do código
+
+Phase nova entre planning e development. Define threat model, auth strategy, secrets, encryption, audit, rate limits, multi-tenant, webhooks, idempotency.
+
+| Skill | Quando usar |
+|-------|-------------|
+| [sec-threat-model](.claude/skills/sec-threat-model/SKILL.md) | STRIDE aplicado à arquitetura. Primeiro da phase. |
+| [sec-define-auth-strategy](.claude/skills/sec-define-auth-strategy/SKILL.md) | JWT/OAuth/sessão + RBAC/ABAC + multi-tenant. |
+| [sec-secrets-management-plan](.claude/skills/sec-secrets-management-plan/SKILL.md) | Vault/KMS + rotação. |
+| [sec-dependency-vuln-scan](.claude/skills/sec-dependency-vuln-scan/SKILL.md) | Scanners + gates em CI. |
+| [sec-define-encryption-strategy](.claude/skills/sec-define-encryption-strategy/SKILL.md) | At-rest + in-transit + key management. |
+| [sec-define-audit-logging](.claude/skills/sec-define-audit-logging/SKILL.md) | Ações auditadas + retenção legal. |
+| [sec-define-rate-limiting](.claude/skills/sec-define-rate-limiting/SKILL.md) | Rate limit por endpoint. |
+| [sec-multi-tenant-isolation](.claude/skills/sec-multi-tenant-isolation/SKILL.md) | Tenant_id filter obrigatório. |
+| [sec-webhook-signing](.claude/skills/sec-webhook-signing/SKILL.md) | HMAC + replay protection. |
+| [sec-idempotency-strategy](.claude/skills/sec-idempotency-strategy/SKILL.md) | Idempotency keys. |
+
 ### Development — código com disciplina
 
 Toda dev skill aplica TDD pragmático + DDD + Clean Architecture 3-layer + módulo por bounded context.
@@ -88,6 +105,7 @@ Toda dev skill aplica TDD pragmático + DDD + Clean Architecture 3-layer + módu
 | [dev-write-failing-test-first](.claude/skills/dev-write-failing-test-first/SKILL.md) | Helper para garantir RED comprovado. |
 | [dev-refactor-to-clean-architecture](.claude/skills/dev-refactor-to-clean-architecture/SKILL.md) | Refatora código que viola Clean Arch (testes verdes antes/depois). |
 | [dev-review-module-cohesion](.claude/skills/dev-review-module-cohesion/SKILL.md) | Auditoria estrutural de módulo (sem refatorar — só reporta). |
+| [dev-define-use-case-authenticated](.claude/skills/dev-define-use-case-authenticated/SKILL.md) | Variante de `dev-define-use-case` que carrega rules sec-* (authn/authz/audit/validation). |
 
 ---
 
@@ -109,6 +127,21 @@ Rules são princípios que a IA aplica automaticamente. Skills declaram quais ru
 | [plan-security-by-design](.claude/rules/plan-security-by-design.md) | Segurança pensada antes do código. LGPD não se resolve com patch. |
 | [plan-testing-strategy-required](.claude/rules/plan-testing-strategy-required.md) | Estratégia de teste documentada antes do código. |
 | [plan-avoid-overengineering](.claude/rules/plan-avoid-overengineering.md) | Sem microserviços/cache/fila sem justificativa numérica. |
+
+### Security
+
+| Rule | Princípio |
+|------|-----------|
+| [sec-secrets-no-commit](.claude/rules/sec-secrets-no-commit.md) | Secret nunca entra no git. Pre-commit hook + scanner. |
+| [sec-input-validation](.claude/rules/sec-input-validation.md) | Toda entrada externa validada na boundary com schema. |
+| [sec-output-encoding](.claude/rules/sec-output-encoding.md) | Output codificado por canal (HTML, SQL, shell, log). |
+| [sec-authn-required](.claude/rules/sec-authn-required.md) | Endpoints autenticados por default. Públicos são exceção listada. |
+| [sec-authz-enforced](.claude/rules/sec-authz-enforced.md) | RBAC/ABAC checado no use case. Multi-tenant filtrado. |
+| [sec-encryption-at-rest](.claude/rules/sec-encryption-at-rest.md) | PII e secrets cifrados no banco/backup. |
+| [sec-encryption-in-transit](.claude/rules/sec-encryption-in-transit.md) | TLS 1.2+ em todo canal. HSTS habilitado. |
+| [sec-audit-trail](.claude/rules/sec-audit-trail.md) | Ações sensíveis logadas em store imutável, retidas por prazo legal. |
+| [sec-rate-limit-public-api](.claude/rules/sec-rate-limit-public-api.md) | Rate limit por IP + user. 429 com Retry-After. |
+| [sec-no-logged-secrets](.claude/rules/sec-no-logged-secrets.md) | Sanitizer central. Sem secret/PII em log. |
 
 ### Development
 
@@ -143,6 +176,14 @@ Agents são revisores invocáveis quando uma área precisa de profundidade. Skil
 | [plan-ux-researcher](.claude/agents/plan-ux-researcher.md) | Personas, jornadas, fricções, métricas de adoção. |
 | [plan-technical-writer](.claude/agents/plan-technical-writer.md) | Clareza dos docs, consistência cruzada, rastreabilidade. |
 | [plan-implementation-planner](.claude/agents/plan-implementation-planner.md) | Quebrar specs em tarefas pequenas e testáveis. |
+
+### Security
+
+| Agent | Foco |
+|-------|------|
+| [sec-threat-modeler](.claude/agents/sec-threat-modeler.md) | STRIDE aplicado à arquitetura. Identifica vetores + sugere mitigação. |
+| [sec-vuln-scanner-mentor](.claude/agents/sec-vuln-scanner-mentor.md) | Configura scanners + triage de CVE. |
+| [sec-auth-pattern-reviewer](.claude/agents/sec-auth-pattern-reviewer.md) | Revisa padrões authn/z em código + multi-tenant. |
 
 ### Development
 

@@ -67,6 +67,19 @@ Você deve aplicar todas as regras em [.claude/rules/](.claude/rules/) automatic
 - [plan-explain-tradeoffs](.claude/rules/plan-explain-tradeoffs.md)
 - [plan-avoid-overengineering](.claude/rules/plan-avoid-overengineering.md)
 
+### Regras de security (aplicadas em phase security e cross-cutting em dev)
+
+- [sec-secrets-no-commit](.claude/rules/sec-secrets-no-commit.md)
+- [sec-input-validation](.claude/rules/sec-input-validation.md)
+- [sec-output-encoding](.claude/rules/sec-output-encoding.md)
+- [sec-authn-required](.claude/rules/sec-authn-required.md)
+- [sec-authz-enforced](.claude/rules/sec-authz-enforced.md)
+- [sec-encryption-at-rest](.claude/rules/sec-encryption-at-rest.md)
+- [sec-encryption-in-transit](.claude/rules/sec-encryption-in-transit.md)
+- [sec-audit-trail](.claude/rules/sec-audit-trail.md)
+- [sec-rate-limit-public-api](.claude/rules/sec-rate-limit-public-api.md)
+- [sec-no-logged-secrets](.claude/rules/sec-no-logged-secrets.md)
+
 ### Regras de development (aplicadas após readiness aprovada)
 
 Skills da fase `development` declaram quais rules carregar via campo `rules:` no frontmatter + bloco "Pré-flight" no corpo. Você as lê sob demanda quando invoca a skill.
@@ -97,6 +110,9 @@ Quando uma área específica precisar de revisão profunda, invoque o agente apr
 - `dev-clean-architect` para revisar estrutura de módulo e dependency direction.
 - `dev-tdd-mentor` para revisar adesão a TDD e qualidade dos testes.
 - `dev-ddd-modeler` para revisar entities, VOs e bounded contexts em código.
+- `sec-threat-modeler` para aplicar STRIDE à arquitetura.
+- `sec-vuln-scanner-mentor` para configurar scanners + triage de CVE.
+- `sec-auth-pattern-reviewer` para revisar padrões de authn/z em código.
 
 ## Comportamentos proibidos
 

@@ -21,6 +21,19 @@ Documentação humana das skills do boilerplate. A versão consumida pela IA est
 - [plan-create-implementation-plan](plan-create-implementation-plan.md) — spec → plano de implementação.
 - [plan-review-readiness](plan-review-readiness.md) — gate antes de codar.
 
+## Security
+
+- [sec-threat-model](sec-threat-model.md) — STRIDE aplicado à arquitetura.
+- [sec-define-auth-strategy](sec-define-auth-strategy.md) — authn/z + multi-tenant + lifecycle.
+- [sec-secrets-management-plan](sec-secrets-management-plan.md) — vault/KMS + rotação.
+- [sec-dependency-vuln-scan](sec-dependency-vuln-scan.md) — scanners + gates CI.
+- [sec-define-encryption-strategy](sec-define-encryption-strategy.md) — at-rest + in-transit + KMS.
+- [sec-define-audit-logging](sec-define-audit-logging.md) — ações auditadas + store + retenção.
+- [sec-define-rate-limiting](sec-define-rate-limiting.md) — rate limits por endpoint.
+- [sec-multi-tenant-isolation](sec-multi-tenant-isolation.md) — tenant_id filter obrigatório.
+- [sec-webhook-signing](sec-webhook-signing.md) — HMAC + replay protection.
+- [sec-idempotency-strategy](sec-idempotency-strategy.md) — idempotency keys.
+
 ## Development
 
 - [dev-start-development](dev-start-development.md) — início incremental, módulo por módulo.
@@ -30,6 +43,7 @@ Documentação humana das skills do boilerplate. A versão consumida pela IA est
 - [dev-write-failing-test-first](dev-write-failing-test-first.md) — helper para RED comprovado.
 - [dev-refactor-to-clean-architecture](dev-refactor-to-clean-architecture.md) — refatora código que viola Clean Arch.
 - [dev-review-module-cohesion](dev-review-module-cohesion.md) — auditoria estrutural de módulo.
+- [dev-define-use-case-authenticated](dev-define-use-case-authenticated.md) — variante para use case que exige auth (cross-cutting com sec-*).
 
 ## Recursos relacionados
 
