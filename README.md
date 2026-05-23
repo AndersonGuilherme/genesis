@@ -123,6 +123,23 @@ Toda dev skill aplica TDD pragmático + DDD + Clean Architecture 3-layer + módu
 | [dev-define-use-case-authenticated](.claude/skills/dev-define-use-case-authenticated/SKILL.md) | Variante de `dev-define-use-case` que carrega rules sec-* (authn/authz/audit/validation). |
 | [dev-define-use-case-with-pii](.claude/skills/dev-define-use-case-with-pii/SKILL.md) | Variante de `dev-define-use-case` que carrega rules lgpd-* + sec-* (minimização/consent/encryption/audit). |
 
+### Operations — produção que não acorda você sem motivo
+
+Phase após development. Define CI/CD, observability, SLO, runbooks, incident response, backup, cost tracking, feature flags, deployment strategy.
+
+| Skill | Quando usar |
+|-------|-------------|
+| [ops-setup-ci-pipeline](.claude/skills/ops-setup-ci-pipeline/SKILL.md) | CI com lint, test, build, scanners. Primeiro da phase. |
+| [ops-setup-cd-pipeline](.claude/skills/ops-setup-cd-pipeline/SKILL.md) | CD com canary + rollback automático. |
+| [ops-define-observability](.claude/skills/ops-define-observability/SKILL.md) | Logs estruturados + RED/USE + traces via OpenTelemetry. |
+| [ops-define-slos-slis](.claude/skills/ops-define-slos-slis/SKILL.md) | SLO/SLI por CUJ + burn rate alerts + error budget. |
+| [ops-define-runbook](.claude/skills/ops-define-runbook/SKILL.md) | Runbook por módulo crítico. |
+| [ops-define-incident-response](.claude/skills/ops-define-incident-response/SKILL.md) | Severity, papéis, fluxo, postmortem blameless. |
+| [ops-setup-backup-restore](.claude/skills/ops-setup-backup-restore/SKILL.md) | Backup + restore drill + RPO/RTO. |
+| [ops-cost-tracking](.claude/skills/ops-cost-tracking/SKILL.md) | Cost export + tags + alertas de billing. |
+| [ops-feature-flags-strategy](.claude/skills/ops-feature-flags-strategy/SKILL.md) | Flag debt sob controle. |
+| [ops-define-deployment-strategy](.claude/skills/ops-define-deployment-strategy/SKILL.md) | Rolling/blue-green/canary justificado. |
+
 ---
 
 ## Rules por fase
@@ -171,6 +188,17 @@ Rules são princípios que a IA aplica automaticamente. Skills declaram quais ru
 | [lgpd-pii-encrypted](.claude/rules/lgpd-pii-encrypted.md) | PII at-rest cifrada. Sensível com camada extra (KMS). |
 | [lgpd-international-transfer-rule](.claude/rules/lgpd-international-transfer-rule.md) | Transferência fora do Brasil exige base legal + DPA + privacy notice. |
 | [lgpd-processing-registry](.claude/rules/lgpd-processing-registry.md) | ROPA vivo, atualizado em cada PR que toca PII. |
+
+### Operations
+
+| Rule | Princípio |
+|------|-----------|
+| [ops-structured-logging](.claude/rules/ops-structured-logging.md) | Logs em JSON com campos canônicos. Sem string livre. |
+| [ops-correlation-id](.claude/rules/ops-correlation-id.md) | trace_id em log + métrica + trace + job assíncrono. W3C propagação. |
+| [ops-alert-actionable](.claude/rules/ops-alert-actionable.md) | Alerta sem runbook + sem ação = proibido. |
+| [ops-runbook-required](.claude/rules/ops-runbook-required.md) | Cada módulo crítico tem runbook publicado e vivo. |
+| [ops-rollback-tested](.claude/rules/ops-rollback-tested.md) | Rollback exercitado em staging. Migration reversível. |
+| [ops-no-prod-debug-flag](.claude/rules/ops-no-prod-debug-flag.md) | Sem DEBUG=true, sem endpoint /debug em produção. |
 
 ### Development
 
@@ -221,6 +249,13 @@ Agents são revisores invocáveis quando uma área precisa de profundidade. Skil
 | [lgpd-compliance-reviewer](.claude/agents/lgpd-compliance-reviewer.md) | Audita conformidade LGPD cruzando docs com código. Gaps por artigo violado. |
 | [lgpd-dpo-mentor](.claude/agents/lgpd-dpo-mentor.md) | Orienta decisões no papel de DPO — base legal, DPIA, fiscalização ANPD. |
 
+### Operations
+
+| Agent | Foco |
+|-------|------|
+| [ops-sre-mentor](.claude/agents/ops-sre-mentor.md) | SLO/SLI, observability, runbooks, deploy strategy, error budget. SRE pragmático. |
+| [ops-incident-commander](.claude/agents/ops-incident-commander.md) | Coordena incidente, mantém timeline, conduz postmortem blameless. |
+
 ### Development
 
 | Agent | Foco |
@@ -250,14 +285,14 @@ Templates ficam em [.genesis/templates/](.genesis/templates/) e são aplicados p
 ```
 /
 ├── .claude/                  Claude Code: skills, agents, rules, hooks
-│   ├── skills/               40 skills (2 disc-, 11 plan-, 10 sec-, 8 lgpd-, 9 dev-)
-│   ├── agents/               18 agents (10 plan-, 3 sec-, 2 lgpd-, 3 dev-)
-│   ├── rules/                36 rules (10 plan-, 10 sec-, 8 lgpd-, 8 dev-)
+│   ├── skills/               50 skills (2 disc-, 11 plan-, 10 sec-, 8 lgpd-, 10 ops-, 9 dev-)
+│   ├── agents/               20 agents (10 plan-, 3 sec-, 2 lgpd-, 2 ops-, 3 dev-)
+│   ├── rules/                42 rules (10 plan-, 10 sec-, 8 lgpd-, 6 ops-, 8 dev-)
 │   └── hooks/                hooks de gate (readiness, no-code-before-spec)
 ├── .genesis/                 Infra do boilerplate (hidden namespace)
 │   ├── scripts/              check-readiness, lint-docs, run-skill-tests, genesis-init
 │   ├── tests/                sanity tests por skill/rule/agent
-│   ├── templates/            24 templates (planning + security + lgpd + development)
+│   ├── templates/            28 templates (planning + security + lgpd + operations + development)
 │   ├── examples/             tchr (caso real, removido em projeto novo)
 │   ├── docs/skills/          narrativa humana das skills
 │   ├── README.md             documentação do boilerplate

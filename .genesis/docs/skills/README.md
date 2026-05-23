@@ -57,6 +57,19 @@ Documentação humana das skills do boilerplate. A versão consumida pela IA est
 - [dev-define-use-case-authenticated](dev-define-use-case-authenticated.md) — variante para use case que exige auth (cross-cutting com sec-*).
 - [dev-define-use-case-with-pii](dev-define-use-case-with-pii.md) — variante para use case que toca PII (cross-cutting com lgpd-* + sec-*).
 
+## Operations
+
+- [ops-setup-ci-pipeline](ops-setup-ci-pipeline.md) — CI com lint, test, build, scanners.
+- [ops-setup-cd-pipeline](ops-setup-cd-pipeline.md) — CD com canary + rollback automático.
+- [ops-define-observability](ops-define-observability.md) — logs estruturados + RED/USE + traces via OTel.
+- [ops-define-slos-slis](ops-define-slos-slis.md) — SLO/SLI por CUJ + burn rate alerts.
+- [ops-define-runbook](ops-define-runbook.md) — runbook por módulo crítico.
+- [ops-define-incident-response](ops-define-incident-response.md) — severity, papéis, fluxo, postmortem.
+- [ops-setup-backup-restore](ops-setup-backup-restore.md) — backup automático + restore drill.
+- [ops-cost-tracking](ops-cost-tracking.md) — cost export + tags + alertas de billing.
+- [ops-feature-flags-strategy](ops-feature-flags-strategy.md) — flag debt sob controle.
+- [ops-define-deployment-strategy](ops-define-deployment-strategy.md) — rolling/blue-green/canary justificado.
+
 ## Recursos relacionados
 
 - [START_HERE.md](../../../docs/START_HERE.md) — guia de entrada do repositório.

@@ -104,6 +104,15 @@ Skills da fase `development` declaram quais rules carregar via campo `rules:` no
 - [dev-module-naming](.claude/rules/dev-module-naming.md)
 - [dev-dependency-direction](.claude/rules/dev-dependency-direction.md)
 
+### Regras de operations (aplicadas em phase operations e cross-cutting em dev quando há logging/observability)
+
+- [ops-structured-logging](.claude/rules/ops-structured-logging.md)
+- [ops-correlation-id](.claude/rules/ops-correlation-id.md)
+- [ops-alert-actionable](.claude/rules/ops-alert-actionable.md)
+- [ops-runbook-required](.claude/rules/ops-runbook-required.md)
+- [ops-rollback-tested](.claude/rules/ops-rollback-tested.md)
+- [ops-no-prod-debug-flag](.claude/rules/ops-no-prod-debug-flag.md)
+
 ## Agentes especializados
 
 Quando uma área específica precisar de revisão profunda, invoque o agente apropriado em [.claude/agents/](.claude/agents/):
@@ -126,6 +135,8 @@ Quando uma área específica precisar de revisão profunda, invoque o agente apr
 - `sec-auth-pattern-reviewer` para revisar padrões de authn/z em código.
 - `lgpd-compliance-reviewer` para auditar conformidade LGPD cruzando docs com código.
 - `lgpd-dpo-mentor` para orientar decisões de privacidade no papel de DPO.
+- `ops-sre-mentor` para revisar SLO/observability/runbooks/postmortems.
+- `ops-incident-commander` para coordenar resposta a incidente + conduzir postmortem blameless.
 
 ## Comportamentos proibidos
 
