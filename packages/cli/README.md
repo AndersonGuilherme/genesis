@@ -1,6 +1,9 @@
 # @tchr/genesis-cli
 
-CLI Node.js que bootstrapa projetos a partir do Brazilian Genesis boilerplate + serve dashboard local de tokens/custos/docs.
+[![npm version](https://img.shields.io/npm/v/@tchr/genesis-cli.svg)](https://www.npmjs.com/package/@tchr/genesis-cli)
+[![license](https://img.shields.io/npm/l/@tchr/genesis-cli.svg)](LICENSE)
+
+CLI Node.js que bootstrapa projetos a partir do **Brazilian Genesis** boilerplate + serve dashboard local de tokens/custos/docs. Sistema de mentoria disciplinada com lifecycle de 8 phases (`discovery → planning → security → lgpd → development → pre-launch → operations → maintenance`).
 
 ## Instalação
 
@@ -93,16 +96,27 @@ genesis tokens --json             # output JSON pra script
 
 ### `genesis pricing`
 
-Inspeciona tabela de pricing usada pra calcular custos. Configurável via `~/.config/genesis/pricing.json` (override do user) ou embarcada (`src/pricing/models.json`).
+Gerencia tabela de pricing usada pra calcular custos.
 
 ```bash
-genesis pricing show              # tabela atual
-genesis pricing update            # baixa pricing oficial (M6 — placeholder em v0.5.0)
+genesis pricing show              # tabela atual (override do user ou embarcada)
+genesis pricing update            # baixa pricing atual de GitHub raw → ~/.config/genesis/pricing.json
+genesis pricing update --url <u>  # baixa de URL alternativa
+genesis pricing reset             # remove override, volta a usar embarcado
 ```
 
 ### `genesis doctor`
 
-Valida que a instalação está saudável: hooks executáveis, manifest íntegro, lint do boilerplate OK.
+Health check completo: pacote + projeto + hooks + lock + transcripts + pricing.
+
+- ✓ verde: tudo OK.
+- ! amarelo: warning (não bloqueia uso — ex.: pricing desatualizado, projeto sem transcripts ainda).
+- ✗ vermelho: erro (corrigir antes de continuar).
+
+```bash
+genesis doctor                    # cwd ascendente
+genesis doctor --cwd /path/proj   # explícito
+```
 
 ### `genesis update`
 
@@ -155,6 +169,36 @@ Conteúdo completo do boilerplate: [README do boilerplate](https://github.com/An
 - Node.js ≥ 20.10
 - `git`
 
+## Desenvolvimento
+
+```bash
+git clone https://github.com/AndersonGuilherme/genesis.git
+cd genesis
+npm install
+cd packages/cli
+npm run sync-assets    # copia boilerplate → assets/
+npm run build          # tsc → dist/
+npm test               # vitest (36 unit tests)
+npm run dev -- init meu-projeto  # rodar via tsx sem build
+```
+
+Estrutura monorepo:
+- [`packages/boilerplate/`](../boilerplate/) — conteúdo (skills, rules, agents, templates, docs).
+- [`packages/cli/`](.) — CLI Node + dashboard local.
+
+## Roadmap
+
+| Milestone | Versão | Status |
+|-----------|--------|--------|
+| M1 — CLI scaffold (init + doctor) | 0.1.0 | ✅ |
+| M2 — update incremental (3-way merge) | 0.2.0 | ✅ |
+| M3 — skill + phase + config.json | 0.3.0 | ✅ |
+| M4 — Dashboard read-only | 0.4.0 | ✅ |
+| M5 — Dashboard interativo + tokens | 0.5.0 | ✅ |
+| M6 — Hardening + release 1.0 | **1.0.0** | ✅ |
+
+Próximos: dashboard SSE (live update), CI GitHub Actions, prebuilt binaries.
+
 ## Licença
 
-MIT
+MIT — © Anderson Souza

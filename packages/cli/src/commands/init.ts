@@ -130,7 +130,10 @@ Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/).
     log.ok('docs/PROJECT_STATE.md zerado para o projeto novo');
   }
 
-  // 7. escrever manifest.lock.json (snapshot da versão instalada)
+  // 7. escrever manifest.lock.json (snapshot da versão pristine do upstream).
+  //    Mantemos o manifest CRU (não pós-init) porque update compara contra
+  //    novo upstream pristine — arquivos transformados pelo init (README, examples
+  //    removidos) aparecem em update como "user-customized" e são preservados.
   const pristineManifest = await readManifest(join(src, 'manifest.json'));
   if (pristineManifest) {
     await writeManifest(join(dest, '.genesis', 'manifest.lock.json'), pristineManifest);
