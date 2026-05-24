@@ -1,6 +1,6 @@
 {
   "name": "@tchr/genesis-cli",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "CLI do Brazilian Genesis — bootstrap de projeto + dashboard local de tokens/custos/docs. Lifecycle disciplinado de 8 phases (discovery → maintenance).",
   "license": "MIT",
   "author": "Anderson Souza",
@@ -40,7 +40,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json && chmod +x dist/cli.js",
+    "build": "tsc -p tsconfig.json && mkdir -p dist/pricing && cp src/pricing/models.json dist/pricing/models.json && chmod +x dist/cli.js",
     "sync-assets": "tsx scripts/sync-assets.ts",
     "prepack": "npm run sync-assets && npm run build",
     "dev": "tsx src/cli.ts",
@@ -49,6 +49,8 @@
   },
   "dependencies": {
     "@clack/prompts": "^0.7.0",
+    "@types/better-sqlite3": "^7.6.13",
+    "better-sqlite3": "^11.10.0",
     "commander": "^12.1.0",
     "execa": "^9.5.1",
     "fast-glob": "^3.3.2",

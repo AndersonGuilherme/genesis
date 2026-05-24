@@ -3,7 +3,7 @@ import { html, type RawHtml } from './html.js';
 
 export interface LayoutProps {
   title: string;
-  active: 'overview' | 'docs' | 'skills' | 'rules' | 'agents' | 'phases';
+  active: 'overview' | 'docs' | 'skills' | 'rules' | 'agents' | 'phases' | 'tokens';
   projectName: string;
   phaseActive: string;
   body: RawHtml;
@@ -12,6 +12,7 @@ export interface LayoutProps {
 
 const NAV = [
   { key: 'overview', href: '/', label: 'Overview' },
+  { key: 'tokens', href: '/tokens', label: 'Tokens' },
   { key: 'docs', href: '/docs/', label: 'Docs' },
   { key: 'skills', href: '/skills', label: 'Skills' },
   { key: 'rules', href: '/rules', label: 'Rules' },

@@ -42,9 +42,13 @@ export function renderPhases(cfg: GenesisConfig): string {
   });
 
   const body = html`
-    <h1 class="text-2xl font-bold text-slate-900 mb-2">Lifecycle: 8 phases</h1>
-    <p class="text-sm text-slate-600 mb-6">Phase ativa em destaque ciano. Avance via CLI: <code class="bg-slate-200 px-1 rounded">genesis phase next</code>.</p>
+    <div class="flex items-center justify-between mb-2">
+      <h1 class="text-2xl font-bold text-slate-900">Lifecycle: 8 phases</h1>
+      <button id="phase-next-btn" class="bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-medium px-3 py-1.5 rounded">Próxima phase →</button>
+    </div>
+    <p class="text-sm text-slate-600 mb-6">Phase ativa em destaque ciano. Use os botões nos cards de skill (em /skills) pra marcar progresso.</p>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">${columns}</div>
+    <script>${html.raw(PHASE_NEXT_JS)}</script>
   `;
   return layout({
     title: 'Phases',
@@ -58,3 +62,16 @@ export function renderPhases(cfg: GenesisConfig): string {
 function escape(s: string): string {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
+
+const PHASE_NEXT_JS = `
+document.getElementById('phase-next-btn')?.addEventListener('click', async () => {
+  if (!confirm('Avançar pra próxima phase?')) return;
+  const res = await fetch('/api/phase/next', { method: 'POST' });
+  const body = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    alert('erro: ' + (body.error || res.status));
+    return;
+  }
+  location.reload();
+});
+`;

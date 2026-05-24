@@ -22,18 +22,24 @@ export async function renderSkills(
     const meta = metaMap.get(s.id);
     const desc = meta?.description ?? '';
     const rules = meta?.rules ?? [];
-    return html.raw(`<div class="bg-white rounded-lg shadow-sm p-4 hover:shadow-md transition-shadow">
+    return html.raw(`<div class="bg-white rounded-lg shadow-sm p-4 hover:shadow-md transition-shadow" data-skill-id="${escape(s.id)}">
       <div class="flex items-start justify-between gap-2 mb-2">
         <div>
           <div class="font-mono text-sm text-slate-900 font-semibold">${escape(s.id)}</div>
           <div class="text-xs text-slate-500 mt-0.5">phase: <span class="text-cyan-700">${escape(s.phase)}</span></div>
         </div>
-        <div>${statusBadge(s.status)}</div>
+        <div class="skill-badge">${statusBadge(s.status)}</div>
       </div>
       <p class="text-sm text-slate-600 line-clamp-3">${escape(desc)}</p>
       ${rules.length > 0
         ? `<div class="mt-2 flex flex-wrap gap-1">${rules.map((r) => `<span class="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded">${escape(r)}</span>`).join('')}</div>`
         : ''}
+      <div class="mt-3 pt-2 border-t border-slate-100 flex gap-1">
+        ${statusBtn(s.id, 'pending', 'pending', s.status)}
+        ${statusBtn(s.id, 'doing', 'doing', s.status)}
+        ${statusBtn(s.id, 'done', 'done', s.status)}
+        ${statusBtn(s.id, 'skip', 'skip', s.status)}
+      </div>
     </div>`);
   });
 
@@ -63,8 +69,9 @@ export async function renderSkills(
         ${statusButtons}
       </div>
     </section>
-    <p class="text-sm text-slate-500 mb-4">${rows.length} skill(s) listada(s).</p>
+    <p class="text-sm text-slate-500 mb-4">${rows.length} skill(s) listada(s). <span class="text-cyan-700">Clique nos status pra atualizar.</span></p>
     <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">${cards}</section>
+    <script>${html.raw(SKILL_TOGGLE_JS)}</script>
   `;
 
   return layout({
@@ -86,6 +93,44 @@ function statusBadge(status: SkillStatus): string {
   const [cls, label] = map[status];
   return `<span class="${cls} text-[10px] font-medium px-2 py-0.5 rounded">${label}</span>`;
 }
+
+function statusBtn(skillId: string, target: SkillStatus, label: string, current: SkillStatus): string {
+  const active = target === current;
+  const base = 'flex-1 text-[10px] font-medium px-2 py-1 rounded cursor-pointer transition-colors';
+  const cls = active
+    ? 'bg-cyan-600 text-white'
+    : 'bg-slate-100 text-slate-500 hover:bg-slate-200';
+  return `<button data-toggle="${skillId}" data-status="${target}" class="${base} ${cls}">${label}</button>`;
+}
+
+const SKILL_TOGGLE_JS = `
+document.querySelectorAll('button[data-toggle]').forEach((btn) => {
+  btn.addEventListener('click', async (ev) => {
+    const id = btn.getAttribute('data-toggle');
+    const status = btn.getAttribute('data-status');
+    btn.disabled = true;
+    btn.style.opacity = '0.5';
+    try {
+      const res = await fetch('/api/skill/toggle', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, status }),
+      });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        alert('erro: ' + (body.error || res.status));
+        return;
+      }
+      location.reload();
+    } catch (err) {
+      alert('falha de rede: ' + err.message);
+    } finally {
+      btn.disabled = false;
+      btn.style.opacity = '';
+    }
+  });
+});
+`;
 
 function escape(s: string): string {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');

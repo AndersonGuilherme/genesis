@@ -6,6 +6,8 @@ import { renderSkills } from './routes/skills.js';
 import { renderRules } from './routes/rules.js';
 import { renderAgents } from './routes/agents.js';
 import { renderPhases } from './routes/phases.js';
+import { renderTokens, renderSessionDrilldown } from './routes/tokens.js';
+import { handleApi } from './routes/api.js';
 
 export interface ServerOptions {
   projectRoot: string;
@@ -17,10 +19,14 @@ export function startServer(opts: ServerOptions): Promise<{ url: string; stop: (
     handle(req, res, opts).catch((err: unknown) => {
       const message = err instanceof Error ? err.message : String(err);
       const stack = err instanceof Error && err.stack ? err.stack : '';
-      console.error(`[dashboard] erro em ${req.url}: ${message}`);
-      res.statusCode = 500;
-      res.setHeader('Content-Type', 'text/html; charset=utf-8');
-      res.end(`<pre style="padding:20px;font-family:monospace;background:#fee;color:#900">${escape(message)}\n\n${escape(stack)}</pre>`);
+      console.error(`[dashboard] erro em ${req.method} ${req.url}: ${message}`);
+      if (!res.headersSent) {
+        res.statusCode = 500;
+        res.setHeader('Content-Type', 'text/html; charset=utf-8');
+        res.end(
+          `<pre style="padding:20px;font-family:monospace;background:#fee;color:#900">${escape(message)}\n\n${escape(stack)}</pre>`,
+        );
+      }
     });
   });
 
@@ -43,6 +49,13 @@ async function handle(
 ): Promise<void> {
   const url = new URL(req.url ?? '/', `http://localhost:${opts.port}`);
   const pathname = url.pathname;
+  const method = req.method ?? 'GET';
+
+  // API endpoints (JSON)
+  if (pathname.startsWith('/api/')) {
+    await handleApi({ projectRoot: opts.projectRoot, pathname, method, req, res });
+    return;
+  }
 
   const cfg = await readConfig(opts.projectRoot);
   if (!cfg) {
@@ -52,9 +65,25 @@ async function handle(
     return;
   }
 
-  // Roteamento simples
+  if (method !== 'GET') {
+    res.statusCode = 405;
+    res.setHeader('Content-Type', 'text/plain');
+    res.end('Method Not Allowed');
+    return;
+  }
+
+  // Roteamento
   if (pathname === '/') {
     send(res, 200, renderOverview(cfg));
+    return;
+  }
+  if (pathname === '/tokens' || pathname === '/tokens/') {
+    send(res, 200, await renderTokens(opts.projectRoot, cfg));
+    return;
+  }
+  const sessionMatch = pathname.match(/^\/tokens\/sessions\/([A-Za-z0-9-]+)\/?$/);
+  if (sessionMatch) {
+    send(res, 200, await renderSessionDrilldown(opts.projectRoot, cfg, sessionMatch[1]!));
     return;
   }
   if (pathname === '/skills' || pathname === '/skills/') {

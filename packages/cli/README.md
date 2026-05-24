@@ -41,11 +41,12 @@ cd ./meu-saas
 Abre dashboard local em `http://localhost:4321` com:
 
 - **Overview** — phase ativa, progresso por phase, contadores (done/doing/pending/skip).
+- **Tokens** — uso de tokens + custo USD (lê transcripts do Claude Code em `~/.claude/projects/<hash>/*.jsonl`). Por modelo, por dia, por sessão. Drill-down `/tokens/sessions/<id>`.
 - **Docs** — viewer renderizado de `docs/**/*.md` com sidebar navegável + breadcrumbs.
-- **Skills** — grid filtrável por phase/status, cards com descrição + rules carregadas.
+- **Skills** — grid filtrável por phase/status, cards com descrição + rules carregadas. **Toggle interativo** muda status sem sair do browser.
 - **Rules** — princípios agrupados por phase.
 - **Agents** — agents especializados agrupados por phase.
-- **Phases** — visão kanban das 8 phases com cards de skills.
+- **Phases** — visão kanban das 8 phases com cards de skills. **Botão "próxima phase"** avança lifecycle.
 
 Flags:
 - `--port <n>` — porta HTTP (default: 4321).
@@ -79,6 +80,25 @@ Inspeciona e avança phase ativa do lifecycle.
 - `genesis phase set <name>` — define phase ativa manualmente.
 
 Phases válidas: `discovery | planning | security | lgpd | development | pre-launch | operations | maintenance`.
+
+### `genesis tokens`
+
+Relatório CLI do uso de tokens + custos (mirror do painel `/tokens` do dashboard).
+
+```bash
+genesis tokens                    # tabela formatada
+genesis tokens --sessions         # inclui lista de sessões
+genesis tokens --json             # output JSON pra script
+```
+
+### `genesis pricing`
+
+Inspeciona tabela de pricing usada pra calcular custos. Configurável via `~/.config/genesis/pricing.json` (override do user) ou embarcada (`src/pricing/models.json`).
+
+```bash
+genesis pricing show              # tabela atual
+genesis pricing update            # baixa pricing oficial (M6 — placeholder em v0.5.0)
+```
 
 ### `genesis doctor`
 

@@ -10,6 +10,8 @@ import { registerUpdate } from './commands/update.js';
 import { registerSkill } from './commands/skill.js';
 import { registerPhase } from './commands/phase.js';
 import { registerDashboard } from './commands/dashboard.js';
+import { registerTokens } from './commands/tokens.js';
+import { registerPricing } from './commands/pricing.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const pkg = JSON.parse(readFileSync(join(__dirname, '..', 'package.json'), 'utf8')) as {
@@ -29,6 +31,8 @@ registerUpdate(program);
 registerSkill(program);
 registerPhase(program);
 registerDashboard(program);
+registerTokens(program);
+registerPricing(program);
 registerDoctor(program);
 
 program.on('--help', () => {
