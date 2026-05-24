@@ -1,0 +1,66 @@
+{
+  "name": "@tchr/genesis-cli",
+  "version": "0.1.0",
+  "description": "CLI do Brazilian Genesis — bootstrap de projeto + dashboard local de tokens/custos/docs. Lifecycle disciplinado de 8 phases (discovery → maintenance).",
+  "license": "MIT",
+  "author": "Anderson Souza",
+  "homepage": "https://github.com/AndersonGuilherme/genesis#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndersonGuilherme/genesis.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/AndersonGuilherme/genesis/issues"
+  },
+  "keywords": [
+    "boilerplate",
+    "scaffolding",
+    "claude-code",
+    "brazilian",
+    "genesis",
+    "spec-driven-development",
+    "lgpd",
+    "ddd",
+    "tdd"
+  ],
+  "type": "module",
+  "bin": {
+    "genesis": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "assets",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20.10"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && chmod +x dist/cli.js",
+    "sync-assets": "tsx scripts/sync-assets.ts",
+    "prepack": "npm run sync-assets && npm run build",
+    "dev": "tsx src/cli.ts",
+    "test": "vitest run",
+    "test:e2e": "vitest run --config vitest.e2e.config.ts"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.7.0",
+    "commander": "^12.1.0",
+    "execa": "^9.5.1",
+    "fast-glob": "^3.3.2",
+    "find-up": "^7.0.0",
+    "fs-extra": "^11.2.0",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.10.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

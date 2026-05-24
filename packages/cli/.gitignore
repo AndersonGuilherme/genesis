@@ -1,0 +1,6 @@
+node_modules/
+dist/
+assets/
+*.tsbuildinfo
+.vitest/
+coverage/
