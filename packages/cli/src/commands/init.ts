@@ -7,6 +7,7 @@ import { execa } from 'execa';
 import pc from 'picocolors';
 import fg from 'fast-glob';
 import { assetsDir } from '../core/paths.js';
+import { readManifest, writeManifest } from '../core/manifest.js';
 
 const NAME_PATTERN = /^[a-z][a-z0-9-]*$/;
 
@@ -127,7 +128,16 @@ Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/).
     log.ok('docs/PROJECT_STATE.md zerado para o projeto novo');
   }
 
-  // 7. git init -b main
+  // 7. escrever manifest.lock.json (snapshot da versão instalada)
+  const pristineManifest = await readManifest(join(src, 'manifest.json'));
+  if (pristineManifest) {
+    await writeManifest(join(dest, '.genesis', 'manifest.lock.json'), pristineManifest);
+    log.ok(`.genesis/manifest.lock.json gravado (v${pristineManifest.version}, ${Object.keys(pristineManifest.files).length} arquivos)`);
+  } else {
+    log.warn('manifest.json não encontrado em assets — update incremental ficará indisponível');
+  }
+
+  // 8. git init -b main
   try {
     await execa('git', ['init', '-b', 'main'], { cwd: dest, stdio: 'ignore' });
     log.ok('git init feito (branch main)');

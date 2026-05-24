@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { registerInit } from './commands/init.js';
 import { registerDoctor } from './commands/doctor.js';
+import { registerUpdate } from './commands/update.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const pkg = JSON.parse(readFileSync(join(__dirname, '..', 'package.json'), 'utf8')) as {
@@ -21,6 +22,7 @@ program
   .version(pkg.version, '-v, --version', 'mostra a versão do CLI');
 
 registerInit(program);
+registerUpdate(program);
 registerDoctor(program);
 
 program.on('--help', () => {

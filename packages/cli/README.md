@@ -40,9 +40,37 @@ cd ./meu-saas
 
 Valida que a instalação está saudável: hooks executáveis, manifest íntegro, lint do boilerplate OK.
 
-### `genesis update` (M2 — em breve)
+### `genesis update`
 
 Atualiza projeto-filho pra versão nova do boilerplate via 3-way merge por hash. Preserva customizações.
+
+Flags:
+- `--dry-run` — mostra o que mudaria sem aplicar.
+- `--force` — aplica safe-overwrite e adds sem prompt (conflitos ainda perguntam).
+- `--cwd <path>` — projeto destino (default: cwd ascendente até achar `.genesis/manifest.lock.json`).
+
+Comportamento (3-way diff por SHA-256):
+
+| Estado | Ação |
+|--------|------|
+| `unchanged` (current == pristine == new) | no-op silencioso |
+| `safe-overwrite` (current == pristine ≠ new) | sobrescreve (upstream mudou, você não tocou) |
+| `user-customized` (current ≠ pristine == new) | mantém (você tocou, upstream não mudou) |
+| `conflict` (current ≠ pristine ≠ new) | **prompt**: keep / overwrite / write .new / cancel |
+| `added-upstream` (não no pristine, sim no new) | copia |
+| `removed-upstream` (no pristine, não no new) | **prompt**: keep / delete / cancel |
+
+`docs/`, `CHANGELOG.md`, `.genesis/.backup/`, `.genesis/.cache/`, `.genesis/manifest.lock.json` são **user-owned** — nunca tocados pelo update.
+
+Backup automático em `.genesis/.backup/<timestamp>/` antes de cada sobrescrita ou delete.
+
+Exemplo:
+
+```bash
+cd meu-projeto
+npx @tchr/genesis-cli update --dry-run   # vê o que mudaria
+npx @tchr/genesis-cli update             # aplica interativamente
+```
 
 ### `genesis dashboard` (M4 — em breve)
 
