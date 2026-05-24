@@ -36,6 +36,26 @@ cd ./meu-saas
 # Abra Claude Code aqui e diga: "vamos iniciar o projeto"
 ```
 
+### `genesis skill`
+
+CRUD de status das skills do projeto. Persistido em `.genesis/config.json`.
+
+- `genesis skill list [--phase X] [--status Y]` — grid das skills.
+- `genesis skill show <id>` — detalhes (descrição + rules carregadas).
+- `genesis skill select <id>` — marca como `doing`.
+- `genesis skill done <id>` — marca como `done`.
+- `genesis skill skip <id> [--notes ...]` — marca como `skip` (não bloqueia gates).
+
+### `genesis phase`
+
+Inspeciona e avança phase ativa do lifecycle.
+
+- `genesis phase status` — phase ativa + progresso por phase (done/total + skip).
+- `genesis phase next` — avança pra próxima phase.
+- `genesis phase set <name>` — define phase ativa manualmente.
+
+Phases válidas: `discovery | planning | security | lgpd | development | pre-launch | operations | maintenance`.
+
 ### `genesis doctor`
 
 Valida que a instalação está saudável: hooks executáveis, manifest íntegro, lint do boilerplate OK.

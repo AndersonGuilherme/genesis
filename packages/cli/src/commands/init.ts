@@ -8,6 +8,8 @@ import pc from 'picocolors';
 import fg from 'fast-glob';
 import { assetsDir } from '../core/paths.js';
 import { readManifest, writeManifest } from '../core/manifest.js';
+import { discoverSkills } from '../core/skills-discovery.js';
+import { buildDefaultConfig, writeConfig } from '../core/project-state.js';
 
 const NAME_PATTERN = /^[a-z][a-z0-9-]*$/;
 
@@ -137,7 +139,15 @@ Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/).
     log.warn('manifest.json não encontrado em assets — update incremental ficará indisponível');
   }
 
-  // 8. git init -b main
+  // 8. gerar .genesis/config.json default (descoberta de skills + status pending)
+  const skills = await discoverSkills(dest);
+  const config = buildDefaultConfig(name, skills);
+  await writeConfig(dest, config);
+  log.ok(
+    `.genesis/config.json gerado (${skills.length} skills em status pending, phase ativa: discovery)`,
+  );
+
+  // 9. git init -b main
   try {
     await execa('git', ['init', '-b', 'main'], { cwd: dest, stdio: 'ignore' });
     log.ok('git init feito (branch main)');

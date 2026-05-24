@@ -7,6 +7,8 @@ import { dirname, join } from 'node:path';
 import { registerInit } from './commands/init.js';
 import { registerDoctor } from './commands/doctor.js';
 import { registerUpdate } from './commands/update.js';
+import { registerSkill } from './commands/skill.js';
+import { registerPhase } from './commands/phase.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const pkg = JSON.parse(readFileSync(join(__dirname, '..', 'package.json'), 'utf8')) as {
@@ -23,6 +25,8 @@ program
 
 registerInit(program);
 registerUpdate(program);
+registerSkill(program);
+registerPhase(program);
 registerDoctor(program);
 
 program.on('--help', () => {
