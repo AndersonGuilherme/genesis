@@ -1,0 +1,22 @@
+{
+  "name": "@tchr/genesis-boilerplate",
+  "version": "0.4.0",
+  "private": true,
+  "description": "Brazilian Genesis boilerplate content (skills, rules, agents, templates, docs). Distributed via @tchr/genesis-cli — não publicado standalone.",
+  "license": "MIT",
+  "author": "Anderson Souza",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndersonGuilherme/genesis.git",
+    "directory": "packages/boilerplate"
+  },
+  "files": [
+    ".claude",
+    ".genesis",
+    "docs",
+    "CLAUDE.md",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ]
+}

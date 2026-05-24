@@ -1,0 +1,22 @@
+{
+  "name": "genesis-monorepo",
+  "private": true,
+  "version": "0.4.0",
+  "description": "Brazilian Genesis — monorepo. Contains the boilerplate content and the @tchr/genesis-cli npm package.",
+  "license": "MIT",
+  "author": "Anderson Souza",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndersonGuilherme/genesis.git"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "lint": "cd packages/boilerplate && bash .genesis/scripts/lint-docs.sh",
+    "test:boilerplate": "cd packages/boilerplate && bash .genesis/scripts/run-skill-tests.sh"
+  },
+  "engines": {
+    "node": ">=20.10"
+  }
+}
