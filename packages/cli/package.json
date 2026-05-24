@@ -1,6 +1,6 @@
 {
   "name": "@tchr/genesis-cli",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "CLI do Brazilian Genesis — bootstrap de projeto + dashboard local de tokens/custos/docs. Lifecycle disciplinado de 8 phases (discovery → maintenance).",
   "license": "MIT",
   "author": "Anderson Souza",
@@ -55,6 +55,8 @@
     "find-up": "^7.0.0",
     "fs-extra": "^11.2.0",
     "gray-matter": "^4.0.3",
+    "marked": "^14.1.4",
+    "open": "^10.2.0",
     "picocolors": "^1.1.1"
   },
   "devDependencies": {

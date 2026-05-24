@@ -36,6 +36,30 @@ cd ./meu-saas
 # Abra Claude Code aqui e diga: "vamos iniciar o projeto"
 ```
 
+### `genesis dashboard`
+
+Abre dashboard local em `http://localhost:4321` com:
+
+- **Overview** — phase ativa, progresso por phase, contadores (done/doing/pending/skip).
+- **Docs** — viewer renderizado de `docs/**/*.md` com sidebar navegável + breadcrumbs.
+- **Skills** — grid filtrável por phase/status, cards com descrição + rules carregadas.
+- **Rules** — princípios agrupados por phase.
+- **Agents** — agents especializados agrupados por phase.
+- **Phases** — visão kanban das 8 phases com cards de skills.
+
+Flags:
+- `--port <n>` — porta HTTP (default: 4321).
+- `--no-open` — não abre browser automaticamente.
+- `--cwd <path>` — projeto destino.
+
+Server simples Node nativo, zero build. Tailwind via Play CDN. Markdown via `marked`. Ctrl+C pra parar.
+
+```bash
+cd meu-projeto
+genesis dashboard         # http://localhost:4321 (abre browser)
+genesis dashboard --port 8080 --no-open
+```
+
 ### `genesis skill`
 
 CRUD de status das skills do projeto. Persistido em `.genesis/config.json`.

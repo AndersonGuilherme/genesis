@@ -39,7 +39,14 @@ export async function discoverSkills(rootDir: string): Promise<SkillMeta[]> {
   for (const rel of files) {
     const abs = join(base, rel);
     const raw = await readFile(abs, 'utf8');
-    const fm = matter(raw).data as Record<string, unknown>;
+    let fm: Record<string, unknown> = {};
+    try {
+      fm = matter(raw).data as Record<string, unknown>;
+    } catch {
+      // Frontmatter inválido (provavelmente YAML quebrado por : em descrição).
+      // Tenta extrair name/description/phase via regex como fallback.
+      fm = parseFrontmatterFallback(raw);
+    }
     const id = (fm.name as string) ?? rel.split('/')[0]!;
     const phase = (fm.phase as string) ?? 'unknown';
     const description = (fm.description as string) ?? '';
@@ -63,7 +70,14 @@ export async function discoverRules(rootDir: string): Promise<RuleMeta[]> {
   for (const rel of files) {
     const abs = join(base, rel);
     const raw = await readFile(abs, 'utf8');
-    const fm = matter(raw).data as Record<string, unknown>;
+    let fm: Record<string, unknown> = {};
+    try {
+      fm = matter(raw).data as Record<string, unknown>;
+    } catch {
+      // Frontmatter inválido (provavelmente YAML quebrado por : em descrição).
+      // Tenta extrair name/description/phase via regex como fallback.
+      fm = parseFrontmatterFallback(raw);
+    }
     const id = (fm.name as string) ?? rel.replace(/\.md$/, '');
     rules.push({
       id,
@@ -83,7 +97,14 @@ export async function discoverAgents(rootDir: string): Promise<AgentMeta[]> {
   for (const rel of files) {
     const abs = join(base, rel);
     const raw = await readFile(abs, 'utf8');
-    const fm = matter(raw).data as Record<string, unknown>;
+    let fm: Record<string, unknown> = {};
+    try {
+      fm = matter(raw).data as Record<string, unknown>;
+    } catch {
+      // Frontmatter inválido (provavelmente YAML quebrado por : em descrição).
+      // Tenta extrair name/description/phase via regex como fallback.
+      fm = parseFrontmatterFallback(raw);
+    }
     const id = (fm.name as string) ?? rel.replace(/\.md$/, '');
     agents.push({
       id,
@@ -111,4 +132,40 @@ export type Phase = (typeof PHASES)[number];
 
 export function isPhase(s: string): s is Phase {
   return (PHASES as readonly string[]).includes(s);
+}
+
+/**
+ * Fallback regex-based parser pra frontmatter quando YAML quebra.
+ * Extrai name, description, phase, tools, rules (lista simples).
+ */
+function parseFrontmatterFallback(raw: string): Record<string, unknown> {
+  const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  if (!match) return {};
+  const block = match[1] ?? '';
+  const out: Record<string, unknown> = {};
+  const lines = block.split(/\r?\n/);
+  let inRules = false;
+  const rules: string[] = [];
+  for (const line of lines) {
+    if (inRules) {
+      const m = line.match(/^\s*-\s+(.+)$/);
+      if (m) {
+        rules.push(m[1]!.trim());
+        continue;
+      }
+      inRules = false;
+    }
+    if (line.trim() === 'rules:') {
+      inRules = true;
+      continue;
+    }
+    const kv = line.match(/^([a-zA-Z_][a-zA-Z0-9_-]*):\s*(.*)$/);
+    if (kv) {
+      const key = kv[1]!;
+      const value = kv[2]!.replace(/^["']|["']$/g, '');
+      out[key] = value;
+    }
+  }
+  if (rules.length > 0) out.rules = rules;
+  return out;
 }
