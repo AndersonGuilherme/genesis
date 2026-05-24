@@ -197,7 +197,21 @@ Estrutura monorepo:
 | M5 — Dashboard interativo + tokens | 0.5.0 | ✅ |
 | M6 — Hardening + release 1.0 | **1.0.0** | ✅ |
 
-Próximos: dashboard SSE (live update), CI GitHub Actions, prebuilt binaries.
+Próximos: dashboard SSE (live update), prebuilt binaries, more skills.
+
+## CI/CD
+
+Workflows em [.github/workflows/](../../.github/workflows/):
+
+- **`ci.yml`** — roda em PR + push pra main: unit tests (Node 20+22), lint do boilerplate, smoke test do `init` (e2e).
+- **`release.yml`** — roda em tag push (`v*`): build + test + `npm publish --provenance`. Requer secret `NPM_TOKEN` (automation token) configurado em GitHub repo settings → Environments → `npm`.
+
+Pra publicar uma versão nova:
+```bash
+# bump version
+cd packages/cli && npm version patch    # ou minor / major
+git push --follow-tags                  # release.yml dispara, publica auto
+```
 
 ## Licença
 

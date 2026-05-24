@@ -1,0 +1,66 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: test (node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['20', '22']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - name: install
+        run: npm ci
+      - name: sync-assets (cli)
+        run: npm run sync-assets --workspace=@tchr/genesis-cli
+      - name: build (cli)
+        run: npm run build --workspace=@tchr/genesis-cli
+      - name: unit tests (cli)
+        run: npm test --workspace=@tchr/genesis-cli
+      - name: lint boilerplate
+        run: npm run lint
+      - name: doctor (smoke)
+        run: node packages/cli/dist/cli.js doctor
+
+  init-smoke:
+    name: init smoke (e2e)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: npm run sync-assets --workspace=@tchr/genesis-cli
+      - run: npm run build --workspace=@tchr/genesis-cli
+      - name: init projeto tmp
+        run: |
+          cd /tmp
+          node $GITHUB_WORKSPACE/packages/cli/dist/cli.js init smoke-proj
+          test -f smoke-proj/.genesis/manifest.lock.json
+          test -f smoke-proj/.genesis/config.json
+          test -f smoke-proj/CLAUDE.md
+          test -d smoke-proj/.claude/skills
+          test -d smoke-proj/docs
+      - name: validar config.json
+        run: |
+          cd /tmp/smoke-proj
+          node -e "const c=require('./.genesis/config.json'); if(c.version!==1) process.exit(1); if(c.skills.length<50) process.exit(1); console.log('config OK:', c.skills.length, 'skills');"
+      - name: doctor no projeto-filho
+        run: |
+          cd /tmp/smoke-proj
+          node $GITHUB_WORKSPACE/packages/cli/dist/cli.js doctor --cwd /tmp/smoke-proj
