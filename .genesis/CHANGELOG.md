@@ -6,6 +6,84 @@ Histórico de versões do `project-genesis-boilerplate`. Segue [Semantic Version
 - **MINOR** — adição de capacidade (skill, rule, agent, template, script).
 - **PATCH** — fix em conteúdo existente sem mudar contrato.
 
+## [0.4.0] — 2026-05-23
+
+Release consolidado dos blocos A-F do plano-mestre. Lifecycle completo
+de 8 phases shipped + remediação de gaps.
+
+### Adicionado
+
+- **Namespacing por phase** (Bloco A, commit `ea6b549`) — Skills/rules/agents
+  agora têm prefixo `disc-`, `plan-`, `sec-`, `lgpd-`, `dev-`, `prelaunch-`,
+  `ops-`, `maint-`. Frontmatter padronizado com campo `phase:`.
+- **Phase development** (Bloco B, commit `507a1a6`) — 7 skills + 8 rules +
+  3 agents + 5 templates para TDD + DDD + Clean Architecture. Skills
+  declaram `rules:` no frontmatter + Pre-flight Read.
+- **Phase security** (Bloco C, commit `669ccf4`) — 10 skills + 10 rules +
+  3 agents + 4 templates para threat model, auth, encryption, audit,
+  rate limit, multi-tenant, webhooks, idempotência. Inclui dev variant
+  `dev-define-use-case-authenticated`.
+- **Phase lgpd** (Bloco D, commit `03e4af5`) — 8 skills + 8 rules + 2
+  agents + 5 templates para ROPA (art. 37), consent (art. 8), retenção
+  (art. 15-16), direitos do titular (art. 18), DPIA (art. 38), DPAs
+  (art. 39). Inclui dev variant `dev-define-use-case-with-pii`.
+- **Phase operations** (Bloco E, commit `d254b42`) — 10 skills + 6 rules
+  + 2 agents + 4 templates para CI/CD, observability (OpenTelemetry),
+  SLO/SLI, runbooks, incident response, backup, cost tracking, feature
+  flags, deployment.
+- **Phase pre-launch** (Bloco F, commit `83cf27f`) — 4 skills + 1 rule
+  + 1 agent + 1 template para gate final + reunião go/no-go.
+- **Phase maintenance** (Bloco F, commit `83cf27f`) — 2 skills + 3 rules
+  + 1 agent + 2 templates para dependency update, postmortem blameless,
+  deprecação, backward compatibility, SLA de CVE.
+- **Multi-gate em `check-readiness.sh`** (commit `39e553f`) — modes
+  `--planning`, `--security`, `--lgpd`, `--pre-launch`, `--all`. Default
+  backcompat: `--planning`.
+- **Test coverage 100%** (commit `e1724ee`) — 56 testes sanity em
+  `.genesis/tests/skills/` (1 por skill). Renomeação de 14 testes
+  pré-namespace + 42 testes novos.
+- **Specs + plans retrospectivos** (commit `2265c2c`) — 4 specs + 4 plans
+  em `docs/superpowers/` para blocos C/D/E/F.
+- **Skeleton dirs no boilerplate** (commit `60c06e6`) —
+  `docs/security/lgpd/`, `docs/launch/`, `docs/maintenance/`,
+  `docs/operations/postmortems/` com READMEs índice.
+
+### Modificado
+
+- **`docs/PROJECT_STATE.md`** (commit `893aad6`) — checklist linear "1-10"
+  substituído por lifecycle 8-phase + 4 gates + tabelas de estado de
+  docs para todas as phases.
+- **`docs/START_HERE.md`** (commit `893aad6`) — tabela das 8 phases com
+  skill prefix + modes do multi-gate.
+- **`CLAUDE.md`** (commits `893aad6` + blocos C/D/E/F) — "Fluxo padrão"
+  usa "phase" + enumera lifecycle + exige validação de gate antes de
+  avançar. Seções de rules para security, lgpd, operations, pre-launch,
+  maintenance + 9 agents novos.
+- **`README.md`** (root) — blocos novos: Security, LGPD, Operations,
+  Pre-launch, Maintenance. Counts atualizados: 56 skills, 22 agents,
+  46 rules, 31 templates.
+- **`.genesis/scripts/lint-docs.sh`** — counts finais (56/22/46/31).
+- **`.genesis/docs/skills/README.md`** — phases Security, LGPD,
+  Operations, Pre-launch, Maintenance adicionadas + 42 narrativas novas.
+
+### Totais finais (delta vs v0.3.0)
+
+| | v0.3.0 | v0.4.0 |
+|---|--:|--:|
+| Skills | 20 | **56** |
+| Rules | 18 | **46** |
+| Agents | 13 | **22** |
+| Templates | 14 | **31** |
+| Narrativas | 14 | **56** |
+| Testes sanity | 14 | **56** |
+
+### Validado
+
+- `bash .genesis/scripts/lint-docs.sh` → APROVADO em todos os blocos.
+- `bash .genesis/scripts/run-skill-tests.sh` → Lint OK.
+- `bash .genesis/scripts/check-readiness.sh --planning` → backcompat preservado.
+- `bash .genesis/scripts/check-readiness.sh --security|--lgpd|--pre-launch` → novos modes funcionais.
+
 ## [0.3.0] — 2026-05-23
 
 ### Adicionado
