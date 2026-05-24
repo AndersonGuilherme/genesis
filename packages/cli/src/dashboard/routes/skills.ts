@@ -24,10 +24,10 @@ export async function renderSkills(
     const rules = meta?.rules ?? [];
     return html.raw(`<div class="bg-white rounded-lg shadow-sm p-4 hover:shadow-md transition-shadow" data-skill-id="${escape(s.id)}">
       <div class="flex items-start justify-between gap-2 mb-2">
-        <div>
-          <div class="font-mono text-sm text-slate-900 font-semibold">${escape(s.id)}</div>
+        <a href="/skills/${escape(s.id)}" class="block flex-1 hover:opacity-70 transition-opacity">
+          <div class="font-mono text-sm text-cyan-700 font-semibold hover:underline">${escape(s.id)}</div>
           <div class="text-xs text-slate-500 mt-0.5">phase: <span class="text-cyan-700">${escape(s.phase)}</span></div>
-        </div>
+        </a>
         <div class="skill-badge">${statusBadge(s.status)}</div>
       </div>
       <p class="text-sm text-slate-600 line-clamp-3">${escape(desc)}</p>

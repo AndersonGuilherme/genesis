@@ -5,6 +5,37 @@ Histórico de versões do `@tchr/genesis-cli`. Semver simplificado:
 - MINOR — adição de capacidade.
 - PATCH — fix.
 
+## [1.1.0] — 2026-05-24
+
+### Adicionado
+
+- **Rotas show + edit pra skill/rule/agent**:
+  - `GET /skills/<id>` — frontmatter formatado + markdown renderizado.
+  - `GET /rules/<id>` — análogo.
+  - `GET /agents/<id>` — análogo.
+  - Botão **Editar** revela `<textarea>` com conteúdo cru (frontmatter + body).
+  - Botões **Salvar** + **Cancelar** com feedback inline (sem `alert()`).
+- **API endpoints**:
+  - `POST /api/skill/save  { id, content }`
+  - `POST /api/rule/save   { id, content }`
+  - `POST /api/agent/save  { id, content }`
+  - Valida id kebab-case, exige arquivo existente, limite 200KB.
+  - **Backup automático** antes de sobrescrever em `.genesis/.backup/<ISO>/.claude/...`.
+- **Cards de skills/rules/agents agora linkam pra página show** (header
+  clicável, toggle buttons continuam funcionais separadamente).
+
+### Arquivos novos
+
+- `src/dashboard/routes/entity-show.ts` — render compartilhado pra 3 tipos.
+- `src/dashboard/routes/api.ts` — handleEntitySave + MAX_CONTENT_BYTES.
+
+### Segurança
+
+- ID validation `^[a-z][a-z0-9-]*$` previne path traversal.
+- POST exige arquivo já existir (não cria via API).
+- Backup pré-write permite recuperar de edit errado: copie de
+  `.genesis/.backup/<timestamp>/.claude/<type>/<file>` de volta.
+
 ## [1.0.1] — 2026-05-24
 
 ### Corrigido

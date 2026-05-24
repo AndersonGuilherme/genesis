@@ -1,4 +1,7 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
+import { existsSync } from 'node:fs';
+import { writeFile, mkdir, readFile, copyFile } from 'node:fs/promises';
+import { dirname, join } from 'node:path';
 import {
   readConfig,
   writeConfig,
@@ -8,6 +11,9 @@ import {
   type SkillStatus,
 } from '../../core/project-state.js';
 import { isPhase } from '../../core/skills-discovery.js';
+import { entityFilePath, isValidId, type EntityType } from './entity-show.js';
+
+const MAX_CONTENT_BYTES = 200 * 1024; // 200KB — generous mas evita abuso
 
 export interface ApiContext {
   projectRoot: string;
@@ -67,7 +73,71 @@ export async function handleApi(ctx: ApiContext): Promise<boolean> {
     return json(ctx.res, 200, { ok: true, active: phase });
   }
 
+  // POST /api/skill/save  { id, content }
+  // POST /api/rule/save   { id, content }
+  // POST /api/agent/save  { id, content }
+  const saveMatch = ctx.pathname.match(/^\/api\/(skill|rule|agent)\/save$/);
+  if (ctx.method === 'POST' && saveMatch) {
+    const type = saveMatch[1] as EntityType;
+    return await handleEntitySave(ctx, type);
+  }
+
   return json(ctx.res, 404, { error: 'rota não encontrada' });
+}
+
+async function handleEntitySave(ctx: ApiContext, type: EntityType): Promise<boolean> {
+  const body = await readJson(ctx.req);
+  const id = String(body.id ?? '');
+  const content = String(body.content ?? '');
+
+  if (!isValidId(id)) {
+    return json(ctx.res, 400, { error: `id inválido (kebab-case): '${id}'` });
+  }
+  if (content.length > MAX_CONTENT_BYTES) {
+    return json(ctx.res, 413, {
+      error: `content > ${MAX_CONTENT_BYTES} bytes (recebido ${content.length})`,
+    });
+  }
+  if (content.length === 0) {
+    return json(ctx.res, 400, { error: 'content vazio' });
+  }
+
+  const abs = entityFilePath(ctx.projectRoot, type, id);
+  if (!existsSync(abs)) {
+    return json(ctx.res, 404, {
+      error: `${type} '${id}' não existe — edit só permite atualizar arquivos existentes`,
+    });
+  }
+
+  // Backup antes de sobrescrever
+  const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+  const relPath = abs.replace(ctx.projectRoot + '/', '');
+  const backupPath = join(ctx.projectRoot, '.genesis', '.backup', timestamp, relPath);
+  try {
+    await mkdir(dirname(backupPath), { recursive: true });
+    await copyFile(abs, backupPath);
+  } catch (err) {
+    return json(ctx.res, 500, {
+      error: `falha ao criar backup: ${err instanceof Error ? err.message : String(err)}`,
+    });
+  }
+
+  // Escreve novo conteúdo
+  try {
+    await writeFile(abs, content, 'utf8');
+    const stat = await readFile(abs, 'utf8');
+    return json(ctx.res, 200, {
+      ok: true,
+      type,
+      id,
+      bytes: stat.length,
+      backup: backupPath.replace(ctx.projectRoot + '/', ''),
+    });
+  } catch (err) {
+    return json(ctx.res, 500, {
+      error: `falha ao escrever: ${err instanceof Error ? err.message : String(err)}`,
+    });
+  }
 }
 
 function json(res: ServerResponse, status: number, body: unknown): true {

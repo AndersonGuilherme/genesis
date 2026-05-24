@@ -7,6 +7,7 @@ import { renderRules } from './routes/rules.js';
 import { renderAgents } from './routes/agents.js';
 import { renderPhases } from './routes/phases.js';
 import { renderTokens, renderSessionDrilldown } from './routes/tokens.js';
+import { renderEntityShow } from './routes/entity-show.js';
 import { handleApi } from './routes/api.js';
 
 export interface ServerOptions {
@@ -84,6 +85,25 @@ async function handle(
   const sessionMatch = pathname.match(/^\/tokens\/sessions\/([A-Za-z0-9-]+)\/?$/);
   if (sessionMatch) {
     send(res, 200, await renderSessionDrilldown(opts.projectRoot, cfg, sessionMatch[1]!));
+    return;
+  }
+  // Rotas individuais antes das listas (regex match com ID kebab-case)
+  const skillShow = pathname.match(/^\/skills\/([a-z][a-z0-9-]*)\/?$/);
+  if (skillShow) {
+    const result = await renderEntityShow(opts.projectRoot, cfg, 'skill', skillShow[1]!);
+    send(res, result.status, result.html);
+    return;
+  }
+  const ruleShow = pathname.match(/^\/rules\/([a-z][a-z0-9-]*)\/?$/);
+  if (ruleShow) {
+    const result = await renderEntityShow(opts.projectRoot, cfg, 'rule', ruleShow[1]!);
+    send(res, result.status, result.html);
+    return;
+  }
+  const agentShow = pathname.match(/^\/agents\/([a-z][a-z0-9-]*)\/?$/);
+  if (agentShow) {
+    const result = await renderEntityShow(opts.projectRoot, cfg, 'agent', agentShow[1]!);
+    send(res, result.status, result.html);
     return;
   }
   if (pathname === '/skills' || pathname === '/skills/') {

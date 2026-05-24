@@ -14,10 +14,10 @@ export async function renderRules(projectRoot: string, cfg: GenesisConfig): Prom
   const sections = PHASES.filter((p) => byPhase.has(p)).map((p) => {
     const list = byPhase.get(p) ?? [];
     const items = list.map(
-      (r) => html.raw(`<div class="bg-white rounded-lg shadow-sm p-3 hover:shadow-md transition-shadow">
-        <div class="font-mono text-sm font-semibold text-slate-900">${escape(r.id)}</div>
+      (r) => html.raw(`<a href="/rules/${escape(r.id)}" class="block bg-white rounded-lg shadow-sm p-3 hover:shadow-md hover:bg-slate-50 transition-all">
+        <div class="font-mono text-sm font-semibold text-cyan-700">${escape(r.id)}</div>
         <p class="text-sm text-slate-600 mt-1">${escape(r.description)}</p>
-      </div>`),
+      </a>`),
     );
     return html.raw(`<section class="mb-6">
       <h2 class="text-lg font-semibold text-slate-900 mb-3 capitalize">${escape(p)} <span class="text-xs text-slate-400 font-normal">(${list.length})</span></h2>

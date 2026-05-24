@@ -14,11 +14,11 @@ export async function renderAgents(projectRoot: string, cfg: GenesisConfig): Pro
   const sections = PHASES.filter((p) => byPhase.has(p)).map((p) => {
     const list = byPhase.get(p) ?? [];
     const items = list.map(
-      (a) => html.raw(`<div class="bg-white rounded-lg shadow-sm p-3 hover:shadow-md transition-shadow">
-        <div class="font-mono text-sm font-semibold text-slate-900">${escape(a.id)}</div>
+      (a) => html.raw(`<a href="/agents/${escape(a.id)}" class="block bg-white rounded-lg shadow-sm p-3 hover:shadow-md hover:bg-slate-50 transition-all">
+        <div class="font-mono text-sm font-semibold text-cyan-700">${escape(a.id)}</div>
         <p class="text-sm text-slate-600 mt-1">${escape(a.description)}</p>
         ${a.tools ? `<div class="mt-2 text-[10px] text-slate-500">tools: ${escape(a.tools)}</div>` : ''}
-      </div>`),
+      </a>`),
     );
     return html.raw(`<section class="mb-6">
       <h2 class="text-lg font-semibold text-slate-900 mb-3 capitalize">${escape(p)} <span class="text-xs text-slate-400 font-normal">(${list.length})</span></h2>
