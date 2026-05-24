@@ -113,6 +113,16 @@ Skills da fase `development` declaram quais rules carregar via campo `rules:` no
 - [ops-rollback-tested](.claude/rules/ops-rollback-tested.md)
 - [ops-no-prod-debug-flag](.claude/rules/ops-no-prod-debug-flag.md)
 
+### Regras de pre-launch (gate final antes do go-live)
+
+- [prelaunch-gate-complete](.claude/rules/prelaunch-gate-complete.md)
+
+### Regras de maintenance (aplicadas durante operação contínua pós-launch)
+
+- [maint-deprecation-policy](.claude/rules/maint-deprecation-policy.md)
+- [maint-backward-compatibility](.claude/rules/maint-backward-compatibility.md)
+- [maint-security-patch-sla](.claude/rules/maint-security-patch-sla.md)
+
 ## Agentes especializados
 
 Quando uma área específica precisar de revisão profunda, invoque o agente apropriado em [.claude/agents/](.claude/agents/):
@@ -137,6 +147,8 @@ Quando uma área específica precisar de revisão profunda, invoque o agente apr
 - `lgpd-dpo-mentor` para orientar decisões de privacidade no papel de DPO.
 - `ops-sre-mentor` para revisar SLO/observability/runbooks/postmortems.
 - `ops-incident-commander` para coordenar resposta a incidente + conduzir postmortem blameless.
+- `prelaunch-launch-reviewer` para revisão final pré-launch com perspectiva externa.
+- `maint-incident-historian` para análise de padrão recorrente em histórico de incidentes.
 
 ## Comportamentos proibidos
 

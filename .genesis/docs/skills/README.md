@@ -70,6 +70,18 @@ Documentação humana das skills do boilerplate. A versão consumida pela IA est
 - [ops-feature-flags-strategy](ops-feature-flags-strategy.md) — flag debt sob controle.
 - [ops-define-deployment-strategy](ops-define-deployment-strategy.md) — rolling/blue-green/canary justificado.
 
+## Pre-launch
+
+- [prelaunch-security-final-review](prelaunch-security-final-review.md) — checklist sec-* + gaps bloqueantes.
+- [prelaunch-lgpd-compliance-check](prelaunch-lgpd-compliance-check.md) — checklist lgpd-* + bloqueantes.
+- [prelaunch-performance-baseline](prelaunch-performance-baseline.md) — load test em staging + validação SLO.
+- [prelaunch-launch-readiness-gate](prelaunch-launch-readiness-gate.md) — gate consolidado + reunião go/no-go.
+
+## Maintenance
+
+- [maint-dependency-update](maint-dependency-update.md) — rotina de updates + SLA de CVE.
+- [maint-incident-retrospective](maint-incident-retrospective.md) — postmortem blameless.
+
 ## Recursos relacionados
 
 - [START_HERE.md](../../../docs/START_HERE.md) — guia de entrada do repositório.

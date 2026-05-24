@@ -34,7 +34,7 @@ fi
 
 # --- skills ---
 section "Skills"
-expected_skills=50
+expected_skills=56
 found_skills=0
 for d in .claude/skills/*/; do
   [ -d "$d" ] || continue
@@ -98,7 +98,7 @@ done
 
 # --- agents ---
 section "Agents"
-expected_agents=20
+expected_agents=22
 found_agents=0
 for f in .claude/agents/*.md; do
   [ -f "$f" ] || continue
@@ -116,7 +116,7 @@ fi
 # --- rules ---
 section "Rules"
 required_sections=("## Princípio" "## Por que existe" "## Como aplicar" "## Exemplos bons" "## Exemplos ruins" "## Exceções")
-expected_rules=42
+expected_rules=46
 found_rules=0
 for f in .claude/rules/*.md; do
   [ -f "$f" ] || continue
@@ -148,7 +148,7 @@ fi
 
 # --- templates ---
 section "Templates"
-expected_templates=28
+expected_templates=31
 found_templates=0
 for f in .genesis/templates/*.md; do
   [ -f "$f" ] || continue

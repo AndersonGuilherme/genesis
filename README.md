@@ -140,6 +140,26 @@ Phase após development. Define CI/CD, observability, SLO, runbooks, incident re
 | [ops-feature-flags-strategy](.claude/skills/ops-feature-flags-strategy/SKILL.md) | Flag debt sob controle. |
 | [ops-define-deployment-strategy](.claude/skills/ops-define-deployment-strategy/SKILL.md) | Rolling/blue-green/canary justificado. |
 
+### Pre-launch — gate final antes do go-live
+
+Phase após operations, antes do primeiro acesso público. Valida que cada decisão prometida está implementada.
+
+| Skill | Quando usar |
+|-------|-------------|
+| [prelaunch-security-final-review](.claude/skills/prelaunch-security-final-review/SKILL.md) | Checklist sec-* + gaps bloqueantes. |
+| [prelaunch-lgpd-compliance-check](.claude/skills/prelaunch-lgpd-compliance-check/SKILL.md) | Checklist lgpd-* + bloqueantes. |
+| [prelaunch-performance-baseline](.claude/skills/prelaunch-performance-baseline/SKILL.md) | Load test em staging + validação SLO. |
+| [prelaunch-launch-readiness-gate](.claude/skills/prelaunch-launch-readiness-gate/SKILL.md) | Gate consolidado + reunião go/no-go. |
+
+### Maintenance — produção viva, atualizada, sob controle
+
+Phase contínua pós-launch.
+
+| Skill | Quando usar |
+|-------|-------------|
+| [maint-dependency-update](.claude/skills/maint-dependency-update/SKILL.md) | Rotina semanal/quinzenal de updates + SLA de CVE. |
+| [maint-incident-retrospective](.claude/skills/maint-incident-retrospective/SKILL.md) | Postmortem blameless após incidente. |
+
 ---
 
 ## Rules por fase
@@ -200,6 +220,20 @@ Rules são princípios que a IA aplica automaticamente. Skills declaram quais ru
 | [ops-rollback-tested](.claude/rules/ops-rollback-tested.md) | Rollback exercitado em staging. Migration reversível. |
 | [ops-no-prod-debug-flag](.claude/rules/ops-no-prod-debug-flag.md) | Sem DEBUG=true, sem endpoint /debug em produção. |
 
+### Pre-launch
+
+| Rule | Princípio |
+|------|-----------|
+| [prelaunch-gate-complete](.claude/rules/prelaunch-gate-complete.md) | Go-live só após checklist completo + assinatura go/no-go. |
+
+### Maintenance
+
+| Rule | Princípio |
+|------|-----------|
+| [maint-deprecation-policy](.claude/rules/maint-deprecation-policy.md) | Deprecação anunciada com antecedência (90 dias / 2 majors). |
+| [maint-backward-compatibility](.claude/rules/maint-backward-compatibility.md) | API pública preserva contrato. Breaking exige nova versão. |
+| [maint-security-patch-sla](.claude/rules/maint-security-patch-sla.md) | CVE patchado conforme SLA (CRITICAL 24h, HIGH 7d, MEDIUM 30d, LOW 90d). |
+
 ### Development
 
 | Rule | Princípio |
@@ -256,6 +290,13 @@ Agents são revisores invocáveis quando uma área precisa de profundidade. Skil
 | [ops-sre-mentor](.claude/agents/ops-sre-mentor.md) | SLO/SLI, observability, runbooks, deploy strategy, error budget. SRE pragmático. |
 | [ops-incident-commander](.claude/agents/ops-incident-commander.md) | Coordena incidente, mantém timeline, conduz postmortem blameless. |
 
+### Pre-launch + Maintenance
+
+| Agent | Foco |
+|-------|------|
+| [prelaunch-launch-reviewer](.claude/agents/prelaunch-launch-reviewer.md) | Revisão final pré-launch com perspectiva externa. Cruza segurança, LGPD, operations, produto, negócio. |
+| [maint-incident-historian](.claude/agents/maint-incident-historian.md) | Memória institucional de incidentes. Identifica padrão recorrente. Sugere mudança estrutural. |
+
 ### Development
 
 | Agent | Foco |
@@ -285,14 +326,14 @@ Templates ficam em [.genesis/templates/](.genesis/templates/) e são aplicados p
 ```
 /
 ├── .claude/                  Claude Code: skills, agents, rules, hooks
-│   ├── skills/               50 skills (2 disc-, 11 plan-, 10 sec-, 8 lgpd-, 10 ops-, 9 dev-)
-│   ├── agents/               20 agents (10 plan-, 3 sec-, 2 lgpd-, 2 ops-, 3 dev-)
-│   ├── rules/                42 rules (10 plan-, 10 sec-, 8 lgpd-, 6 ops-, 8 dev-)
+│   ├── skills/               56 skills (2 disc-, 11 plan-, 10 sec-, 8 lgpd-, 10 ops-, 4 prelaunch-, 2 maint-, 9 dev-)
+│   ├── agents/               22 agents (10 plan-, 3 sec-, 2 lgpd-, 2 ops-, 1 prelaunch-, 1 maint-, 3 dev-)
+│   ├── rules/                46 rules (10 plan-, 10 sec-, 8 lgpd-, 6 ops-, 1 prelaunch-, 3 maint-, 8 dev-)
 │   └── hooks/                hooks de gate (readiness, no-code-before-spec)
 ├── .genesis/                 Infra do boilerplate (hidden namespace)
 │   ├── scripts/              check-readiness, lint-docs, run-skill-tests, genesis-init
 │   ├── tests/                sanity tests por skill/rule/agent
-│   ├── templates/            28 templates (planning + security + lgpd + operations + development)
+│   ├── templates/            31 templates (planning + security + lgpd + operations + prelaunch + maintenance + development)
 │   ├── examples/             tchr (caso real, removido em projeto novo)
 │   ├── docs/skills/          narrativa humana das skills
 │   ├── README.md             documentação do boilerplate
