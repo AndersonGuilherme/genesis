@@ -8,24 +8,24 @@
 |-------|-------|
 | Nome do projeto | _(preencher)_ |
 | Tagline (1 frase) | _(preencher)_ |
-| Estágio | ideia / discovery / spec / implementação / lançado |
+| Estágio | ideia / discovery / spec / implementação / pre-launch / lançado / manutenção |
 | Data de início | _(preencher)_ |
 | Última atualização | _(preencher)_ |
 
-## Fase atual
+## Lifecycle (8 phases)
 
-- [ ] 1. Identidade do projeto
-- [ ] 2. Público e mercado
-- [ ] 3. Valor e monetização
-- [ ] 4. Produto e MVP
-- [ ] 5. Domínio e regras de negócio
-- [ ] 6. Tecnologia
-- [ ] 7. Arquitetura
-- [ ] 8. Specs por módulo
-- [ ] 9. Readiness review
-- [ ] 10. Implementação
+Avance fase por fase sem pular. Cada phase tem skills/rules/agents próprios. Multi-gate em `.genesis/scripts/check-readiness.sh` valida por phase.
 
-**Fase ativa agora:** _(preencher)_
+- [ ] **1. discovery** — validar premissas (`disc-*`). Termina com problema/usuário validados.
+- [ ] **2. planning** — visão, MVP, modelo de negócio, stack, arquitetura, specs (`plan-*`). Gate: `bash .genesis/scripts/check-readiness.sh --planning`.
+- [ ] **3. security** — threat model, auth, encryption, audit, rate limit (`sec-*`). Gate: `--security`.
+- [ ] **4. lgpd** — ROPA, consent, retenção, direitos do titular, DPIA, DPAs (`lgpd-*`). Gate: `--lgpd`.
+- [ ] **5. development** — TDD + DDD + Clean Architecture (`dev-*`). Variants pra PII + authenticated.
+- [ ] **6. pre-launch** — checklists final + load test + go/no-go (`prelaunch-*`). Gate: `--pre-launch`.
+- [ ] **7. operations** — CI/CD, observability, SLO, runbooks, incident response, backup (`ops-*`).
+- [ ] **8. maintenance** — dependency update, postmortem, deprecation, compatibility (`maint-*`).
+
+**Phase ativa agora:** _(preencher)_
 
 ## Documentos por estado
 
@@ -64,6 +64,58 @@ Legenda: `vazio` (não tocado), `em-progresso`, `revisado`.
 | `docs/architecture/scalability-strategy.md` | vazio |
 | `docs/architecture/observability-strategy.md` | vazio |
 
+### Security
+| Arquivo | Estado |
+|---------|--------|
+| `docs/security/security-requirements.md` | vazio |
+| `docs/security/threat-model.md` | vazio |
+| `docs/security/auth-strategy.md` | vazio |
+| `docs/security/secrets-management.md` | vazio |
+| `docs/security/vuln-scan-strategy.md` | vazio |
+| `docs/security/audit-logging.md` | vazio |
+
+### LGPD
+| Arquivo | Estado |
+|---------|--------|
+| `docs/security/lgpd/data-inventory.md` | vazio |
+| `docs/security/lgpd/consent-strategy.md` | vazio |
+| `docs/security/lgpd/retention-policy.md` | vazio |
+| `docs/security/lgpd/subject-rights.md` | vazio |
+| `docs/security/lgpd/vendor-dpa.md` | vazio |
+| `docs/security/lgpd/incident-notification-plan.md` | vazio |
+
+### Operations
+| Arquivo | Estado |
+|---------|--------|
+| `docs/operations/observability.md` | vazio |
+| `docs/operations/slos.md` | vazio |
+| `docs/operations/incident-response.md` | vazio |
+| `docs/operations/backup-restore.md` | vazio |
+| `docs/operations/cost-tracking.md` | vazio |
+| `docs/operations/feature-flags.md` | vazio |
+| `docs/operations/runbooks/` (1+ runbook por módulo crítico) | vazio |
+
+### Deployment
+| Arquivo | Estado |
+|---------|--------|
+| `docs/deployment/ci-pipeline.md` | vazio |
+| `docs/deployment/cd-pipeline.md` | vazio |
+| `docs/deployment/deployment-strategy.md` | vazio |
+
+### Launch
+| Arquivo | Estado |
+|---------|--------|
+| `docs/launch/launch-readiness.md` | vazio |
+| `docs/launch/security-final-review.md` | vazio |
+| `docs/launch/lgpd-compliance-check.md` | vazio |
+| `docs/launch/performance-baseline.md` | vazio |
+
+### Maintenance
+| Arquivo | Estado |
+|---------|--------|
+| `docs/maintenance/deprecation-policy.md` | vazio |
+| `docs/maintenance/dependency-update-policy.md` | vazio |
+
 ### Outros pilares
 | Categoria | Status |
 |-----------|--------|
@@ -72,21 +124,18 @@ Legenda: `vazio` (não tocado), `em-progresso`, `revisado`.
 | ADRs criados | 0 |
 | Riscos documentados | 0 |
 | Perguntas em aberto | 0 |
+| Postmortems | 0 |
 
-## Readiness
+## Gates de readiness
 
-- [ ] `docs/product/product-vision.md` preenchido
-- [ ] `docs/product/problem-statement.md` preenchido
-- [ ] `docs/product/mvp-scope.md` preenchido
-- [ ] `docs/business/business-model.md` preenchido
-- [ ] `docs/architecture/architecture-overview.md` preenchido
-- [ ] `docs/architecture/technology-decision.md` preenchido (com ADR vinculado)
-- [ ] `docs/modules/README.md` lista todos os módulos do MVP
-- [ ] `docs/specs/` tem spec para cada módulo crítico do MVP
-- [ ] `docs/testing/testing-strategy.md` preenchido
-- [ ] `docs/security/security-requirements.md` preenchido
+Rodar incrementalmente conforme phase atual.
 
-**Resultado de `.genesis/scripts/check-readiness.sh`:** _(rodar e colar)_
+- [ ] **`--planning`** — produto + negócio + arquitetura + testing + segurança baseline.
+- [ ] **`--security`** — threat model + auth + secrets + encryption + audit + rate limit.
+- [ ] **`--lgpd`** — ROPA + consent + retenção + direitos do titular.
+- [ ] **`--pre-launch`** — checklist final + outputs de cada phase prévia.
+
+**Resultado de `bash .genesis/scripts/check-readiness.sh`:** _(rodar e colar)_
 
 ## Bloqueios atuais
 

@@ -45,12 +45,13 @@ Você não é um gerador apressado de código. Você é uma mentora exigente que
 Quando o usuário iniciar um novo projeto neste boilerplate:
 
 1. Carregue [docs/START_HERE.md](docs/START_HERE.md) e [docs/PROJECT_STATE.md](docs/PROJECT_STATE.md).
-2. Identifique em que fase o projeto está.
-3. Use a skill correspondente da fase (veja `.claude/skills/`).
-4. Conduza as perguntas da fase atual.
+2. Identifique em que **phase** o projeto está. O lifecycle tem 8 phases: `discovery → planning → security → lgpd → development → pre-launch → operations → maintenance`.
+3. Use a skill correspondente da phase (skills em `.claude/skills/` com prefixo `disc-`, `plan-`, `sec-`, `lgpd-`, `dev-`, `prelaunch-`, `ops-`, `maint-`).
+4. Conduza as perguntas da phase atual.
 5. Registre as respostas nos docs corretos.
-6. Atualize `docs/PROJECT_STATE.md` ao final de cada fase.
-7. Sugira a próxima fase. Não pule.
+6. Atualize `docs/PROJECT_STATE.md` ao final de cada phase.
+7. Sugira a próxima phase. Não pule.
+8. Valide gates com `bash .genesis/scripts/check-readiness.sh --<phase>` antes de avançar pra phase que depende (security antes de lgpd, lgpd antes de dev, pre-launch antes de launch).
 
 ## Regras carregadas
 
