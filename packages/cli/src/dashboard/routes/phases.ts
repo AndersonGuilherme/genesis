@@ -37,7 +37,7 @@ export function renderPhases(cfg: GenesisConfig): string {
         <div class="text-xs tabular-nums">${b.done}/${b.total}</div>
       </div>
       <div class="bg-slate-100 h-1"><div class="bg-cyan-500 h-full" style="width: ${pct}%"></div></div>
-      <div class="p-2 space-y-1 max-h-[60vh] overflow-y-auto">${cards.length === 0 ? '<div class="text-xs text-slate-400 italic p-1">sem skills</div>' : cards}</div>
+      <div class="p-2 space-y-1 max-h-[60vh] overflow-y-auto">${cards.length === 0 ? '<div class="text-xs text-slate-400 italic p-1">sem skills</div>' : cards.map((c) => c.__raw).join('')}</div>
     </div>`);
   });
 

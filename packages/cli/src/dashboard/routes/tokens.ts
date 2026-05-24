@@ -53,7 +53,7 @@ export async function renderTokens(
 
     ${banner}
 
-    <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+    <section class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
       <div class="bg-white rounded-lg shadow-sm p-4">
         <div class="text-xs text-slate-500 uppercase tracking-wide">Custo total</div>
         <div class="text-3xl font-bold text-slate-900 mt-1">${formatUsd(summary.totalCostUsd)}</div>
@@ -64,13 +64,32 @@ export async function renderTokens(
         <div class="text-3xl font-bold text-slate-900 mt-1">${summary.sessionCount}</div>
       </div>
       <div class="bg-white rounded-lg shadow-sm p-4">
-        <div class="text-xs text-slate-500 uppercase tracking-wide">Input tokens</div>
-        <div class="text-2xl font-semibold text-slate-900 mt-1">${formatNum(summary.totalInput)}</div>
-        <div class="text-xs text-slate-500 mt-1">+ ${formatNum(summary.totalCacheRead)} cached</div>
+        <div class="text-xs text-slate-500 uppercase tracking-wide">Total tokens processados</div>
+        <div class="text-2xl font-semibold text-slate-900 mt-1">${formatNum(summary.totalInput + summary.totalOutput + summary.totalCacheRead + summary.totalCacheWrite)}</div>
+        <div class="text-xs text-slate-500 mt-1">input + output + cache</div>
       </div>
-      <div class="bg-white rounded-lg shadow-sm p-4">
-        <div class="text-xs text-slate-500 uppercase tracking-wide">Output tokens</div>
-        <div class="text-2xl font-semibold text-slate-900 mt-1">${formatNum(summary.totalOutput)}</div>
+    </section>
+
+    <section class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+      <div class="bg-white rounded-lg shadow-sm p-3" title="Tokens enviados pra API que não estavam em cache. Pagam preço cheio de input.">
+        <div class="text-xs text-slate-500 uppercase tracking-wide">Input <span class="text-slate-400">ⓘ</span></div>
+        <div class="text-xl font-semibold text-slate-900 mt-1">${formatNum(summary.totalInput)}</div>
+        <div class="text-[10px] text-slate-400 mt-0.5">novos, não cacheados</div>
+      </div>
+      <div class="bg-white rounded-lg shadow-sm p-3" title="Tokens gerados pela IA (resposta). Costuma ser o item mais caro (5x mais que input em Sonnet, 5x em Opus).">
+        <div class="text-xs text-slate-500 uppercase tracking-wide">Output <span class="text-slate-400">ⓘ</span></div>
+        <div class="text-xl font-semibold text-slate-900 mt-1">${formatNum(summary.totalOutput)}</div>
+        <div class="text-[10px] text-slate-400 mt-0.5">resposta da IA</div>
+      </div>
+      <div class="bg-white rounded-lg shadow-sm p-3" title="Tokens lidos do prompt cache. Pagam ~10% do preço de input. Maior parte do contexto em sessões longas vem daqui.">
+        <div class="text-xs text-slate-500 uppercase tracking-wide">Cache read <span class="text-slate-400">ⓘ</span></div>
+        <div class="text-xl font-semibold text-cyan-700 mt-1">${formatNum(summary.totalCacheRead)}</div>
+        <div class="text-[10px] text-slate-400 mt-0.5">~90% off vs input</div>
+      </div>
+      <div class="bg-white rounded-lg shadow-sm p-3" title="Tokens escritos no cache pela primeira vez (ttl 5min). Pagam 1.25x preço de input — mas economiza nas leituras seguintes.">
+        <div class="text-xs text-slate-500 uppercase tracking-wide">Cache write <span class="text-slate-400">ⓘ</span></div>
+        <div class="text-xl font-semibold text-amber-700 mt-1">${formatNum(summary.totalCacheWrite)}</div>
+        <div class="text-[10px] text-slate-400 mt-0.5">1.25x input (one-time)</div>
       </div>
     </section>
 

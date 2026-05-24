@@ -5,6 +5,35 @@ Histórico de versões do `@tchr/genesis-cli`. Semver simplificado:
 - MINOR — adição de capacidade.
 - PATCH — fix.
 
+## [1.0.1] — 2026-05-24
+
+### Corrigido
+
+- **`/docs/` renderizando HTML como texto puro** (bug #1). Causa: `layout()`
+  ternary devolvia `string` de `html\`\`` que era re-interpolada em outro
+  `html\`\`` → tagged literal escapava. Fix: wrap com `html.raw()`. Afetava
+  todas as páginas com sidebar (só `/docs/*` em prática).
+- **`/phases` exibindo `[object Object],[object Object]`** (bug #4). Causa:
+  array de `RawHtml` em template string crua chamava `Array.toString()`. Fix:
+  `cards.map((c) => c.__raw).join('')`.
+- **Pricing de Haiku 4.5 desatualizado** (bug #2 parcial). Era `$0.80/$4`
+  (preço 3.5 Haiku); corrigido pra oficial `$1/$5` (input/output). Cache
+  ajustado proporcionalmente. Mesmo fix em `claude-3-5-haiku`.
+- **`updatedAt` do pricing** bumpado pra `2026-05-24` (evita warning de
+  pricing desatualizado em projetos novos).
+
+### Melhorado
+
+- **`/tokens` UI mais clara** (bug #2 UX). Grid expandido pra 3 cards top
+  (Custo / Sessões / Total tokens) + 4 cards de tipos de token (Input /
+  Output / Cache read / Cache write) com tooltips explicando cada
+  categoria + cor distintiva (cache read ciano, cache write âmbar).
+
+### Tests
+
+- 36 → 38 unit tests. Adicionado regression test pro bug #1 (escape de
+  string aninhada em `html\`\``).
+
 ## [1.0.0] — 2026-05-24
 
 ### Adicionado (M6 — Hardening + release final)

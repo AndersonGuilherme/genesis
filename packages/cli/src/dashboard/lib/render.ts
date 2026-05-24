@@ -76,10 +76,10 @@ export function layout(props: LayoutProps): string {
   </header>
   <main class="max-w-7xl mx-auto px-4 py-6">
     ${props.sidebar
-      ? html`<div class="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6">
+      ? html.raw(html`<div class="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6">
           <aside class="bg-white rounded-lg shadow-sm p-4 lg:sticky lg:top-6 lg:self-start lg:max-h-[calc(100vh-4rem)] lg:overflow-y-auto">${props.sidebar}</aside>
           <div>${props.body}</div>
-        </div>`
+        </div>`)
       : props.body}
   </main>
   <footer class="text-center text-xs text-slate-400 py-6">

@@ -36,4 +36,20 @@ describe('html helper', () => {
     expect(isRaw('plain')).toBe(false);
     expect(isRaw(null)).toBe(false);
   });
+
+  // Regression: bug #1 — quando html`` retorna string e é re-interpolada
+  // em outro html``, a string é tratada como user input e escapada.
+  // Wrap com html.raw() pra preservar HTML.
+  it('html() escapa string crua (não-RawHtml) na interpolação aninhada', () => {
+    const inner = html`<strong>bold</strong>`; // retorna string crua "<strong>bold</strong>"
+    const outer = html`<div>${inner}</div>`;
+    // SEM wrap: outer escapa o inner
+    expect(outer).toBe('<div>&lt;strong&gt;bold&lt;/strong&gt;</div>');
+  });
+
+  it('html() preserva HTML quando aninhamento usa html.raw()', () => {
+    const inner = html`<strong>bold</strong>`;
+    const outer = html`<div>${html.raw(inner)}</div>`;
+    expect(outer).toBe('<div><strong>bold</strong></div>');
+  });
 });

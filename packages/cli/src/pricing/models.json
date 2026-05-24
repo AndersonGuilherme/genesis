@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-01-15",
+  "updatedAt": "2026-05-24",
   "currency": "USD",
   "unit": "per_million_tokens",
   "models": {
@@ -34,10 +34,10 @@
       "cacheWrite": 3.75
     },
     "claude-haiku-4-5": {
-      "input": 0.80,
-      "output": 4.00,
-      "cacheRead": 0.08,
-      "cacheWrite": 1.00
+      "input": 1.00,
+      "output": 5.00,
+      "cacheRead": 0.10,
+      "cacheWrite": 1.25
     },
     "claude-3-5-sonnet": {
       "input": 3.00,
@@ -46,10 +46,10 @@
       "cacheWrite": 3.75
     },
     "claude-3-5-haiku": {
-      "input": 0.80,
-      "output": 4.00,
-      "cacheRead": 0.08,
-      "cacheWrite": 1.00
+      "input": 1.00,
+      "output": 5.00,
+      "cacheRead": 0.10,
+      "cacheWrite": 1.25
     }
   },
   "default": {
