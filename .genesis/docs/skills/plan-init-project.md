@@ -233,7 +233,7 @@ Quando todos os critérios de conclusão estiverem marcados, invoque:
 ## Referências cruzadas
 
 - [`.claude/skills/plan-init-project/SKILL.md`](../../../.claude/skills/plan-init-project/SKILL.md) — arquivo consumido pela IA.
-- [`.genesis/tests/skills/init-project.md`](../../tests/skills/init-project.md) — checks canônicos.
+- [`.genesis/tests/skills/plan-init-project.md`](../../tests/skills/plan-init-project.md) — checks canônicos.
 - Rules relevantes:
   - [`business-before-technology`](../../../.claude/rules/plan-business-before-technology.md)
   - [`documentation-first`](../../../.claude/rules/plan-documentation-first.md)

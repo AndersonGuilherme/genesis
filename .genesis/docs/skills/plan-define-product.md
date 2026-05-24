@@ -289,7 +289,7 @@ ou (se premissas fatais ainda abertas):
 ## Referências cruzadas
 
 - [`.claude/skills/plan-define-product/SKILL.md`](../../../.claude/skills/plan-define-product/SKILL.md) — arquivo consumido pela IA.
-- [`.genesis/tests/skills/define-product.md`](../../tests/skills/define-product.md) — checks canônicos.
+- [`.genesis/tests/skills/plan-define-product.md`](../../tests/skills/plan-define-product.md) — checks canônicos.
 - Rules relevantes:
   - [`business-before-technology`](../../../.claude/rules/plan-business-before-technology.md)
   - [`avoid-overengineering`](../../../.claude/rules/plan-avoid-overengineering.md)

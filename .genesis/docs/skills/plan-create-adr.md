@@ -410,7 +410,7 @@ Geralmente, depois de criar ADR, você continua na skill que estava antes (`choo
 ## Referências cruzadas
 
 - [`.claude/skills/plan-create-adr/SKILL.md`](../../../.claude/skills/plan-create-adr/SKILL.md) — arquivo consumido pela IA.
-- [`.genesis/tests/skills/create-adr.md`](../../tests/skills/create-adr.md) — checks canônicos.
+- [`.genesis/tests/skills/plan-create-adr.md`](../../tests/skills/plan-create-adr.md) — checks canônicos.
 - [`docs/adr/README.md`](../../../docs/adr/README.md) — índice mestre.
 - Rules relevantes:
   - [`adr-required-for-decisions`](../../../.claude/rules/plan-adr-required-for-decisions.md)

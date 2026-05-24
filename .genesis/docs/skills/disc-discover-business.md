@@ -265,7 +265,7 @@ ou
 ## Referências cruzadas
 
 - [`.claude/skills/disc-discover-business/SKILL.md`](../../../.claude/skills/disc-discover-business/SKILL.md) — arquivo consumido pela IA.
-- [`.genesis/tests/skills/discover-business.md`](../../tests/skills/discover-business.md) — checks canônicos.
+- [`.genesis/tests/skills/disc-discover-business.md`](../../tests/skills/disc-discover-business.md) — checks canônicos.
 - Rules relevantes:
   - [`business-before-technology`](../../../.claude/rules/plan-business-before-technology.md)
   - [`explain-tradeoffs`](../../../.claude/rules/plan-explain-tradeoffs.md)

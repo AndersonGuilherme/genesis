@@ -423,7 +423,7 @@ Crie tarefa no roadmap: "testar restore mensal". Game day quando time tiver matu
 ## Referências cruzadas
 
 - [`.claude/skills/plan-design-architecture/SKILL.md`](../../../.claude/skills/plan-design-architecture/SKILL.md) — arquivo consumido pela IA.
-- [`.genesis/tests/skills/design-architecture.md`](../../tests/skills/design-architecture.md) — checks canônicos.
+- [`.genesis/tests/skills/plan-design-architecture.md`](../../tests/skills/plan-design-architecture.md) — checks canônicos.
 - Rules relevantes:
   - [`security-by-design`](../../../.claude/rules/plan-security-by-design.md)
   - [`avoid-overengineering`](../../../.claude/rules/plan-avoid-overengineering.md)

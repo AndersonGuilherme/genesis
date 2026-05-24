@@ -399,7 +399,7 @@ ou (se ainda há módulos sem spec):
 ## Referências cruzadas
 
 - [`.claude/skills/plan-create-implementation-plan/SKILL.md`](../../../.claude/skills/plan-create-implementation-plan/SKILL.md) — arquivo consumido pela IA.
-- [`.genesis/tests/skills/create-implementation-plan.md`](../../tests/skills/create-implementation-plan.md) — checks canônicos.
+- [`.genesis/tests/skills/plan-create-implementation-plan.md`](../../tests/skills/plan-create-implementation-plan.md) — checks canônicos.
 - Rules relevantes:
   - [`testing-strategy-required`](../../../.claude/rules/plan-testing-strategy-required.md)
   - [`no-code-before-spec`](../../../.claude/rules/plan-no-code-before-spec.md)

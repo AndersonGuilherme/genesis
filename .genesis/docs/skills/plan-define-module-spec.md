@@ -433,7 +433,7 @@ Depois (loop):
 ## Referências cruzadas
 
 - [`.claude/skills/plan-define-module-spec/SKILL.md`](../../../.claude/skills/plan-define-module-spec/SKILL.md) — arquivo consumido pela IA.
-- [`.genesis/tests/skills/define-module-spec.md`](../../tests/skills/define-module-spec.md) — checks canônicos.
+- [`.genesis/tests/skills/plan-define-module-spec.md`](../../tests/skills/plan-define-module-spec.md) — checks canônicos.
 - Rules relevantes:
   - [`module-spec-required`](../../../.claude/rules/plan-module-spec-required.md)
   - [`security-by-design`](../../../.claude/rules/plan-security-by-design.md)

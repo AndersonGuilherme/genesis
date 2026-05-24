@@ -327,7 +327,7 @@ Registre em `risks.md` como risco crítico com plano de mitigação. Não escale
 ## Referências cruzadas
 
 - [`.claude/skills/plan-design-business-model/SKILL.md`](../../../.claude/skills/plan-design-business-model/SKILL.md) — arquivo consumido pela IA.
-- [`.genesis/tests/skills/design-business-model.md`](../../tests/skills/design-business-model.md) — checks canônicos.
+- [`.genesis/tests/skills/plan-design-business-model.md`](../../tests/skills/plan-design-business-model.md) — checks canônicos.
 - Rules relevantes:
   - [`explain-tradeoffs`](../../../.claude/rules/plan-explain-tradeoffs.md)
   - [`business-before-technology`](../../../.claude/rules/plan-business-before-technology.md)

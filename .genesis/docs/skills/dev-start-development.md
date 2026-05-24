@@ -412,7 +412,7 @@ Não funciona — fica para nunca. Atualize na hora da mudança ou no commit, n�
 ## Referências cruzadas
 
 - [`.claude/skills/dev-start-development/SKILL.md`](../../../.claude/skills/dev-start-development/SKILL.md) — arquivo consumido pela IA.
-- [`.genesis/tests/skills/start-development.md`](../../tests/skills/start-development.md) — checks canônicos.
+- [`.genesis/tests/skills/dev-start-development.md`](../../tests/skills/dev-start-development.md) — checks canônicos.
 - [`.genesis/scripts/check-readiness.sh`](../../scripts/check-readiness.sh) — gate de pré-condição.
 - Rules relevantes:
   - [`no-code-before-spec`](../../../.claude/rules/plan-no-code-before-spec.md)

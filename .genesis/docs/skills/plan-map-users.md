@@ -344,7 +344,7 @@ ou (caso esteja em fase de spec):
 ## Referências cruzadas
 
 - [`.claude/skills/plan-map-users/SKILL.md`](../../../.claude/skills/plan-map-users/SKILL.md) — arquivo consumido pela IA.
-- [`.genesis/tests/skills/map-users.md`](../../tests/skills/map-users.md) — checks canônicos.
+- [`.genesis/tests/skills/plan-map-users.md`](../../tests/skills/plan-map-users.md) — checks canônicos.
 - Rules relevantes:
   - [`security-by-design`](../../../.claude/rules/plan-security-by-design.md)
 - Agents relevantes:

@@ -313,7 +313,7 @@ Decisão: ou é módulo próprio com API/eventos claros (recomendado), ou é bib
 ## Referências cruzadas
 
 - [`.claude/skills/plan-modules-mvp/SKILL.md`](../../../.claude/skills/plan-modules-mvp/SKILL.md) — arquivo consumido pela IA.
-- [`.genesis/tests/skills/plan-modules.md`](../../tests/skills/plan-modules.md) — checks canônicos.
+- [`.genesis/tests/skills/plan-modules-mvp.md`](../../tests/skills/plan-modules-mvp.md) — checks canônicos.
 - Rules relevantes:
   - [`module-spec-required`](../../../.claude/rules/plan-module-spec-required.md)
   - [`avoid-overengineering`](../../../.claude/rules/plan-avoid-overengineering.md)

@@ -328,7 +328,7 @@ Se bloqueado:
 ## Referências cruzadas
 
 - [`.claude/skills/plan-review-readiness/SKILL.md`](../../../.claude/skills/plan-review-readiness/SKILL.md) — arquivo consumido pela IA.
-- [`.genesis/tests/skills/review-readiness.md`](../../tests/skills/review-readiness.md) — checks canônicos.
+- [`.genesis/tests/skills/plan-review-readiness.md`](../../tests/skills/plan-review-readiness.md) — checks canônicos.
 - [`.genesis/scripts/check-readiness.sh`](../../scripts/check-readiness.sh) — gate automatizado.
 - Rules relevantes:
   - [`no-code-before-spec`](../../../.claude/rules/plan-no-code-before-spec.md)

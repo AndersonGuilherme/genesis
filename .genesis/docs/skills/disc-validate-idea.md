@@ -328,7 +328,7 @@ Se decisão de pivot foi tomada:
 ## Referências cruzadas
 
 - [`.claude/skills/disc-validate-idea/SKILL.md`](../../../.claude/skills/disc-validate-idea/SKILL.md) — arquivo consumido pela IA.
-- [`.genesis/tests/skills/validate-idea.md`](../../tests/skills/validate-idea.md) — checks canônicos.
+- [`.genesis/tests/skills/disc-validate-idea.md`](../../tests/skills/disc-validate-idea.md) — checks canônicos.
 - Rules relevantes:
   - [`documentation-first`](../../../.claude/rules/plan-documentation-first.md)
   - [`explain-tradeoffs`](../../../.claude/rules/plan-explain-tradeoffs.md)

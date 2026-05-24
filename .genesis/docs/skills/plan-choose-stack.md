@@ -296,7 +296,7 @@ E em paralelo:
 ## Referências cruzadas
 
 - [`.claude/skills/plan-choose-stack/SKILL.md`](../../../.claude/skills/plan-choose-stack/SKILL.md) — arquivo consumido pela IA.
-- [`.genesis/tests/skills/choose-stack.md`](../../tests/skills/choose-stack.md) — checks canônicos.
+- [`.genesis/tests/skills/plan-choose-stack.md`](../../tests/skills/plan-choose-stack.md) — checks canônicos.
 - Rules relevantes:
   - [`stack-neutrality`](../../../.claude/rules/plan-stack-neutrality.md)
   - [`business-before-technology`](../../../.claude/rules/plan-business-before-technology.md)
