@@ -5,6 +5,7 @@ phase: planning
 rules:
   - plan-explain-tradeoffs
   - plan-business-before-technology
+  - plan-three-options-or-tutorial
 ---
 
 # Skill: plan-design-business-model

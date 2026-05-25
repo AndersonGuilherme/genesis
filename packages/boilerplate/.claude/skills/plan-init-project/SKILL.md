@@ -5,6 +5,7 @@ phase: planning
 rules:
   - plan-documentation-first
   - plan-business-before-technology
+  - plan-three-options-or-tutorial
 ---
 
 # Skill: plan-init-project

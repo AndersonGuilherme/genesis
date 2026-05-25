@@ -2,7 +2,7 @@ import type { GenesisConfig } from '../../core/project-state.js';
 import { TranscriptCache, transcriptsDirFor, type TokenSummary } from '../../core/transcripts.js';
 import { loadPricing, formatUsd, ageDays } from '../../core/pricing.js';
 import { html } from '../lib/html.js';
-import { layout } from '../lib/render.js';
+import { layout, renderMarkdown } from '../lib/render.js';
 import { existsSync } from 'node:fs';
 
 export async function renderTokens(
@@ -248,19 +248,24 @@ export async function renderSessionDrilldown(
   const totalInput = msgs.reduce((acc, m) => acc + m.inputTokens, 0);
   const totalOutput = msgs.reduce((acc, m) => acc + m.outputTokens, 0);
 
+  // Os 200 últimos exibidos, mas mantém índice ORIGINAL (1-based) pra link estável
+  const lastN = Math.min(msgs.length, 200);
   const rows = msgs
-    .slice(-200)
+    .slice(-lastN)
     .reverse()
-    .map(
-      (m) => `<tr class="border-t border-slate-100">
+    .map((m, revIdx) => {
+      // index real = msgs.length - 1 - revIdx (já no msgs original)
+      const origIdx = msgs.length - 1 - revIdx;
+      return `<tr class="border-t border-slate-100 hover:bg-slate-50">
         <td class="px-3 py-1.5 text-xs text-slate-500 font-mono">${escape(m.ts.slice(11, 19))}</td>
         <td class="px-3 py-1.5 text-xs font-mono">${escape(m.model)}</td>
         <td class="px-3 py-1.5 text-xs text-right tabular-nums">${formatNum(m.inputTokens)}</td>
         <td class="px-3 py-1.5 text-xs text-right tabular-nums">${formatNum(m.outputTokens)}</td>
         <td class="px-3 py-1.5 text-xs text-right tabular-nums text-slate-500">${formatNum(m.cacheRead)}</td>
         <td class="px-3 py-1.5 text-xs text-right tabular-nums font-semibold">${escape(formatUsd(m.costUsd))}</td>
-      </tr>`,
-    )
+        <td class="px-3 py-1.5 text-xs text-center"><a href="/tokens/sessions/${escape(sessionId)}/messages/${origIdx}" class="text-cyan-700 hover:underline">ver →</a></td>
+      </tr>`;
+    })
     .join('');
 
   const body = html`
@@ -276,7 +281,7 @@ export async function renderSessionDrilldown(
       <div class="bg-white rounded shadow-sm p-3"><div class="text-xs text-slate-500 uppercase">Input</div><div class="text-xl font-semibold">${formatNum(totalInput)}</div></div>
       <div class="bg-white rounded shadow-sm p-3"><div class="text-xs text-slate-500 uppercase">Output</div><div class="text-xl font-semibold">${formatNum(totalOutput)}</div></div>
     </section>
-    ${sess.cwd ? html`<p class="text-xs text-slate-500 mb-3">cwd: <code class="bg-slate-100 px-1 rounded">${sess.cwd}</code>${sess.gitBranch ? html` · branch: <code class="bg-slate-100 px-1 rounded">${sess.gitBranch}</code>` : ''}</p>` : ''}
+    ${sess.cwd ? html.raw(html`<p class="text-xs text-slate-500 mb-3">cwd: <code class="bg-slate-100 px-1 rounded">${sess.cwd}</code>${sess.gitBranch ? html.raw(html` · branch: <code class="bg-slate-100 px-1 rounded">${sess.gitBranch}</code>`) : ''}</p>`) : ''}
     <p class="text-xs text-slate-500 mb-2">últimas ${Math.min(msgs.length, 200)} mensagens:</p>
     <section class="bg-white rounded-lg shadow-sm overflow-x-auto">
       <table class="w-full">
@@ -288,6 +293,7 @@ export async function renderSessionDrilldown(
             <th class="px-3 py-2 text-right text-xs font-medium text-slate-500 uppercase">Output</th>
             <th class="px-3 py-2 text-right text-xs font-medium text-slate-500 uppercase">Cache R</th>
             <th class="px-3 py-2 text-right text-xs font-medium text-slate-500 uppercase">Custo</th>
+            <th class="px-3 py-2 text-center text-xs font-medium text-slate-500 uppercase">Conversa</th>
           </tr>
         </thead>
         <tbody>${html.raw(rows)}</tbody>
@@ -301,6 +307,128 @@ export async function renderSessionDrilldown(
     projectName: cfg.project.name,
     phaseActive: cfg.phase.active,
     body: html.raw(body),
+  });
+}
+
+export async function renderMessageView(
+  projectRoot: string,
+  cfg: GenesisConfig,
+  sessionId: string,
+  index: number,
+): Promise<string> {
+  const cache = new TranscriptCache(projectRoot);
+  await cache.sync(projectRoot);
+  const total = cache.assistantCount(sessionId);
+  const pair = await cache.messagePair(sessionId, index);
+  cache.close();
+
+  if (!pair) {
+    return layout({
+      title: 'Mensagem não encontrada',
+      active: 'tokens',
+      projectName: cfg.project.name,
+      phaseActive: cfg.phase.active,
+      body: html.raw(
+        html`<div class="bg-amber-50 border border-amber-200 rounded p-4">
+          Mensagem #${index} não encontrada em sessão <code>${sessionId.slice(0, 8)}</code>.
+          <a href="/tokens/sessions/${sessionId}" class="text-cyan-700 hover:underline">← voltar</a>
+        </div>`,
+      ),
+    });
+  }
+
+  const prevLink =
+    index > 0
+      ? `<a href="/tokens/sessions/${escape(sessionId)}/messages/${index - 1}" class="text-cyan-700 hover:underline">← anterior</a>`
+      : '<span class="text-slate-400">← anterior</span>';
+  const nextLink =
+    index < total - 1
+      ? `<a href="/tokens/sessions/${escape(sessionId)}/messages/${index + 1}" class="text-cyan-700 hover:underline">próxima →</a>`
+      : '<span class="text-slate-400">próxima →</span>';
+
+  const toolUsesHtml = pair.toolUses
+    .map((t) => {
+      const inputStr = JSON.stringify(t.input, null, 2);
+      return `<details class="bg-slate-50 border border-slate-200 rounded p-2 mb-1">
+        <summary class="cursor-pointer text-xs font-mono text-slate-700">🔧 ${escape(t.name)}</summary>
+        <pre class="mt-2 text-xs bg-white p-2 rounded overflow-x-auto">${escape(inputStr)}</pre>
+      </details>`;
+    })
+    .join('');
+
+  const toolResultsHtml = pair.toolResults
+    .map((r) => {
+      const truncated = r.content.length > 3000 ? r.content.slice(0, 3000) + '\n... (truncado)' : r.content;
+      const cls = r.isError ? 'border-red-300 bg-red-50' : 'border-slate-200 bg-slate-50';
+      return `<details class="${cls} border rounded p-2 mb-1">
+        <summary class="cursor-pointer text-xs font-mono text-slate-700">${r.isError ? '❌ erro' : '✓'} tool_result (${r.content.length} chars)</summary>
+        <pre class="mt-2 text-xs bg-white p-2 rounded overflow-x-auto whitespace-pre-wrap">${escape(truncated)}</pre>
+      </details>`;
+    })
+    .join('');
+
+  const userBlock = pair.userPrompt
+    ? `<section class="bg-cyan-50 border border-cyan-200 rounded-lg p-4 mb-4">
+        <div class="text-xs font-semibold text-cyan-900 uppercase tracking-wide mb-2">👤 User</div>
+        <div class="prose max-w-none text-sm">${renderMarkdown(pair.userPrompt).__raw}</div>
+      </section>`
+    : `<section class="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4 text-xs text-slate-500 italic">
+        (sem prompt user identificável — provavelmente continuação automática após tool_result)
+      </section>`;
+
+  const assistantBlock = pair.assistantText
+    ? `<section class="bg-white border border-slate-200 rounded-lg p-4 mb-4">
+        <div class="text-xs font-semibold text-slate-700 uppercase tracking-wide mb-2">🤖 Assistant (${escape(pair.model)})</div>
+        <div class="prose max-w-none text-sm">${renderMarkdown(pair.assistantText).__raw}</div>
+      </section>`
+    : `<section class="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4 text-xs text-slate-500 italic">
+        (assistant não gerou texto — provavelmente apenas tool_use)
+      </section>`;
+
+  const body = html.raw(`
+    <nav class="text-sm text-slate-500 mb-3">
+      <a href="/tokens" class="text-cyan-700 hover:underline">tokens</a>
+      <span class="text-slate-400 mx-1">/</span>
+      <a href="/tokens/sessions/${escape(sessionId)}" class="text-cyan-700 hover:underline">${escape(sessionId.slice(0, 8))}…</a>
+      <span class="text-slate-400 mx-1">/</span>
+      <span class="text-slate-700">mensagem #${index + 1} de ${total}</span>
+    </nav>
+
+    <div class="flex items-center justify-between mb-4">
+      <div class="text-xs text-slate-500">
+        <span class="font-mono">${escape(pair.ts)}</span> · <span class="font-mono">${escape(pair.model)}</span>
+      </div>
+      <div class="flex gap-3 text-sm">
+        ${prevLink}
+        ${nextLink}
+      </div>
+    </div>
+
+    ${userBlock}
+    ${assistantBlock}
+
+    ${pair.toolUses.length > 0 ? `<section class="mb-4">
+      <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Tool uses (${pair.toolUses.length})</div>
+      ${toolUsesHtml}
+    </section>` : ''}
+
+    ${pair.toolResults.length > 0 ? `<section class="mb-4">
+      <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Tool results (${pair.toolResults.length})</div>
+      ${toolResultsHtml}
+    </section>` : ''}
+
+    <details class="mt-6 bg-slate-50 border border-slate-200 rounded p-3">
+      <summary class="cursor-pointer text-xs text-slate-600">Raw JSONL</summary>
+      <pre class="mt-2 text-xs bg-white p-2 rounded overflow-x-auto">${escape(JSON.stringify(pair.raw, null, 2))}</pre>
+    </details>
+  `);
+
+  return layout({
+    title: `msg #${index + 1} — ${sessionId.slice(0, 8)}`,
+    active: 'tokens',
+    projectName: cfg.project.name,
+    phaseActive: cfg.phase.active,
+    body,
   });
 }
 

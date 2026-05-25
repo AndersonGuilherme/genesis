@@ -5,6 +5,7 @@ phase: planning
 rules:
   - plan-avoid-overengineering
   - plan-business-before-technology
+  - plan-three-options-or-tutorial
 ---
 
 # Skill: plan-define-product

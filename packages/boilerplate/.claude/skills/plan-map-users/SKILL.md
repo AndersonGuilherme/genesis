@@ -5,6 +5,7 @@ phase: planning
 rules:
   - plan-security-by-design
   - plan-documentation-first
+  - plan-three-options-or-tutorial
 ---
 
 # Skill: plan-map-users

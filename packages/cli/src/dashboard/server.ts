@@ -6,7 +6,7 @@ import { renderSkills } from './routes/skills.js';
 import { renderRules } from './routes/rules.js';
 import { renderAgents } from './routes/agents.js';
 import { renderPhases } from './routes/phases.js';
-import { renderTokens, renderSessionDrilldown } from './routes/tokens.js';
+import { renderTokens, renderSessionDrilldown, renderMessageView } from './routes/tokens.js';
 import { renderEntityShow } from './routes/entity-show.js';
 import { renderEntityNew } from './routes/entity-new.js';
 import { handleApi } from './routes/api.js';
@@ -83,6 +83,14 @@ async function handle(
   if (pathname === '/tokens' || pathname === '/tokens/') {
     resetPricingCache(); // re-lê pricing.json a cada hit (pega update do CLI)
     send(res, 200, await renderTokens(opts.projectRoot, cfg));
+    return;
+  }
+  // /tokens/sessions/<id>/messages/<index>
+  const msgMatch = pathname.match(/^\/tokens\/sessions\/([A-Za-z0-9-]+)\/messages\/(\d+)\/?$/);
+  if (msgMatch) {
+    const sid = msgMatch[1]!;
+    const idx = Number(msgMatch[2]);
+    send(res, 200, await renderMessageView(opts.projectRoot, cfg, sid, idx));
     return;
   }
   const sessionMatch = pathname.match(/^\/tokens\/sessions\/([A-Za-z0-9-]+)\/?$/);

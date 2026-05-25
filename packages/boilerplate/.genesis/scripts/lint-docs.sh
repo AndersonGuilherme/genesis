@@ -116,7 +116,7 @@ fi
 # --- rules ---
 section "Rules"
 required_sections=("## Princípio" "## Por que existe" "## Como aplicar" "## Exemplos bons" "## Exemplos ruins" "## Exceções")
-expected_rules=46
+expected_rules=47
 found_rules=0
 for f in .claude/rules/*.md; do
   [ -f "$f" ] || continue

@@ -5,6 +5,48 @@ Histórico de versões do `@tchr/genesis-cli`. Semver simplificado:
 - MINOR — adição de capacidade.
 - PATCH — fix.
 
+## [1.3.0] — 2026-05-25
+
+### Adicionado (boilerplate)
+
+- **Rule `plan-three-options-or-tutorial`** — meta-regra: pergunta aberta
+  exige 3+ opções com trade-offs OU tutorial passo-a-passo de onde
+  pesquisar. Proibido inventar opção pra preencher resposta.
+- Rule carregada por 6 skills planning: `plan-init-project`,
+  `plan-define-product`, `plan-design-business-model`, `plan-map-users`,
+  `plan-choose-stack`, `plan-design-architecture`.
+- CLAUDE.md: regra explícita em "Comportamento esperado em respostas" +
+  entry na lista de rules planning.
+- lint-docs.sh: `expected_rules` 46 → 47.
+
+### Adicionado (dashboard)
+
+- **Rota `/tokens/sessions/<id>/messages/<index>`** — viewer de mensagem
+  individual da sessão. Mostra:
+  - User prompt (markdown renderizado em card ciano).
+  - Assistant response (markdown em card branco).
+  - Tool uses (collapsed `<details>` com input JSON).
+  - Tool results (collapsed, vermelho em erro, truncados em 3000 chars).
+  - Raw JSONL (collapsed pra debug).
+  - Navegação anterior/próxima entre mensagens da sessão.
+- **Link "ver →"** em cada row do drill-down `/tokens/sessions/<id>`
+  leva pro message view daquela mensagem (index original preservado).
+- Nova coluna "Conversa" na tabela do drill-down.
+
+### Métodos novos em TranscriptCache
+
+- `messagePair(sessionId, index)` — lê JSONL na hora, extrai user msg
+  anterior + assistant target + tool_uses + tool_results subsequentes.
+  Suporta content como string ou array de blocks (text/tool_use/tool_result).
+- `assistantCount(sessionId)` — total de mensagens assistant na sessão
+  (pra navegação anterior/próxima saber bounds).
+
+### Corrigido
+
+- **HTML escapando em `/tokens/sessions/<id>` (cwd + branch)**. Causa:
+  ternary `${sess.cwd ? html\`...\` : ''}` retornava string crua re-interpolada
+  em outer `html\`\``, escapava tags. Fix: wrap com `html.raw()`.
+
 ## [1.2.0] — 2026-05-25
 
 ### Adicionado

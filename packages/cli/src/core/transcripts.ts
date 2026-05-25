@@ -1,6 +1,11 @@
 import { existsSync, statSync, readdirSync } from 'node:fs';
-import { open } from 'node:fs/promises';
+import { open, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
+
+async function readFileLines(absPath: string): Promise<string[]> {
+  const buf = await readFile(absPath, 'utf8');
+  return buf.split('\n');
+}
 import { homedir } from 'node:os';
 import { mkdir } from 'node:fs/promises';
 import Database from 'better-sqlite3';
@@ -326,6 +331,144 @@ export class TranscriptCache {
       cacheWriteTokens: number;
     };
     return row;
+  }
+
+  /**
+   * Lê JSONL da sessão e retorna a N-ésima mensagem assistant + contexto (user msg anterior + tool_results no entorno).
+   * Index 0-based contando apenas mensagens type=assistant com usage.
+   */
+  async messagePair(sessionId: string, index: number): Promise<{
+    userPrompt: string | null;
+    assistantText: string;
+    toolUses: { name: string; input: unknown }[];
+    toolResults: { content: string; isError?: boolean }[];
+    ts: string;
+    model: string;
+    raw: unknown;
+  } | null> {
+    const sess = this.session(sessionId);
+    if (!sess) return null;
+    const lines = await readFileLines(sess.filePath);
+    const objs: Record<string, unknown>[] = [];
+    for (const ln of lines) {
+      if (!ln.trim()) continue;
+      try {
+        objs.push(JSON.parse(ln) as Record<string, unknown>);
+      } catch {
+        // skip
+      }
+    }
+    // Indexa assistants com usage
+    const asstIdx: number[] = [];
+    for (let i = 0; i < objs.length; i += 1) {
+      const obj = objs[i]!;
+      if (obj.type === 'assistant') {
+        const msg = obj.message as { usage?: unknown } | undefined;
+        if (msg?.usage) asstIdx.push(i);
+      }
+    }
+    if (index < 0 || index >= asstIdx.length) return null;
+    const targetI = asstIdx[index]!;
+    const target = objs[targetI]!;
+    const targetMsg = target.message as {
+      model?: string;
+      content?: Array<{ type: string; text?: string; name?: string; input?: unknown }>;
+    };
+
+    // Acha user message anterior mais próxima (não tool_result)
+    let userPrompt: string | null = null;
+    for (let i = targetI - 1; i >= 0; i -= 1) {
+      const o = objs[i]!;
+      if (o.type === 'user') {
+        const m = o.message as { content?: unknown } | undefined;
+        const c = m?.content;
+        if (typeof c === 'string') {
+          // mensagem direta do user
+          userPrompt = c;
+          break;
+        }
+        if (Array.isArray(c)) {
+          // pode ser tool_result (array de objs) — pula
+          const isToolResult = c.every(
+            (item) => typeof item === 'object' && item !== null && (item as Record<string, unknown>).type === 'tool_result',
+          );
+          if (!isToolResult) {
+            // text blocks
+            userPrompt = c
+              .filter((b) => typeof b === 'object' && b !== null && (b as Record<string, unknown>).type === 'text')
+              .map((b) => (b as { text?: string }).text ?? '')
+              .join('\n\n');
+            if (userPrompt) break;
+          }
+          // se for tool_result, continua buscando msg user real
+        }
+      }
+      if (o.type === 'assistant') break; // chegou em outro assistant — parar
+    }
+
+    // Extrai text + tool_use do target assistant
+    let assistantText = '';
+    const toolUses: { name: string; input: unknown }[] = [];
+    if (Array.isArray(targetMsg.content)) {
+      for (const block of targetMsg.content) {
+        if (block.type === 'text' && block.text) {
+          assistantText += block.text;
+        } else if (block.type === 'tool_use') {
+          toolUses.push({ name: block.name ?? '?', input: block.input ?? {} });
+        }
+      }
+    }
+
+    // Procura tool_results subsequentes (user message com content array de tool_result)
+    const toolResults: { content: string; isError?: boolean }[] = [];
+    for (let i = targetI + 1; i < objs.length; i += 1) {
+      const o = objs[i]!;
+      if (o.type === 'assistant') break;
+      if (o.type === 'user') {
+        const m = o.message as { content?: unknown } | undefined;
+        const c = m?.content;
+        if (Array.isArray(c)) {
+          for (const block of c) {
+            if (
+              typeof block === 'object' &&
+              block !== null &&
+              (block as Record<string, unknown>).type === 'tool_result'
+            ) {
+              const b = block as { content?: unknown; is_error?: boolean };
+              let text = '';
+              if (typeof b.content === 'string') text = b.content;
+              else if (Array.isArray(b.content)) {
+                text = b.content
+                  .map((c2) =>
+                    typeof c2 === 'object' && c2 !== null && (c2 as { type?: string }).type === 'text'
+                      ? (c2 as { text?: string }).text ?? ''
+                      : '',
+                  )
+                  .join('\n');
+              }
+              toolResults.push({ content: text, isError: b.is_error });
+            }
+          }
+        }
+      }
+    }
+
+    return {
+      userPrompt,
+      assistantText,
+      toolUses,
+      toolResults,
+      ts: (target.timestamp as string) ?? '',
+      model: targetMsg.model ?? '<unknown>',
+      raw: target,
+    };
+  }
+
+  assistantCount(sessionId: string): number {
+    const row = this.db
+      .prepare('SELECT COUNT(*) as n FROM messages WHERE session_id = ?')
+      .get(sessionId) as { n: number };
+    return row.n;
   }
 
   sessionMessages(sessionId: string): MessageRow[] {

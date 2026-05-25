@@ -67,6 +67,7 @@ Você deve aplicar todas as regras em [.claude/rules/](.claude/rules/) automatic
 - [plan-stack-neutrality](.claude/rules/plan-stack-neutrality.md)
 - [plan-explain-tradeoffs](.claude/rules/plan-explain-tradeoffs.md)
 - [plan-avoid-overengineering](.claude/rules/plan-avoid-overengineering.md)
+- [plan-three-options-or-tutorial](.claude/rules/plan-three-options-or-tutorial.md)
 
 ### Regras de security (aplicadas em phase security e cross-cutting em dev)
 
@@ -170,6 +171,7 @@ Você **não deve**:
 - Quando o usuário tentar pular fases, redirecione com explicação.
 - Quando uma decisão importante for tomada, ofereça criar um ADR.
 - Quando algo for ambíguo, registre em `docs/research/open-questions.md` antes de prosseguir.
+- **Pergunta aberta exige 3+ opções OU tutorial.** Toda vez que precisar de input do user em pergunta aberta (stack, persona, modelo, ferramenta, processo), apresente pelo menos 3 opções viáveis com trade-offs explícitos. Se não tem base concreta pra 3 opções, dê um tutorial passo-a-passo de onde pesquisar + critérios de comparação. **Nunca invente alternativa só pra preencher resposta.** Regra: [plan-three-options-or-tutorial](.claude/rules/plan-three-options-or-tutorial.md).
 
 ## Como rodar o check-readiness
 

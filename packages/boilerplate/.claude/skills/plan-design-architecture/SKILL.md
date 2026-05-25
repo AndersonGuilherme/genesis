@@ -6,6 +6,7 @@ rules:
   - plan-security-by-design
   - plan-avoid-overengineering
   - plan-documentation-first
+  - plan-three-options-or-tutorial
 ---
 
 # Skill: plan-design-architecture

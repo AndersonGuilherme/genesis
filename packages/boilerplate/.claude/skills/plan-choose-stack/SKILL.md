@@ -7,6 +7,7 @@ rules:
   - plan-business-before-technology
   - plan-avoid-overengineering
   - plan-explain-tradeoffs
+  - plan-three-options-or-tutorial
 ---
 
 # Skill: plan-choose-stack
