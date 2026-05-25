@@ -5,6 +5,42 @@ Histórico de versões do `@tchr/genesis-cli`. Semver simplificado:
 - MINOR — adição de capacidade.
 - PATCH — fix.
 
+## [1.2.0] — 2026-05-25
+
+### Adicionado
+
+- **CRUD completo de skills/rules/agents via dashboard**:
+  - `GET /skills/new`, `/rules/new`, `/agents/new` — form de criação com
+    inputs separados (id, phase) + textarea de conteúdo pré-preenchida
+    com template inicial.
+  - `POST /api/{skill,rule,agent}/create  { id, content }` — valida:
+    - id kebab-case (`^[a-z][a-z0-9-]*$`)
+    - arquivo não pode existir (use `/save` pra editar)
+    - frontmatter mínimo: `name`, `description`, `phase` (string)
+    - `frontmatter.name === id`
+    - `phase` ∈ enum válido
+    - content ≤ 200KB
+  - `DELETE /api/{skill,rule,agent}/<id>` — backup automático em
+    `.genesis/.backup/<timestamp>/.claude/<type>/<file>` antes de deletar.
+    Pra skill (arquivo dentro de dir), remove o dir inteiro.
+
+- **Botão "+ Nova"** no header de `/skills`, `/rules`, `/agents`.
+- **Botão "Excluir"** ao lado de Editar em `/skills/[id]`, `/rules/[id]`,
+  `/agents/[id]`. `confirm()` JS antes de DELETE.
+- **JS de form (entity-new.ts)**: ID + phase sincronizam frontmatter no
+  textarea automaticamente quando user muda os campos.
+
+### Notas
+
+- **Phases CRUD não implementado**: PHASES é enum hardcoded em
+  `core/skills-discovery.ts` + referenciado em `project-state.ts` (isPhase,
+  nextPhase) + scripts shell do boilerplate (check-readiness.sh,
+  lint-docs.sh). Adicionar phase customizada quebra TypeScript type-safety
+  + runtime de hooks. Tracking pra v2.0.
+- Confirmado: dados de transcripts **isolados por projeto** (cache SQLite
+  em `<project>/.genesis/.cache/`, hash do path em
+  `~/.claude/projects/<hash>/`). Banner em `/tokens` reforça.
+
 ## [1.1.1] — 2026-05-24
 
 ### Corrigido

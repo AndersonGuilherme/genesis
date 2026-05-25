@@ -81,7 +81,10 @@ export async function renderSkills(
         ${statusButtons}
       </div>
     </section>
-    <p class="text-sm text-slate-500 mb-4">${rows.length} skill(s) listada(s). <span class="text-cyan-700">Clique nos status pra atualizar.</span></p>
+    <div class="flex items-center justify-between mb-4">
+      <p class="text-sm text-slate-500">${rows.length} skill(s). <span class="text-cyan-700">Clique nos status pra atualizar.</span></p>
+      <a href="/skills/new" class="bg-green-600 hover:bg-green-700 text-white text-sm font-medium px-3 py-1.5 rounded">+ Nova skill</a>
+    </div>
     <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">${cards}</section>
     <script>${html.raw(SKILL_TOGGLE_JS)}</script>
   `;

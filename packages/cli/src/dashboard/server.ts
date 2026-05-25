@@ -8,6 +8,7 @@ import { renderAgents } from './routes/agents.js';
 import { renderPhases } from './routes/phases.js';
 import { renderTokens, renderSessionDrilldown } from './routes/tokens.js';
 import { renderEntityShow } from './routes/entity-show.js';
+import { renderEntityNew } from './routes/entity-new.js';
 import { handleApi } from './routes/api.js';
 import { resetPricingCache } from '../core/pricing.js';
 
@@ -87,6 +88,19 @@ async function handle(
   const sessionMatch = pathname.match(/^\/tokens\/sessions\/([A-Za-z0-9-]+)\/?$/);
   if (sessionMatch) {
     send(res, 200, await renderSessionDrilldown(opts.projectRoot, cfg, sessionMatch[1]!));
+    return;
+  }
+  // /skills/new etc. (precisa vir antes de /skills/[id])
+  if (pathname === '/skills/new') {
+    send(res, 200, renderEntityNew(cfg, 'skill'));
+    return;
+  }
+  if (pathname === '/rules/new') {
+    send(res, 200, renderEntityNew(cfg, 'rule'));
+    return;
+  }
+  if (pathname === '/agents/new') {
+    send(res, 200, renderEntityNew(cfg, 'agent'));
     return;
   }
   // Rotas individuais antes das listas (regex match com ID kebab-case)

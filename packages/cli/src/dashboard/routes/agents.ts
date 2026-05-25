@@ -27,7 +27,10 @@ export async function renderAgents(projectRoot: string, cfg: GenesisConfig): Pro
   });
 
   const body = html`
-    <h1 class="text-2xl font-bold text-slate-900 mb-4">Agents (${agents.length})</h1>
+    <div class="flex items-center justify-between mb-4">
+      <h1 class="text-2xl font-bold text-slate-900">Agents (${agents.length})</h1>
+      <a href="/agents/new" class="bg-green-600 hover:bg-green-700 text-white text-sm font-medium px-3 py-1.5 rounded">+ Novo agent</a>
+    </div>
     <p class="text-sm text-slate-600 mb-6">Agents especializados invocáveis pra revisão profunda em cada área. Use <code class="bg-slate-200 px-1 rounded">Agent({ subagent_type: ... })</code> no Claude Code.</p>
     ${sections}
   `;

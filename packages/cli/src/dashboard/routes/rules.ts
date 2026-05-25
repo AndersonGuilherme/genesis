@@ -26,7 +26,10 @@ export async function renderRules(projectRoot: string, cfg: GenesisConfig): Prom
   });
 
   const body = html`
-    <h1 class="text-2xl font-bold text-slate-900 mb-4">Rules (${rules.length})</h1>
+    <div class="flex items-center justify-between mb-4">
+      <h1 class="text-2xl font-bold text-slate-900">Rules (${rules.length})</h1>
+      <a href="/rules/new" class="bg-green-600 hover:bg-green-700 text-white text-sm font-medium px-3 py-1.5 rounded">+ Nova rule</a>
+    </div>
     <p class="text-sm text-slate-600 mb-6">Princípios aplicados automaticamente pelas skills. Skills declaram quais rules carregar via campo <code class="bg-slate-200 px-1 rounded">rules:</code> no frontmatter.</p>
     ${sections}
   `;

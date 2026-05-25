@@ -109,6 +109,7 @@ export async function renderEntityShow(
         <h1 class="text-2xl font-bold text-slate-900 font-mono">${id}</h1>
         <div class="flex gap-2">
           <button id="edit-btn" class="bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-medium px-3 py-1.5 rounded">Editar</button>
+          <button id="delete-btn" class="bg-red-600 hover:bg-red-700 text-white text-sm font-medium px-3 py-1.5 rounded">Excluir</button>
           <button id="cancel-btn" class="hidden bg-slate-200 hover:bg-slate-300 text-slate-700 text-sm font-medium px-3 py-1.5 rounded">Cancelar</button>
           <button id="save-btn" class="hidden bg-green-600 hover:bg-green-700 text-white text-sm font-medium px-3 py-1.5 rounded">Salvar</button>
         </div>
@@ -139,8 +140,10 @@ export async function renderEntityShow(
 }
 
 function EDIT_JS(type: EntityType, id: string): string {
+  const listRoute = type === 'skill' ? '/skills' : type === 'rule' ? '/rules' : '/agents';
   return `
 const editBtn = document.getElementById('edit-btn');
+const deleteBtn = document.getElementById('delete-btn');
 const cancelBtn = document.getElementById('cancel-btn');
 const saveBtn = document.getElementById('save-btn');
 const viewMode = document.getElementById('view-mode');
@@ -152,6 +155,7 @@ function setMode(editing) {
   viewMode.classList.toggle('hidden', editing);
   editMode.classList.toggle('hidden', !editing);
   editBtn.classList.toggle('hidden', editing);
+  deleteBtn.classList.toggle('hidden', editing);
   cancelBtn.classList.toggle('hidden', !editing);
   saveBtn.classList.toggle('hidden', !editing);
   feedback.textContent = '';
@@ -159,6 +163,27 @@ function setMode(editing) {
 
 editBtn.addEventListener('click', () => setMode(true));
 cancelBtn.addEventListener('click', () => setMode(false));
+
+deleteBtn.addEventListener('click', async () => {
+  if (!confirm('Excluir ${type} ${id}? Backup automático será criado em .genesis/.backup/')) return;
+  deleteBtn.disabled = true;
+  deleteBtn.textContent = 'Excluindo...';
+  try {
+    const res = await fetch('/api/${type}/' + ${JSON.stringify(id)}, { method: 'DELETE' });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      alert('erro: ' + (data.error || res.status));
+      deleteBtn.disabled = false;
+      deleteBtn.textContent = 'Excluir';
+      return;
+    }
+    location.href = ${JSON.stringify(listRoute)};
+  } catch (err) {
+    alert('falha de rede: ' + err.message);
+    deleteBtn.disabled = false;
+    deleteBtn.textContent = 'Excluir';
+  }
+});
 
 saveBtn.addEventListener('click', async () => {
   saveBtn.disabled = true;
