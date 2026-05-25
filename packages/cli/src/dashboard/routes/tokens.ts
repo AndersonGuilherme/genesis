@@ -29,6 +29,8 @@ export async function renderTokens(
   const cache = new TranscriptCache(projectRoot);
   const newCount = await cache.sync(projectRoot);
   const summary = cache.summary();
+  const last1h = cache.usageWindow(1);
+  const last24h = cache.usageWindow(24);
   cache.close();
 
   const pricing = loadPricing();
@@ -46,12 +48,35 @@ export async function renderTokens(
 
   const body = html`
     <h1 class="text-2xl font-bold text-slate-900 mb-3">Tokens & custos</h1>
-    <p class="text-sm text-slate-500 mb-4">
-      Lendo transcripts de <code class="bg-slate-100 px-1 rounded">${dir}</code>
-      ${newCount > 0 ? html.raw(`· <span class="text-cyan-700">${newCount} mensagem(ns) nova(s) processada(s)</span>`) : ''}
-    </p>
+    <div class="bg-slate-50 border border-slate-200 rounded p-3 mb-4 text-xs text-slate-600">
+      <div>📁 Projeto: <code class="bg-white px-1 rounded text-slate-800">${projectRoot}</code></div>
+      <div class="mt-1">📊 Transcripts: <code class="bg-white px-1 rounded text-slate-800">${dir}</code></div>
+      <div class="mt-1 text-slate-500">Dados isolados por projeto. Outros projetos têm cache + diretório próprios.${newCount > 0 ? html.raw(` <span class="text-cyan-700">· ${newCount} mensagem(ns) nova(s) processada(s).</span>`) : ''}</div>
+    </div>
 
     ${banner}
+
+    <section class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+      <div class="bg-white rounded-lg shadow-sm p-4 border-l-4 border-amber-400">
+        <div class="text-xs text-slate-500 uppercase tracking-wide">Última 1h</div>
+        <div class="text-2xl font-bold text-slate-900 mt-1">${formatUsd(last1h.cost)}</div>
+        <div class="text-xs text-slate-500 mt-1">${last1h.messages} mensagens</div>
+      </div>
+      <div class="bg-white rounded-lg shadow-sm p-4 border-l-4 border-cyan-400">
+        <div class="text-xs text-slate-500 uppercase tracking-wide">Últimas 24h</div>
+        <div class="text-2xl font-bold text-slate-900 mt-1">${formatUsd(last24h.cost)}</div>
+        <div class="text-xs text-slate-500 mt-1">${last24h.messages} mensagens</div>
+      </div>
+      <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 col-span-2 md:col-span-2">
+        <div class="text-xs font-semibold text-amber-900 uppercase tracking-wide">⚠ Rate limits da API</div>
+        <div class="text-xs text-amber-800 mt-1">
+          Genesis não consegue ler tokens restantes ou tempo até reset — esses dados ficam nos headers HTTP da API e não estão nos transcripts.
+        </div>
+        <div class="text-xs text-amber-800 mt-1">
+          Limite real do seu plano: <a href="https://console.anthropic.com/settings/limits" class="underline font-medium" target="_blank">console.anthropic.com/settings/limits</a>
+        </div>
+      </div>
+    </section>
 
     <section class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
       <div class="bg-white rounded-lg shadow-sm p-4">

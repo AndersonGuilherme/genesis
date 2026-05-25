@@ -9,6 +9,7 @@ import { renderPhases } from './routes/phases.js';
 import { renderTokens, renderSessionDrilldown } from './routes/tokens.js';
 import { renderEntityShow } from './routes/entity-show.js';
 import { handleApi } from './routes/api.js';
+import { resetPricingCache } from '../core/pricing.js';
 
 export interface ServerOptions {
   projectRoot: string;
@@ -79,6 +80,7 @@ async function handle(
     return;
   }
   if (pathname === '/tokens' || pathname === '/tokens/') {
+    resetPricingCache(); // re-lê pricing.json a cada hit (pega update do CLI)
     send(res, 200, await renderTokens(opts.projectRoot, cfg));
     return;
   }

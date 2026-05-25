@@ -1,4 +1,4 @@
-import type { GenesisConfig, SkillStatus } from '../../core/project-state.js';
+import type { GenesisConfig, SkillStatus, SkillState } from '../../core/project-state.js';
 import { discoverSkills, PHASES } from '../../core/skills-discovery.js';
 import { html } from '../lib/html.js';
 import { layout } from '../lib/render.js';
@@ -11,10 +11,22 @@ export async function renderSkills(
   const filterPhase = query.get('phase') ?? '';
   const filterStatus = query.get('status') ?? '';
 
+  // Source of truth: filesystem. Skills no config sem arquivo são ignoradas (órfãs).
+  // Skills no fs sem entry no config aparecem com status `pending`.
   const metas = await discoverSkills(projectRoot);
   const metaMap = new Map(metas.map((m) => [m.id, m]));
+  const configMap = new Map(cfg.skills.map((s) => [s.id, s]));
 
-  let rows = cfg.skills;
+  let rows: SkillState[] = metas.map((m) => {
+    const fromConfig = configMap.get(m.id);
+    return (
+      fromConfig ?? {
+        id: m.id,
+        phase: m.phase,
+        status: 'pending' as SkillStatus,
+      }
+    );
+  });
   if (filterPhase) rows = rows.filter((s) => s.phase === filterPhase);
   if (filterStatus) rows = rows.filter((s) => s.status === filterStatus);
 

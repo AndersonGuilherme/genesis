@@ -5,6 +5,42 @@ Histórico de versões do `@tchr/genesis-cli`. Semver simplificado:
 - MINOR — adição de capacidade.
 - PATCH — fix.
 
+## [1.1.1] — 2026-05-24
+
+### Corrigido
+
+- **Skills criadas manualmente no fs não apareciam no `/skills`** (#1).
+  Causa: listagem usava `cfg.skills` do `.genesis/config.json` que só era
+  populado no `init`. Fix: source = `discoverSkills(projectRoot)` (fs),
+  mergeando status do config quando existe. Skills novas aparecem como
+  `pending`. Skills no config sem arquivo no fs são órfãs e omitidas.
+- **`pricing update` não invalidava cache do dashboard rodando** (#4).
+  Fix: `resetPricingCache()` chamado no handler de `/tokens` a cada
+  request. Custo ~5KB JSON re-parse — negligível.
+
+### Removido
+
+- Branding "Brazilian"/`🇧🇷` do dashboard (#7):
+  - Header: `🇧🇷 Genesis` → `Genesis`.
+  - Footer: removida frase "projeto criado com Brazilian Genesis".
+  - `/` overview: intro com "Brazilian Genesis" reescrita pra "projeto" genérico.
+
+### Adicionado
+
+- **Cards "Última 1h" e "Últimas 24h"** em `/tokens` com custo + msgs
+  agregados via SQLite query `WHERE ts >= cutoff` (#5 parcial).
+- **Disclaimer rate limits** em `/tokens`: explica que tokens disponíveis
+  + tempo até reset ficam em headers HTTP da API (não nos transcripts).
+  Link pra `console.anthropic.com/settings/limits`.
+- **Destaque visual isolamento multi-projeto** em `/tokens` header (#6):
+  mostra `projectRoot` + `transcripts dir` + nota "Dados isolados por
+  projeto. Outros projetos têm cache + diretório próprios."
+
+### TranscriptCache API
+
+- Novo método `usageWindow(hoursBack: number)` retorna agregação
+  filtrada por timestamp recente.
+
 ## [1.1.0] — 2026-05-24
 
 ### Adicionado

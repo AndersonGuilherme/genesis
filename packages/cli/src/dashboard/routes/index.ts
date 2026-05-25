@@ -27,13 +27,12 @@ export function renderOverview(cfg: GenesisConfig): string {
 
   const intro = renderMarkdown(`# ${cfg.project.name}
 
-Bem-vindo ao dashboard local do **Brazilian Genesis**. Este painel é read-only nesta versão (\`@tchr/genesis-cli\` M4) — interatividade chega em M5.
+Dashboard local do projeto. Use a navegação acima para explorar:
 
-Use a navegação acima para explorar:
-
+- **Tokens** — uso + custos por modelo/dia/sessão (lê transcripts do Claude Code).
 - **Docs** — viewer da documentação do projeto (\`docs/\`).
-- **Skills** — 56 skills do boilerplate, status atualizado via \`genesis skill done/skip\`.
-- **Rules** — 46 princípios aplicados em cada phase.
+- **Skills** — skills disponíveis, status atualizado via toggle ou \`genesis skill done/skip\`.
+- **Rules** — princípios aplicados em cada phase.
 - **Agents** — 22 agents especializados pra revisão profunda.
 - **Phases** — visão kanban das 8 phases do lifecycle.
 `);

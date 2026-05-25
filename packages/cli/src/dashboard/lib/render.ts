@@ -64,7 +64,7 @@ export function layout(props: LayoutProps): string {
   <header class="bg-slate-950 text-white shadow">
     <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
       <div class="flex items-center gap-6">
-        <a href="/" class="font-bold text-lg">🇧🇷 Genesis</a>
+        <a href="/" class="font-bold text-lg">Genesis</a>
         <nav class="flex gap-1">${navItems}</nav>
       </div>
       <div class="text-sm text-slate-400">
@@ -83,8 +83,7 @@ export function layout(props: LayoutProps): string {
       : props.body}
   </main>
   <footer class="text-center text-xs text-slate-400 py-6">
-    <a href="https://github.com/AndersonGuilherme/genesis" class="hover:text-slate-600">@tchr/genesis-cli</a>
-    · projeto criado com Brazilian Genesis
+    <a href="https://www.npmjs.com/package/@tchr/genesis-cli" class="hover:text-slate-600">@tchr/genesis-cli</a>
   </footer>
 </body>
 </html>`;

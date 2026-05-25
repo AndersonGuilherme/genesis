@@ -293,6 +293,41 @@ export class TranscriptCache {
     };
   }
 
+  /**
+   * Agrega uso (cost + tokens + msgs) num intervalo recente.
+   * @param hoursBack horas pra trás a partir de agora.
+   */
+  usageWindow(hoursBack: number): {
+    cost: number;
+    messages: number;
+    inputTokens: number;
+    outputTokens: number;
+    cacheReadTokens: number;
+    cacheWriteTokens: number;
+  } {
+    const cutoff = new Date(Date.now() - hoursBack * 60 * 60 * 1000).toISOString();
+    const row = this.db
+      .prepare(
+        `SELECT
+           COALESCE(SUM(cost_usd), 0) as cost,
+           COUNT(*) as messages,
+           COALESCE(SUM(input_tokens), 0) as inputTokens,
+           COALESCE(SUM(output_tokens), 0) as outputTokens,
+           COALESCE(SUM(cache_read), 0) as cacheReadTokens,
+           COALESCE(SUM(cache_write), 0) as cacheWriteTokens
+         FROM messages WHERE ts >= ?`,
+      )
+      .get(cutoff) as {
+      cost: number;
+      messages: number;
+      inputTokens: number;
+      outputTokens: number;
+      cacheReadTokens: number;
+      cacheWriteTokens: number;
+    };
+    return row;
+  }
+
   sessionMessages(sessionId: string): MessageRow[] {
     return this.db
       .prepare(
