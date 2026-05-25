@@ -5,6 +5,36 @@ Histórico de versões do `@tchr/genesis-cli`. Semver simplificado:
 - MINOR — adição de capacidade.
 - PATCH — fix.
 
+## [1.4.0] — 2026-05-25
+
+### Adicionado
+
+- **Editor de rules vinculadas em `/skills/<id>`**:
+  - Seção "Rules vinculadas" com chips removíveis (× pra desvincular).
+  - Dropdown listando todas rules disponíveis (filtradas pra não repetir).
+  - Botões "+ Adicionar" + "Salvar rules".
+  - POST `/api/skill/rules { id, rules: [] }` atualiza só o frontmatter
+    rules + backup automático.
+  - Validação: rules devem existir em `.claude/rules/`.
+- **Seção "Usado por" em `/rules/<id>`** mostra todas skills que
+  carregam a rule via frontmatter. Links pra cada skill.
+- **Cards em `/phases` agora clicáveis** → linkam pra `/skills/<id>`.
+- **Ordering em /phases**: skills ordenadas por status (doing → pending
+  → done → skip) + alphabetical secondary.
+- **Header "próxima:"** em cada coluna de phase mostra a primeira skill
+  pending/doing com link.
+
+### Arquivos novos
+
+- `entity-show.ts`: funções `renderSkillRulesEditor`, `renderUsedBy`,
+  `SKILL_RULES_JS` (vanilla JS pra chips + dropdown + save).
+
+### API
+
+- POST `/api/skill/rules { id: string, rules: string[] }` — atualiza
+  só frontmatter rules: via `matter.stringify`. Backup em
+  `.genesis/.backup/<ts>/.claude/skills/<id>/SKILL.md`.
+
 ## [1.3.0] — 2026-05-25
 
 ### Adicionado (boilerplate)

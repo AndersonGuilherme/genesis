@@ -11,7 +11,7 @@ import {
   nextPhase as computeNextPhase,
   type SkillStatus,
 } from '../../core/project-state.js';
-import { isPhase, PHASES } from '../../core/skills-discovery.js';
+import { isPhase, PHASES, discoverRules } from '../../core/skills-discovery.js';
 import { entityFilePath, isValidId, type EntityType } from './entity-show.js';
 
 const MAX_CONTENT_BYTES = 200 * 1024; // 200KB — generous mas evita abuso
@@ -100,6 +100,11 @@ export async function handleApi(ctx: ApiContext): Promise<boolean> {
     const type = deleteMatch[1] as EntityType;
     const id = deleteMatch[2]!;
     return await handleEntityDelete(ctx, type, id);
+  }
+
+  // POST /api/skill/rules  { id, rules: string[] }
+  if (ctx.method === 'POST' && ctx.pathname === '/api/skill/rules') {
+    return await handleSkillRules(ctx);
   }
 
   return json(ctx.res, 404, { error: 'rota não encontrada' });
@@ -208,6 +213,54 @@ async function handleEntityDelete(ctx: ApiContext, type: EntityType, id: string)
       error: `falha ao deletar: ${err instanceof Error ? err.message : String(err)}`,
     });
   }
+}
+
+async function handleSkillRules(ctx: ApiContext): Promise<boolean> {
+  const body = await readJson(ctx.req);
+  const id = String(body.id ?? '');
+  const rules = Array.isArray(body.rules) ? body.rules.map((r: unknown) => String(r)) : null;
+
+  if (!isValidId(id)) return json(ctx.res, 400, { error: `id inválido: '${id}'` });
+  if (!rules) return json(ctx.res, 400, { error: 'rules deve ser array' });
+
+  const abs = entityFilePath(ctx.projectRoot, 'skill', id);
+  if (!existsSync(abs)) return json(ctx.res, 404, { error: `skill '${id}' não existe` });
+
+  // Valida rules existentes
+  const available = await discoverRules(ctx.projectRoot);
+  const availableIds = new Set(available.map((r) => r.id));
+  const invalid = rules.filter((r) => !availableIds.has(r));
+  if (invalid.length > 0) {
+    return json(ctx.res, 400, { error: `rules inexistentes: ${invalid.join(', ')}` });
+  }
+
+  // Lê + atualiza frontmatter
+  const raw = await readFile(abs, 'utf8');
+  let parsed;
+  try {
+    parsed = matter(raw);
+  } catch (err) {
+    return json(ctx.res, 500, {
+      error: `frontmatter inválido: ${err instanceof Error ? err.message : String(err)}`,
+    });
+  }
+  parsed.data.rules = rules;
+  // Backup
+  const ts = new Date().toISOString().replace(/[:.]/g, '-');
+  const relPath = abs.replace(ctx.projectRoot + '/', '');
+  const backupPath = join(ctx.projectRoot, '.genesis', '.backup', ts, relPath);
+  try {
+    await mkdir(dirname(backupPath), { recursive: true });
+    await copyFile(abs, backupPath);
+  } catch (err) {
+    return json(ctx.res, 500, {
+      error: `backup falhou: ${err instanceof Error ? err.message : String(err)}`,
+    });
+  }
+
+  const newContent = matter.stringify(parsed.content, parsed.data);
+  await writeFile(abs, newContent, 'utf8');
+  return json(ctx.res, 200, { ok: true, id, rules, backup: backupPath.replace(ctx.projectRoot + '/', '') });
 }
 
 // silence unused

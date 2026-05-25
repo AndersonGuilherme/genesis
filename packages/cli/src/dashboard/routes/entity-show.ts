@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import matter from 'gray-matter';
 import type { GenesisConfig } from '../../core/project-state.js';
+import { discoverRules, discoverSkills } from '../../core/skills-discovery.js';
 import { html } from '../lib/html.js';
 import { layout, renderMarkdown } from '../lib/render.js';
 
@@ -84,6 +85,7 @@ export async function renderEntityShow(
   const rendered = renderMarkdown(body);
 
   const frontmatterPretty = Object.entries(fm)
+    .filter(([k]) => !(type === 'skill' && k === 'rules')) // rules tem editor dedicado
     .map(([k, v]) => {
       const val = Array.isArray(v) ? `[${v.join(', ')}]` : String(v);
       return `<div class="grid grid-cols-[120px_1fr] gap-2 py-1 border-b border-slate-100 last:border-0">
@@ -92,6 +94,21 @@ export async function renderEntityShow(
       </div>`;
     })
     .join('');
+
+  // Relacionamentos
+  let rulesEditorSection = '';
+  if (type === 'skill') {
+    const currentRules = Array.isArray(fm.rules) ? (fm.rules as string[]) : [];
+    const availableRules = await discoverRules(projectRoot);
+    rulesEditorSection = renderSkillRulesEditor(id, currentRules, availableRules);
+  }
+
+  let usedBySection = '';
+  if (type === 'rule') {
+    const allSkills = await discoverSkills(projectRoot);
+    const usedBy = allSkills.filter((s) => Array.isArray(s.rules) && s.rules.includes(id));
+    usedBySection = renderUsedBy(usedBy);
+  }
 
   const html_ = layout({
     title: id,
@@ -118,6 +135,8 @@ export async function renderEntityShow(
       <p class="text-xs text-slate-500 mb-3">arquivo: <code class="bg-slate-100 px-1 rounded">${relPath}</code></p>
 
       <div id="view-mode">
+        ${rulesEditorSection ? html.raw(rulesEditorSection) : ''}
+        ${usedBySection ? html.raw(usedBySection) : ''}
         ${Object.keys(fm).length > 0
           ? html.raw(`<section class="bg-white rounded-lg shadow-sm p-4 mb-4">
             <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Frontmatter</div>
@@ -133,10 +152,151 @@ export async function renderEntityShow(
       </div>
 
       <script>${html.raw(EDIT_JS(type, id))}</script>
+      ${type === 'skill' ? html.raw(`<script>${SKILL_RULES_JS(id)}</script>`) : ''}
     `),
   });
 
   return { html: html_, status: 200 };
+}
+
+function renderSkillRulesEditor(
+  skillId: string,
+  currentRules: string[],
+  availableRules: { id: string; phase: string; description: string }[],
+): string {
+  const chips = currentRules
+    .map(
+      (r) => `<span class="inline-flex items-center gap-1 bg-cyan-100 text-cyan-900 text-xs font-mono px-2 py-1 rounded" data-rule="${escape(r)}">
+        <a href="/rules/${escape(r)}" class="hover:underline">${escape(r)}</a>
+        <button type="button" data-remove-rule="${escape(r)}" class="text-cyan-700 hover:text-red-600 ml-1 font-bold">×</button>
+      </span>`,
+    )
+    .join('');
+
+  const available = availableRules.filter((r) => !currentRules.includes(r.id));
+  const options = available
+    .sort((a, b) => a.phase.localeCompare(b.phase) || a.id.localeCompare(b.id))
+    .map((r) => `<option value="${escape(r.id)}">${escape(r.phase)} · ${escape(r.id)}</option>`)
+    .join('');
+
+  return `<section class="bg-white rounded-lg shadow-sm p-4 mb-4">
+    <div class="flex items-center justify-between mb-2">
+      <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide">Rules vinculadas (${currentRules.length})</div>
+      <span class="text-xs text-slate-400">carregadas via Pre-flight</span>
+    </div>
+    <div id="rules-chips" class="flex flex-wrap gap-1 mb-3 min-h-[28px]">
+      ${chips || '<span class="text-xs text-slate-400 italic">nenhuma rule vinculada</span>'}
+    </div>
+    <div class="flex gap-2 items-center">
+      <select id="rule-select" class="flex-1 border border-slate-300 rounded px-2 py-1 text-xs font-mono">
+        <option value="">— escolher rule —</option>
+        ${options}
+      </select>
+      <button type="button" id="add-rule-btn" class="bg-green-600 hover:bg-green-700 text-white text-xs font-medium px-3 py-1 rounded">+ Adicionar</button>
+      <button type="button" id="save-rules-btn" class="bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-medium px-3 py-1 rounded">Salvar rules</button>
+    </div>
+    <div id="rules-feedback" class="mt-2 text-xs"></div>
+  </section>`;
+}
+
+function renderUsedBy(skills: { id: string; phase: string }[]): string {
+  if (skills.length === 0) {
+    return `<section class="bg-white rounded-lg shadow-sm p-4 mb-4">
+      <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Usado por</div>
+      <p class="text-xs text-slate-400 italic">nenhuma skill carrega essa rule.</p>
+    </section>`;
+  }
+  const list = skills
+    .map(
+      (s) => `<a href="/skills/${escape(s.id)}" class="inline-flex items-center gap-1 bg-slate-100 hover:bg-cyan-100 text-slate-700 hover:text-cyan-900 text-xs font-mono px-2 py-1 rounded transition-colors">
+        <span class="text-slate-500">${escape(s.phase)}</span>
+        <span>·</span>
+        <span>${escape(s.id)}</span>
+      </a>`,
+    )
+    .join('');
+  return `<section class="bg-white rounded-lg shadow-sm p-4 mb-4">
+    <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Usado por (${skills.length} skill${skills.length > 1 ? 's' : ''})</div>
+    <div class="flex flex-wrap gap-1">${list}</div>
+  </section>`;
+}
+
+function SKILL_RULES_JS(skillId: string): string {
+  return `
+const chipsDiv = document.getElementById('rules-chips');
+const select = document.getElementById('rule-select');
+const addBtn = document.getElementById('add-rule-btn');
+const saveBtn = document.getElementById('save-rules-btn');
+const feedback = document.getElementById('rules-feedback');
+
+function currentRules() {
+  return Array.from(chipsDiv.querySelectorAll('[data-rule]')).map((el) => el.getAttribute('data-rule'));
+}
+
+function rebuildChips(rules) {
+  if (rules.length === 0) {
+    chipsDiv.innerHTML = '<span class="text-xs text-slate-400 italic">nenhuma rule vinculada</span>';
+    return;
+  }
+  chipsDiv.innerHTML = rules.map((r) =>
+    '<span class="inline-flex items-center gap-1 bg-cyan-100 text-cyan-900 text-xs font-mono px-2 py-1 rounded" data-rule="' + r + '">' +
+      '<a href="/rules/' + r + '" class="hover:underline">' + r + '</a>' +
+      '<button type="button" data-remove-rule="' + r + '" class="text-cyan-700 hover:text-red-600 ml-1 font-bold">×</button>' +
+    '</span>'
+  ).join('');
+  attachRemoveHandlers();
+}
+
+function attachRemoveHandlers() {
+  chipsDiv.querySelectorAll('[data-remove-rule]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const rule = btn.getAttribute('data-remove-rule');
+      const updated = currentRules().filter((r) => r !== rule);
+      rebuildChips(updated);
+    });
+  });
+}
+attachRemoveHandlers();
+
+addBtn.addEventListener('click', () => {
+  const val = select.value;
+  if (!val) return;
+  if (currentRules().includes(val)) return;
+  rebuildChips([...currentRules(), val]);
+  // remove option do select
+  const opt = select.querySelector('option[value="' + val + '"]');
+  if (opt) opt.remove();
+  select.value = '';
+});
+
+saveBtn.addEventListener('click', async () => {
+  saveBtn.disabled = true;
+  saveBtn.textContent = 'Salvando...';
+  feedback.textContent = '';
+  try {
+    const res = await fetch('/api/skill/rules', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: ${JSON.stringify(skillId)}, rules: currentRules() }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      feedback.textContent = 'erro: ' + (data.error || res.status);
+      feedback.className = 'mt-2 text-xs text-red-600';
+      return;
+    }
+    feedback.textContent = '✓ rules salvas. recarregando...';
+    feedback.className = 'mt-2 text-xs text-green-600';
+    setTimeout(() => location.reload(), 600);
+  } catch (err) {
+    feedback.textContent = 'falha: ' + err.message;
+    feedback.className = 'mt-2 text-xs text-red-600';
+  } finally {
+    saveBtn.disabled = false;
+    saveBtn.textContent = 'Salvar rules';
+  }
+});
+`;
 }
 
 function EDIT_JS(type: EntityType, id: string): string {
