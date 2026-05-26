@@ -26,12 +26,16 @@ export async function renderRules(projectRoot: string, cfg: GenesisConfig): Prom
   });
 
   const body = html`
-    <div class="flex items-center justify-between mb-4">
-      <h1 class="text-2xl font-bold text-slate-900">Rules (${rules.length})</h1>
-      <a href="/rules/new" class="bg-green-600 hover:bg-green-700 text-white text-sm font-medium px-3 py-1.5 rounded">+ Nova rule</a>
+    <div class="flex items-center justify-between mb-4 gap-3">
+      <h1 class="text-2xl font-bold text-slate-900">Rules (<span id="results-count">${rules.length}</span>)</h1>
+      <div class="flex gap-2 items-center flex-1 max-w-md">
+        <input id="search-input" type="text" placeholder="Buscar id ou descrição..." class="flex-1 border border-slate-300 rounded px-3 py-1.5 text-sm focus:ring-2 focus:ring-cyan-500 focus:outline-none" autofocus>
+        <a href="/rules/new" class="bg-green-600 hover:bg-green-700 text-white text-sm font-medium px-3 py-1.5 rounded whitespace-nowrap">+ Nova</a>
+      </div>
     </div>
     <p class="text-sm text-slate-600 mb-6">Princípios aplicados automaticamente pelas skills. Skills declaram quais rules carregar via campo <code class="bg-slate-200 px-1 rounded">rules:</code> no frontmatter.</p>
-    ${sections}
+    <div id="search-container">${sections}</div>
+    <script>${html.raw(RULES_SEARCH_JS)}</script>
   `;
   return layout({
     title: 'Rules',
@@ -45,3 +49,25 @@ export async function renderRules(projectRoot: string, cfg: GenesisConfig): Prom
 function escape(s: string): string {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
+
+const RULES_SEARCH_JS = `
+const searchInput = document.getElementById('search-input');
+const container = document.getElementById('search-container');
+const countEl = document.getElementById('results-count');
+searchInput?.addEventListener('input', () => {
+  const q = searchInput.value.trim().toLowerCase();
+  let visible = 0;
+  container.querySelectorAll('a').forEach((card) => {
+    if (!card.classList.contains('block')) return;
+    const txt = card.textContent.toLowerCase();
+    const match = !q || txt.includes(q);
+    card.style.display = match ? '' : 'none';
+    if (match) visible += 1;
+  });
+  container.querySelectorAll('section').forEach((section) => {
+    const visibleCards = Array.from(section.querySelectorAll('a.block')).filter((a) => a.style.display !== 'none').length;
+    section.style.display = visibleCards === 0 ? 'none' : '';
+  });
+  if (countEl) countEl.textContent = visible;
+});
+`;

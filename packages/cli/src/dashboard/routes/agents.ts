@@ -27,12 +27,16 @@ export async function renderAgents(projectRoot: string, cfg: GenesisConfig): Pro
   });
 
   const body = html`
-    <div class="flex items-center justify-between mb-4">
-      <h1 class="text-2xl font-bold text-slate-900">Agents (${agents.length})</h1>
-      <a href="/agents/new" class="bg-green-600 hover:bg-green-700 text-white text-sm font-medium px-3 py-1.5 rounded">+ Novo agent</a>
+    <div class="flex items-center justify-between mb-4 gap-3">
+      <h1 class="text-2xl font-bold text-slate-900">Agents (<span id="results-count">${agents.length}</span>)</h1>
+      <div class="flex gap-2 items-center flex-1 max-w-md">
+        <input id="search-input" type="text" placeholder="Buscar id ou descrição..." class="flex-1 border border-slate-300 rounded px-3 py-1.5 text-sm focus:ring-2 focus:ring-cyan-500 focus:outline-none" autofocus>
+        <a href="/agents/new" class="bg-green-600 hover:bg-green-700 text-white text-sm font-medium px-3 py-1.5 rounded whitespace-nowrap">+ Novo</a>
+      </div>
     </div>
     <p class="text-sm text-slate-600 mb-6">Agents especializados invocáveis pra revisão profunda em cada área. Use <code class="bg-slate-200 px-1 rounded">Agent({ subagent_type: ... })</code> no Claude Code.</p>
-    ${sections}
+    <div id="search-container">${sections}</div>
+    <script>${html.raw(AGENTS_SEARCH_JS)}</script>
   `;
   return layout({
     title: 'Agents',
@@ -46,3 +50,24 @@ export async function renderAgents(projectRoot: string, cfg: GenesisConfig): Pro
 function escape(s: string): string {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
+
+const AGENTS_SEARCH_JS = `
+const searchInput = document.getElementById('search-input');
+const container = document.getElementById('search-container');
+const countEl = document.getElementById('results-count');
+searchInput?.addEventListener('input', () => {
+  const q = searchInput.value.trim().toLowerCase();
+  let visible = 0;
+  container.querySelectorAll('a.block').forEach((card) => {
+    const txt = card.textContent.toLowerCase();
+    const match = !q || txt.includes(q);
+    card.style.display = match ? '' : 'none';
+    if (match) visible += 1;
+  });
+  container.querySelectorAll('section').forEach((section) => {
+    const visibleCards = Array.from(section.querySelectorAll('a.block')).filter((a) => a.style.display !== 'none').length;
+    section.style.display = visibleCards === 0 ? 'none' : '';
+  });
+  if (countEl) countEl.textContent = visible;
+});
+`;

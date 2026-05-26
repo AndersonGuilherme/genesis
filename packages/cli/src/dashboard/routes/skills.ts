@@ -81,12 +81,15 @@ export async function renderSkills(
         ${statusButtons}
       </div>
     </section>
-    <div class="flex items-center justify-between mb-4">
-      <p class="text-sm text-slate-500">${rows.length} skill(s). <span class="text-cyan-700">Clique nos status pra atualizar.</span></p>
-      <a href="/skills/new" class="bg-green-600 hover:bg-green-700 text-white text-sm font-medium px-3 py-1.5 rounded">+ Nova skill</a>
+    <div class="flex items-center justify-between mb-4 gap-3">
+      <p class="text-sm text-slate-500"><span id="results-count">${rows.length}</span> skill(s). <span class="text-cyan-700">Clique nos status pra atualizar.</span></p>
+      <div class="flex gap-2 items-center flex-1 max-w-md">
+        <input id="search-input" type="text" placeholder="Buscar id ou descrição..." class="flex-1 border border-slate-300 rounded px-3 py-1.5 text-sm focus:ring-2 focus:ring-cyan-500 focus:outline-none" autofocus>
+        <a href="/skills/new" class="bg-green-600 hover:bg-green-700 text-white text-sm font-medium px-3 py-1.5 rounded whitespace-nowrap">+ Nova</a>
+      </div>
     </div>
-    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">${cards}</section>
-    <script>${html.raw(SKILL_TOGGLE_JS)}</script>
+    <section id="cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">${cards}</section>
+    <script>${html.raw(SKILL_TOGGLE_JS + SEARCH_JS)}</script>
   `;
 
   return layout({
@@ -117,6 +120,23 @@ function statusBtn(skillId: string, target: SkillStatus, label: string, current:
     : 'bg-slate-100 text-slate-500 hover:bg-slate-200';
   return `<button data-toggle="${skillId}" data-status="${target}" class="${base} ${cls}">${label}</button>`;
 }
+
+const SEARCH_JS = `
+const searchInput = document.getElementById('search-input');
+const grid = document.getElementById('cards-grid');
+const countEl = document.getElementById('results-count');
+searchInput?.addEventListener('input', () => {
+  const q = searchInput.value.trim().toLowerCase();
+  let visible = 0;
+  grid.querySelectorAll('[data-skill-id]').forEach((card) => {
+    const txt = card.textContent.toLowerCase();
+    const match = !q || txt.includes(q);
+    card.style.display = match ? '' : 'none';
+    if (match) visible += 1;
+  });
+  if (countEl) countEl.textContent = visible;
+});
+`;
 
 const SKILL_TOGGLE_JS = `
 document.querySelectorAll('button[data-toggle]').forEach((btn) => {
