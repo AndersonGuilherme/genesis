@@ -9,9 +9,8 @@
 ## TL;DR
 
 ```bash
-# 1. Clonar e iniciar um projeto novo
-git clone https://github.com/AndersonGuilherme/genesis.git
-bash genesis/.genesis/scripts/genesis-init.sh meu-projeto ./meu-projeto
+# 1. Iniciar projeto novo (recomendado — usa o CLI npm)
+npx @tchr/genesis-cli init meu-projeto
 cd meu-projeto
 
 # 2. Abrir Claude Code e dizer:
@@ -19,8 +18,13 @@ cd meu-projeto
 # (A skill plan-init-project assume a condução)
 
 # 3. Checar prontidão a qualquer momento
-bash .genesis/scripts/check-readiness.sh
+bash .genesis/scripts/check-readiness.sh --planning
+
+# 4. Dashboard local (docs viewer + skills/rules browser + tokens + custos)
+npx @tchr/genesis-cli dashboard
 ```
+
+> **Legado (deprecated, removido em 2026-12-01):** `bash genesis/.genesis/scripts/genesis-init.sh meu-projeto`. Use o CLI npm — tem update incremental, dashboard, CRUD via UI.
 
 ---
 

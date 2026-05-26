@@ -40,6 +40,17 @@ die() { echo "${RED}erro:${RESET} $*" >&2; exit 1; }
 info() { echo "${BOLD}»${RESET} $*"; }
 ok()   { echo "  ${GREEN}✓${RESET} $*"; }
 
+# --- DEPRECATION WARNING ---
+echo ""
+echo "${YELLOW}${BOLD}⚠ DEPRECATED${RESET} — genesis-init.sh será removido em 2026-12-01."
+echo "${YELLOW}  Use o CLI npm que tem update incremental, dashboard, CRUD via UI:${RESET}"
+echo "${BOLD}  npx @tchr/genesis-cli init $*${RESET}"
+echo ""
+echo "  Mais info: https://www.npmjs.com/package/@tchr/genesis-cli"
+echo "  Continuando em 3s... (Ctrl+C pra abortar)"
+sleep 3
+echo ""
+
 # --- argumentos ---
 if [ $# -lt 1 ]; then
   cat >&2 <<EOF

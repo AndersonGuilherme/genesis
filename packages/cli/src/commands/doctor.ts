@@ -8,6 +8,7 @@ import { resolveProjectRoot, readConfig } from '../core/project-state.js';
 import { readManifest } from '../core/manifest.js';
 import { transcriptsDirFor } from '../core/transcripts.js';
 import { loadPricing, ageDays } from '../core/pricing.js';
+import { discoverSkills, discoverRules } from '../core/skills-discovery.js';
 
 export function registerDoctor(program: Command): void {
   program
@@ -202,6 +203,60 @@ export async function runDoctor(opts: { cwd?: string } = {}): Promise<void> {
         ? `presente: ${txDir}`
         : `ausente: ${txDir} (abra Claude Code no projeto pra gerar)`,
     });
+
+    // Cross-refs: skill → rule
+    const skills = await discoverSkills(projectRoot);
+    const rules = await discoverRules(projectRoot);
+    const ruleIds = new Set(rules.map((r) => r.id));
+    const skillIds = new Set(skills.map((s) => s.id));
+    const orphanRefs: { skill: string; missingRule: string }[] = [];
+    for (const s of skills) {
+      if (!s.rules) continue;
+      for (const r of s.rules) {
+        if (!ruleIds.has(r)) orphanRefs.push({ skill: s.id, missingRule: r });
+      }
+    }
+    checks.push({
+      name: 'skill → rule refs válidas',
+      pass: orphanRefs.length === 0,
+      warn: orphanRefs.length > 0,
+      detail:
+        orphanRefs.length === 0
+          ? `${skills.length} skills, todas com refs OK`
+          : `${orphanRefs.length} ref(s) órfã(s): ${orphanRefs
+              .slice(0, 3)
+              .map((r) => `${r.skill}→${r.missingRule}`)
+              .join(', ')}${orphanRefs.length > 3 ? '…' : ''}`,
+    });
+
+    // Dead rules (rules sem skill que carrega)
+    const usedRules = new Set<string>();
+    for (const s of skills) {
+      if (s.rules) for (const r of s.rules) usedRules.add(r);
+    }
+    const deadRules = rules.filter((r) => !usedRules.has(r.id)).map((r) => r.id);
+    checks.push({
+      name: 'rules sem skill que carrega (dead)',
+      pass: deadRules.length === 0,
+      warn: deadRules.length > 0,
+      detail:
+        deadRules.length === 0
+          ? `${rules.length} rules todas referenciadas`
+          : `${deadRules.length} rule(s) sem ref: ${deadRules.slice(0, 5).join(', ')}${deadRules.length > 5 ? '…' : ''}`,
+    });
+
+    // Config skills órfãs (em config mas sem arquivo)
+    if (cfg) {
+      const orphanConfig = cfg.skills.filter((s) => !skillIds.has(s.id)).map((s) => s.id);
+      if (orphanConfig.length > 0) {
+        checks.push({
+          name: 'config.skills sem arquivo',
+          pass: false,
+          warn: true,
+          detail: `${orphanConfig.length} órfã(s): ${orphanConfig.slice(0, 3).join(', ')}${orphanConfig.length > 3 ? '…' : ''}. Rode \`genesis skill prune\` pra limpar (não implementado — manual).`,
+        });
+      }
+    }
   } else {
     checks.push({
       name: 'projeto detectado',
